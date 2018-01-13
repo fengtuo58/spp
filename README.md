@@ -4,14 +4,11 @@
 aapackage/util_spark.py
 
 
-
-X :  RDD, Dataframe or Datasets (all 3 )
-     https://databricks.com/blog/2016/07/14/a-tale-of-three-apache-spark-apis-rdds-dataframes-and-datasets.html
-
-
 # Functions are 3 types :
-
 `
+X :  RDD, Dataframe or Datasets (all 3 )
+
+
 Input :
    Kafka streaming -->  X
    SQL     -->   X
