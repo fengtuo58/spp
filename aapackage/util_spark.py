@@ -183,7 +183,7 @@ def sp_df_tocsv(sc, df, filename) :
 
 
 def sp_sql_todf(sc, dbname, sql='') :
-   ''' HIVE Table to Spark dataframe 
+   ''' HIVE SQL  to Spark dataframe 
  
 
    '''
@@ -193,7 +193,7 @@ def sp_sql_todf(sc, dbname, sql='') :
 
 
 def sp_df_tosql(sc, dbname, sql='') :
-   ''' Spark dataframe to HIVE table
+   ''' Spark dataframe to HIVE SQL  
  
 
    '''
