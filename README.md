@@ -5,7 +5,7 @@ aapackage/util_spark.py
 
 
 # Functions are 3 types :
-`
+```
 X :  RDD, Dataframe or Datasets (all 3 )
 
 
@@ -30,7 +30,7 @@ Output :
    X --> Kafka Streaming
    X --> CSV files
    X --> CouchDB (JSON)
-`
+```
 
 #Rules :
    1 file only  util_spark.py
