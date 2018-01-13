@@ -47,8 +47,13 @@ from attrdict import AttrDict as dict2
 }
 '''
 #############################################################################################################
-import configmy; CFG, DIRCWD= configmy.get(config_file="_ROOT", output= ["_CFG", "DIRCWD"])
-os.chdir(DIRCWD); sys.path.append(DIRCWD + '/aapackage')
+try :
+ import configmy; CFG, DIRCWD= configmy.get(config_file="_ROOT", output= ["_CFG", "DIRCWD"])
+ os.chdir(DIRCWD); sys.path.append(DIRCWD + '/aapackage')
+except :
+ DIRCWD= 'your folder '
+ os.chdir(DIRCWD); sys.path.append(DIRCWD + '/aapackage')
+
 
 
 __path__=     DIRCWD +'/aapackage/'
@@ -151,15 +156,41 @@ def pd_to_onehotsparse(df, colcat, colnum=None,  onehotfit=None, onehotype='floa
 
 
 #################### Spark functions   ###################################################################
+'''
+https://boazmohar.github.io/pySparkUtils/pySparkUtils.html#module-pySparkUtils.utils
+
+http://deelesh.github.io/pyspark-windows.html
+https://triamus.github.io/post/2017-09-22-install-spark-on-windows/
+
+
+https://medium.com/@GalarnykMichael/install-spark-on-ubuntu-pyspark-231c45677de0
+
+
+https://hioptimus.com/
+
+https://www.cloudera.com/documentation/enterprise/5-9-x/topics/spark_python.html
+
+
+
+https://pypi.python.org/pypi/isparkcache/0.1.12
+
+https://pypi.python.org/pypi/dummy_spark/0.0.1
+
+https://pypi.python.org/pypi/sparkly/2.3.0
+
+https://pypi.python.org/pypi/pyspark_db_utils/0.0.1
+
+
+'''
 # sc: sparkcontext
 Sparkcontext = None
+import pyspark
 
 
 
 
 
-
-def sp_df_toscimatrix(sc= Sparkcontext, df, nsplit=5) :
+def sp_df_toscimatrix(sc= Sparkcontext, df=None, nsplit=5) :
    '''  Spark dataframe to Scipy Matrix
         numpy Matrix[ u(i), h(j) ] = 1   if     df : shape =  (100000, 2)  ['user', 'item' ]   
          
@@ -250,22 +281,22 @@ def py_log_write(LOGFILE, prefix):
 ####################################################################################################################
 ############################ UNIT TEST #############################################################################
 if __name__ == '__main__' :
- import argparse;  ppa = argparse.ArgumentParser()       # Command Line input
- ppa.add_argument('--do', type=str, default= 'action',  help='test / test02')
- arg = ppa.parse_args()
+  import argparse;  ppa = argparse.ArgumentParser()       # Command Line input
+  ppa.add_argument('--do', type=str, default= 'action',  help='test / test02')
+  arg = ppa.parse_args()
 
 
 if __name__ == '__main__' and arg.do == "test":
  print(__file__)
  try:
-  UNIQUE_ID = py_log_write( DIRCWD + '/aapackage/ztest_log_all.txt', "util")
+   UNIQUE_ID = py_log_write( DIRCWD + '/aapackage/ztest_log_all.txt', "util")
 
-  #################################################################################################################
-  import numpy as np, pandas as pd, scipy as sci
+   #################################################################################################################
+   import numpy as np, pandas as pd, scipy as sci
 
-  vv  =   np.random.rand(1,10)
-  mm  =   np.random.rand(100,5)
-  df1  =  pd.DataFrame(mm, columns=["aa", "bb", 'c', 'd', 'e'] )
+   vv  =   np.random.rand(1,10)
+   mm  =   np.random.rand(100,5)
+   df1  =  pd.DataFrame(mm, columns=["aa", "bb", 'c', 'd', 'e'] )
 
 
 
