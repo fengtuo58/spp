@@ -1,7 +1,16 @@
-﻿# Description
+﻿# Description       ########################################################################################
 
-# Utilities for data processing in spark :
+Goal to create a packages of functions util_spark.py
+where we can do transformation of data, input and output of data
+using spark dataframe, RDD and datasets
+
+
+
+
+# Utilities for data processing in spark :  ############################################
 aapackage/util_spark.py
+
+
 
 
 # Functions are 3 types :
@@ -9,21 +18,20 @@ aapackage/util_spark.py
 X :  RDD, Dataframe or Datasets (all 3 )
 
 
-Input :
+Input functions :
    Kafka streaming -->  X
    SQL     -->   X
 
 
-Transformer :
+Transformer functions :
       X --> X 
       X --> Pandas Dataframe
       X --> Scipy Sparse Array
 
             
             
-Output :  
-   X --> scipy Sparse Array
-
+Output functions :  
+   X --> Python scipy Sparse Array
          https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.save_npz.html
          
    X --> HIVE
@@ -32,15 +40,20 @@ Output :
    X --> CouchDB (JSON)
 ```
 
-#Rules :
+
+
+#Reauirements   ###############################################################################
    1 file only  util_spark.py
    Functionnal based coding (do not use class when possible):
    Sample usage code should be provided (using data from csv).
    Unit tests code with pytest 
+   Python 2.7 / 3.0  compatible
 
 
 
-# Infos :
+
+
+# Infos :   ###############################################################################
 https://databricks.com/blog/2016/07/14/a-tale-of-three-apache-spark-apis-rdds-dataframes-and-datasets.html
 https://stackoverflow.com/questions/31031597/construct-sparse-matrix-on-disk-on-the-fly-in-python
 https://stackoverflow.com/questions/40557577/pyspark-sparse-vectors-to-scipy-sparse-matrix

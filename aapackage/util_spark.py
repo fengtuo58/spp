@@ -9,9 +9,11 @@ from builtins import range;     from past.builtins import basestring
 from past.utils import old_div; from builtins import object
 
 import os, sys
-import datetime, time, arrow,  shutil,  IPython, gc, copy, re
+import datetime, time, arrow,  shutil,  IPython, gc, copy, re, argparse
 import numexpr as ne, numpy as np, pandas as pd, scipy as sci, tensorflow as tf
 from numba import jit, float32
+from attrdict import AttrDict as dict2
+
 
 #####################################################################################################
 ### Need to create ENV variable  CONFIGMY_ROOT_FILE = YourFOlder/CONFIGMY_ROOT_FILE.py
@@ -52,27 +54,161 @@ os.chdir(DIRCWD); sys.path.append(DIRCWD + '/aapackage')
 __path__=     DIRCWD +'/aapackage/'
 __version__=  "1.0.0"
 __file__=     "util_spark.py"
-##############################################################################################################################
+#############################################################################################################
 
 
 
 
-def sp_df_toscimatrix(df) :
+
+########### Pandas functions #################################################################################
+from attrdict import AttrDict as dict2 ; from collections import defaultdict
+from numba import njit
+from itertools import combinations
+from collections import OrderedDict
+from sklearn.cross_validation import train_test_split
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.base import TransformerMixin, BaseEstimator
+from sklearn.preprocessing import OneHotEncoder
+
+
+@njit
+def findfirst(array, item):
+    for i, v in enumerate(array):
+        if v == item: return i
+    return -1
+
+
+
+def csv_to_1hot_sparse(file_csv, dtypes=['int64'], colname=['user_id'],  file_output="", sep=" ") :
+   '''
+   :param csv_file:       read into pandas
+   :param colname:        only some columns, but full row
+   :param file_output:     spi.mmwrite( "../Data/Validation/user_feat_mtrx_.mtx") 
+   :return:    None or matrix
+   '''
+   #only 1 column reading
+   df  = pd.read_csv(file_csv, sep=" ", colname=colname, skipinitialspace=True, usecols=colname)
+   df  = cat_reindex_1toN(df, colname)
+   sp1 = pd_to_onehotsparse(df, colcat=colname, onehotfit=None)
+
+   if file_output == "" : return sp1
+   else                 : sp1.mmwrite( file_output)
+
+
+
+def sp_matrix_merge(file_sp1, file_sp2, file_output=""):
+   sp1 = spi.mmread( file_sp1)
+   sp2 = spi.mmread( file_sp2)
+   sp0 = sci.sparse.hstack((sp1, sp2))
+   sp0 = sp0.tocsr()
+   if file_output == "" : return sp0
+   else :  sp1.mmwrite( file_output)
+
+
+
+
+#### remap  ---> 1..N   ###################################################################################
+def cat_reindex_1toN(df, colcat, return_catsize=0)  :
+  for x in colcat :
+    llx   = df[x].unique()
+    try :
+      df[x] = df[x].apply( lambda t : findfirst(llx ,  t) )
+    except :  # String values
+      llx= list(llx)
+      df[x] = df[x].apply( lambda t : llx.index(t) )
+
+  ncat_list = []
+  for x in colcat :
+      ncat_list.append( df[x].max() + 1 )  #total features per columns + numerical
+
+  print("N Binary features :", sum(ncat_list))
+  if return_catsize :  return df, ncat_list
+  else  :              ncat_list
+
+
+
+
+##########################################################################################################
+################### For TFFM input feed   ################################################################
+def pd_to_onehotsparse(df, colcat, colnum=None,  onehotfit=None, onehotype='float32' ) :
+  ''' Pandqs to scipy csr for TFFm, Fast FM factorization machines
+  '''
+  if onehotfit is None :
+      onehot   = OneHotEncoder(sparse=True, dtype=onehotype)
+      onehotfit= onehot.fit(df[colcat])
+
+  Mcat =  onehotfit.transform(df[colcat])
+  if colnum is None :
+    Mcat =  Mcat.tocsr()
+    return Mcat
+  else :
+    Mnum =  df[colnum].to_sparse().to_coo()  # .tocsr()
+    Mall =  sci.sparse.hstack((Mnum, Mcat))
+    Mall =  Mall.tocsr()
+    return Mall
+
+
+
+
+#################### Spark functions   ###################################################################
+# sc: sparkcontext
+Sparkcontext = None
+
+
+
+
+
+
+def sp_df_toscimatrix(sc= Sparkcontext, df, nsplit=5) :
    '''  Spark dataframe to Scipy Matrix
-        Matrix[ u(i), h(j) ] = 1   if     df : shape =  (100000, 2)  ['user', 'item' ]   
+        numpy Matrix[ u(i), h(j) ] = 1   if     df : shape =  (100000, 2)  ['user', 'item' ]   
          
+         
+        Matrix is split into 5 components if very large. 
          
    '''
    
    
    
+
    
-def sp_df_tocsv(df, filename)
-   ''' Spark dataframe to Scipy Matrix
+def sp_df_tocsv(sc, df, filename) :
+   ''' Spark dataframe to CSV
  
 
    '''
    
+
+
+
+
+def sp_sql_todf(sc, dbname, sql='') :
+   ''' HIVE Table to Spark dataframe 
+ 
+
+   '''
+
+
+
+
+
+def sp_df_tosql(sc, dbname, sql='') :
+   ''' Spark dataframe to HIVE table
+ 
+
+   '''
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
