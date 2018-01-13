@@ -57,9 +57,7 @@ Output functions :
 https://databricks.com/blog/2016/07/14/a-tale-of-three-apache-spark-apis-rdds-dataframes-and-datasets.html
 https://stackoverflow.com/questions/31031597/construct-sparse-matrix-on-disk-on-the-fly-in-python
 https://stackoverflow.com/questions/40557577/pyspark-sparse-vectors-to-scipy-sparse-matrix
-
-
-         https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.save_npz.html      
+https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.save_npz.html      
 
 
 

@@ -46,7 +46,7 @@ from attrdict import AttrDict as dict2
 
 }
 '''
-
+#############################################################################################################
 import configmy; CFG, DIRCWD= configmy.get(config_file="_ROOT", output= ["_CFG", "DIRCWD"])
 os.chdir(DIRCWD); sys.path.append(DIRCWD + '/aapackage')
 
@@ -268,9 +268,7 @@ if __name__ == '__main__' and arg.do == "test":
   #################################################################################################################
   import numpy as np, pandas as pd, scipy as sci
   import util; print(util); print("")
-  #util.a_info_system()
-  util.a_isanaconda()
-  util.date_allinfo()
+
 
   vv  =   np.random.rand(1,10)
   mm  =   np.random.rand(100,5)
