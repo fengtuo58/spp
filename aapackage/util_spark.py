@@ -218,12 +218,6 @@ def sp_df_tosql(sc, dbname, sql='') :
 
 
 
-
-
-
-
-
-
 ###############################################################################################################################
 def py_exception_print():
     import linecache
@@ -234,6 +228,7 @@ def py_exception_print():
     linecache.checkcache(filename)
     line = linecache.getline(filename, lineno, f.f_globals)
     print('EXCEPTION IN ({}, LINE {} "{}"): {}'.format(filename, lineno, line.strip(), exc_obj))
+
 
 
 def py_log_write(LOGFILE, prefix):
@@ -263,23 +258,14 @@ if __name__ == '__main__' :
 if __name__ == '__main__' and arg.do == "test":
  print(__file__)
  try:
-  import util;  UNIQUE_ID= util.py_log_write( DIRCWD + '/aapackage/ztest_log_all.txt', "util")
+  UNIQUE_ID = py_log_write( DIRCWD + '/aapackage/ztest_log_all.txt', "util")
 
   #################################################################################################################
   import numpy as np, pandas as pd, scipy as sci
-  import util; print(util); print("")
-
 
   vv  =   np.random.rand(1,10)
   mm  =   np.random.rand(100,5)
   df1  =  pd.DataFrame(mm, columns=["aa", "bb", 'c', 'd', 'e'] )
-
-  # util.pd_createdf(mm, ["aa", "bb", 'c', 'd', 'e'],  )
-  print(util.np_sort(vv))
-
-  util.save(df1, "ztest_df")
-  df2= util.load("ztest_df")
-
 
 
 

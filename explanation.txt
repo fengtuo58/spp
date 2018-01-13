@@ -45,10 +45,11 @@ Output functions :
 #Reauirements   ###########################################################################################
    1 file only  util_spark.py
    Functionnal based coding (do not use class when possible):
-   Sample usage code should be provided (using data from csv).
+   Sample usage code should be provided (using data from csv) in testcode.py
+   Please add data in csv for testing.
    Unit tests code with pytest 
    Python 2.7 / 3.0  compatible
-
+   Please commit directly to the folder.
 
 
 
@@ -57,9 +58,7 @@ Output functions :
 https://databricks.com/blog/2016/07/14/a-tale-of-three-apache-spark-apis-rdds-dataframes-and-datasets.html
 https://stackoverflow.com/questions/31031597/construct-sparse-matrix-on-disk-on-the-fly-in-python
 https://stackoverflow.com/questions/40557577/pyspark-sparse-vectors-to-scipy-sparse-matrix
-
-
-         https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.save_npz.html      
+https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.save_npz.html      
 
 
 
