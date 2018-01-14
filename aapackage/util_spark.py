@@ -163,6 +163,7 @@ import pyspark
 
 
 
+
 def sp_df_toscimatrix(sc= Sparkcontext, df=None, nsplit=5) :
    '''  Spark dataframe to Scipy Matrix
         numpy Matrix[ u(i), h(j) ] = 1   if     df : shape =  (100000, 2)  ['user', 'item' ]   
@@ -239,6 +240,10 @@ https://pypi.python.org/pypi/sparkly/2.3.0
 https://pypi.python.org/pypi/pyspark_db_utils/0.0.1
 
 https://docs.databricks.com/spark/latest/data-sources/zip-files.html
+
+https://gist.github.com/search?p=3&q=pyspark&ref=searchresults&utf8=%E2%9C%93
+
+
 
   ''' )
  
