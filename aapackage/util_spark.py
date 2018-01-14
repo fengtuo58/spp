@@ -24,7 +24,7 @@ from attrdict import AttrDict as dict2
 #  DIRCWD is root folder of your project
 
 {
- "win+asus1": {
+ "win+asus1": {  # windows platform + asus1 user
    "DIRCWD" :          "D:/_devs/Python01/project27/",
 
    "github_login" :    "",
@@ -156,36 +156,9 @@ def pd_to_onehotsparse(df, colcat, colnum=None,  onehotfit=None, onehotype='floa
 
 
 #################### Spark functions   ###################################################################
-'''
-https://boazmohar.github.io/pySparkUtils/pySparkUtils.html#module-pySparkUtils.utils
-
-http://deelesh.github.io/pyspark-windows.html
-https://triamus.github.io/post/2017-09-22-install-spark-on-windows/
-
-
-https://medium.com/@GalarnykMichael/install-spark-on-ubuntu-pyspark-231c45677de0
-
-
-https://hioptimus.com/
-
-https://www.cloudera.com/documentation/enterprise/5-9-x/topics/spark_python.html
-
-
-
-https://pypi.python.org/pypi/isparkcache/0.1.12
-
-https://pypi.python.org/pypi/dummy_spark/0.0.1
-
-https://pypi.python.org/pypi/sparkly/2.3.0
-
-https://pypi.python.org/pypi/pyspark_db_utils/0.0.1
-
-
-'''
 # sc: sparkcontext
 Sparkcontext = None
 import pyspark
-
 
 
 
@@ -239,6 +212,39 @@ def sp_df_tosql(sc, dbname, sql='') :
 
 
 
+
+def zdoc():
+  print(
+  '''
+https://boazmohar.github.io/pySparkUtils/pySparkUtils.html#module-pySparkUtils.utils
+
+http://deelesh.github.io/pyspark-windows.html
+https://triamus.github.io/post/2017-09-22-install-spark-on-windows/
+
+
+https://medium.com/@GalarnykMichael/install-spark-on-ubuntu-pyspark-231c45677de0
+
+
+https://hioptimus.com/
+
+https://www.cloudera.com/documentation/enterprise/5-9-x/topics/spark_python.html
+
+
+https://pypi.python.org/pypi/isparkcache/0.1.12
+
+https://pypi.python.org/pypi/dummy_spark/0.0.1
+
+https://pypi.python.org/pypi/sparkly/2.3.0
+
+https://pypi.python.org/pypi/pyspark_db_utils/0.0.1
+
+https://docs.databricks.com/spark/latest/data-sources/zip-files.html
+
+  ''' )
+ 
+ 
+ 
+ 
 
 
 
