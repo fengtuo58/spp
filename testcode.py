@@ -22,6 +22,18 @@ import util_spark
 
 
 
+import findspark
+import os
+findspark.init()
+
+import pyspark  as pys
+sc = pys.SparkContext()
+print sc
+
+
+
+
+
 
 
 

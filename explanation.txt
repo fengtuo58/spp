@@ -62,3 +62,23 @@ https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.save_npz.html
 
 
 
+http://liftoff.github.io/pyminifier/pyminifier.html
+https://github.com/ActiveState/code/tree/master/recipes/Python
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
