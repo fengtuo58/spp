@@ -15,7 +15,7 @@ from numba import jit, float32
 from attrdict import AttrDict as dict2
 
 
-#####################################################################################################
+################################################################################################################
 ### Need to create ENV variable  CONFIGMY_ROOT_FILE = YourFOlder/CONFIGMY_ROOT_FILE.py
 '''
 #  encoding=utf-8
@@ -166,57 +166,6 @@ from pyspark.sql import SparkSession
 
 
 
-
-def sp_df_toscimatrix(sc= Sparkcontext, df=None, nsplit=5) :
-   '''  Spark dataframe to Scipy Matrix
-        numpy Matrix[ u(i), h(j) ] = 1   if     df : shape =  (100000, 2)  ['user', 'item' ]   
-         
-         
-        Matrix is split into 5 components if very large. 
-         
-   '''
-   
-   
-   
-
-   
-def sp_df_tocsv(sc, df, filename) :
-   ''' Spark dataframe to CSV
-
-
-   '''
-   
-
-
-
-
-def sp_sql_todf(sc, sql='') :
-    spark = SparkSession.builder.config(conf=sc.getConf()).enableHiveSupport().getOrCreate()
-    spark_df = spark.sql(sql)
-    return spark_df
-
-
-def sp_df_toPandas_df(df):
-    return df.toPandas()
-
-
-def sp_df_tosql(sc, dbname, sql='') :
-   ''' Spark dataframe to HIVE SQL  
- 
-
-   '''
-
-
-
-
-
-
-
-
-
-
-
-
 def zdoc():
   print(
   '''
@@ -251,6 +200,87 @@ https://gist.github.com/search?p=3&q=pyspark&ref=searchresults&utf8=%E2%9C%93
   ''' )
  
  
+ 
+ 
+
+def sp_file_tohive(sc, filename='' , dbname, sql) :
+   ''' local binary file to hive file
+
+   '''
+
+
+
+
+def sp_hive_tomemory(sc, filename='' , dbname, sql) :
+   ''' local binary file to hive file
+
+   '''
+
+   
+
+
+   
+def sp_df_tocsv(sc, df, filename) :
+   ''' Spark dataframe to local csv
+       Issues with driver memory
+
+   '''
+   
+
+
+
+
+def sp_sql_todf(sc, sql='', outype='df/dset/rdd') :
+    spark = SparkSession.builder.config(conf=sc.getConf()).enableHiveSupport().getOrCreate()
+    
+    if outype = 'df'   :    spark_df = spark.sql(sql)
+    if outype = 'dset' :  
+    if outype = 'rdd'  :    
+        
+    return spark_df
+
+
+
+
+def sp_df_to_pandasdf(df):
+  '''
+     Issue if driver memory < distributed memory
+  
+  '''
+  return df.toPandas()
+
+
+
+
+def sp_df_tosql(sc, dbname, sql='') :
+   ''' Spark dataframe to HIVE SQL  
+ 
+
+   '''
+
+
+
+
+
+def sp_df_toscimatrix(sc= Sparkcontext, df=None, nsplit=5) :
+   '''  Spark dataframe to Scipy Matrix
+        numpy Matrix[ u(i), h(j) ] = 1   if     df : shape =  (100000, 2)  ['user', 'item' ]   
+         
+         
+        Matrix is split into 5 components if very large. 
+         
+   '''
+   
+
+
+
+
+
+
+
+
+
+
  
  
 

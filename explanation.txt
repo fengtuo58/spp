@@ -12,10 +12,28 @@ aapackage/util_spark.py
 
 
 
+#Reauirements   ###########################################################################################
+   1 file only  util_spark.py
+   Functionnal based coding (do not use class when possible):
+   Sample usage code should be provided (using data from csv) in testcode.py
+   Please add data in csv for testing.
+   Unit tests code with pytest 
+   Python 2.7 / 3.0  compatible
+   Please commit directly to the folder.
+   Please put comments in functions
+   Please put screenshots in issues github
+ 
+   Please access to this chats.
+   https://gitter.im/stackoverflowa/Lobby
+
+
+
+
 
 # Functions are 3 types :
 ```
 X :  RDD OR Dataframe OR Datasets (all 3 )
+     output should one of the 3, selected  by user.
 
 
 
@@ -29,27 +47,19 @@ Transformer functions :
       X -->  X 
       X --> Pandas Dataframe
       X --> Scipy Sparse Array
-
+      ...
             
             
 Output functions :     
    X --> HIVE
-   X --> Kafka Streaming
+   Binary File on disk --> Binary file in HDFS/HIVEs
    X --> CSV files
    X --> CouchDB (JSON)
+   ...
+
 
 ```
 
-
-
-#Reauirements   ###########################################################################################
-   1 file only  util_spark.py
-   Functionnal based coding (do not use class when possible):
-   Sample usage code should be provided (using data from csv) in testcode.py
-   Please add data in csv for testing.
-   Unit tests code with pytest 
-   Python 2.7 / 3.0  compatible
-   Please commit directly to the folder.
 
 
 
