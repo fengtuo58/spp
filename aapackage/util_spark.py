@@ -206,7 +206,23 @@ def sp_df_tosql(sc, dbname, sql='') :
 
 
 
+'''
+https://stackoverflow.com/questions/40557577/pyspark-sparse-vectors-to-scipy-sparse-matri
 
+https://stackoverflow.com/questions/39811054/pyspark-simple-re-partition-and-topandas-fails-to-finish-on-just-600-000-rows
+
+
+
+MEMORY Management
+https://stackoverflow.com/questions/47536123/collect-or-topandas-on-a-large-dataframe-in-pyspark-emr
+
+
+https://stackoverflow.com/questions/39142549/is-dataframe-topandas-always-on-driver-node-or-on-worker-nodes
+
+
+
+
+'''
 
 
 
@@ -242,6 +258,8 @@ https://pypi.python.org/pypi/pyspark_db_utils/0.0.1
 https://docs.databricks.com/spark/latest/data-sources/zip-files.html
 
 https://gist.github.com/search?p=3&q=pyspark&ref=searchresults&utf8=%E2%9C%93
+
+
 
 
 
