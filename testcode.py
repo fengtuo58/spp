@@ -26,11 +26,15 @@ import findspark
 import os
 findspark.init()
 
-import pyspark  as pys
-sc = pys.SparkContext()
-print sc
+import pyspark 
 
 
+sc = pyspark.SparkContext(master='local[*]', appName='Python Spark SQL Hive integration example')
+df = us.sp_sql_todf(sc,"SELECT * FROM src")
+df.show()
+
+pandas_df = us.sp_df_toPandas_df(df)
+print(pandas_df)
 
 
 

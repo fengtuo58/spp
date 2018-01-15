@@ -47,6 +47,7 @@ from attrdict import AttrDict as dict2
 }
 '''
 #############################################################################################################
+'''
 try :
  import configmy; CFG, DIRCWD= configmy.get(config_file="_ROOT", output= ["_CFG", "DIRCWD"])
  os.chdir(DIRCWD); sys.path.append(DIRCWD + '/aapackage')
@@ -59,6 +60,8 @@ except :
 __path__=     DIRCWD +'/aapackage/'
 __version__=  "1.0.0"
 __file__=     "util_spark.py"
+
+'''
 #############################################################################################################
 
 
@@ -74,7 +77,7 @@ from sklearn.cross_validation import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.base import TransformerMixin, BaseEstimator
 from sklearn.preprocessing import OneHotEncoder
-
+from scipy.io import mmread
 
 @njit
 def findfirst(array, item):
@@ -102,8 +105,8 @@ def csv_to_1hot_sparse(file_csv, dtypes=['int64'], colname=['user_id'],  file_ou
 
 
 def sp_matrix_merge(file_sp1, file_sp2, file_output=""):
-   sp1 = spi.mmread( file_sp1)
-   sp2 = spi.mmread( file_sp2)
+   sp1 = mmread( file_sp1)
+   sp2 = mmread( file_sp2)
    sp0 = sci.sparse.hstack((sp1, sp2))
    sp0 = sp0.tocsr()
    if file_output == "" : return sp0
@@ -159,7 +162,7 @@ def pd_to_onehotsparse(df, colcat, colnum=None,  onehotfit=None, onehotype='floa
 # sc: sparkcontext
 Sparkcontext = None
 import pyspark
-
+from pyspark.sql import SparkSession
 
 
 
@@ -179,7 +182,7 @@ def sp_df_toscimatrix(sc= Sparkcontext, df=None, nsplit=5) :
    
 def sp_df_tocsv(sc, df, filename) :
    ''' Spark dataframe to CSV
- 
+
 
    '''
    
@@ -187,14 +190,14 @@ def sp_df_tocsv(sc, df, filename) :
 
 
 
-def sp_sql_todf(sc, dbname, sql='') :
-   ''' HIVE SQL  to Spark dataframe 
- 
-
-   '''
-
+def sp_sql_todf(sc, sql='') :
+    spark = SparkSession.builder.config(conf=sc.getConf()).enableHiveSupport().getOrCreate()
+    spark_df = spark.sql(sql)
+    return spark_df
 
 
+def sp_df_toPandas_df(df):
+    return df.toPandas()
 
 
 def sp_df_tosql(sc, dbname, sql='') :
@@ -206,23 +209,7 @@ def sp_df_tosql(sc, dbname, sql='') :
 
 
 
-'''
-https://stackoverflow.com/questions/40557577/pyspark-sparse-vectors-to-scipy-sparse-matri
 
-https://stackoverflow.com/questions/39811054/pyspark-simple-re-partition-and-topandas-fails-to-finish-on-just-600-000-rows
-
-
-
-MEMORY Management
-https://stackoverflow.com/questions/47536123/collect-or-topandas-on-a-large-dataframe-in-pyspark-emr
-
-
-https://stackoverflow.com/questions/39142549/is-dataframe-topandas-always-on-driver-node-or-on-worker-nodes
-
-
-
-
-'''
 
 
 
@@ -258,8 +245,6 @@ https://pypi.python.org/pypi/pyspark_db_utils/0.0.1
 https://docs.databricks.com/spark/latest/data-sources/zip-files.html
 
 https://gist.github.com/search?p=3&q=pyspark&ref=searchresults&utf8=%E2%9C%93
-
-
 
 
 
@@ -326,6 +311,9 @@ if __name__ == '__main__' and arg.do == "test":
    vv  =   np.random.rand(1,10)
    mm  =   np.random.rand(100,5)
    df1  =  pd.DataFrame(mm, columns=["aa", "bb", 'c', 'd', 'e'] )
+ except  Exception as err:
+     print(err)
+
 
 
 
