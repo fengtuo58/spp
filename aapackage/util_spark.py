@@ -169,7 +169,7 @@ import json
 
 def zdoc():
   print(
-  '''
+'''
 https://boazmohar.github.io/pySparkUtils/pySparkUtils.html#module-pySparkUtils.utils
 
 http://deelesh.github.io/pyspark-windows.html
@@ -197,28 +197,23 @@ https://docs.databricks.com/spark/latest/data-sources/zip-files.html
 https://gist.github.com/search?p=3&q=pyspark&ref=searchresults&utf8=%E2%9C%93
 
 
+''' )
+ 
+ 
+ 
+ 
 
-  ''' )
- 
- 
- 
- 
-''''
 def sp_file_tohive(sc, filename='' , dbname, sql) :
-    local binary file to hive file
-
-
-    
-
+    # local binary file to hive file
+    pass
 
 
 def sp_hive_tomemory(sc, filename='' , dbname, sql) :
-   local binary file to hive file
-
+    # local binary file to hive file
+    pass
   
 
    
-'''
 
    
 def sp_df_tocsv(sc, df, filename) :
@@ -226,7 +221,27 @@ def sp_df_tocsv(sc, df, filename) :
        Issues with driver memory
 
    '''
-   
+   pass
+
+
+
+def sp_numpy_todf( arr )
+  corr_matrix = pd.DataFrame( arr  )  # [[1.0, 0.95, 0.77], [0.95, 1.0, 0.34], [0.77, 0.34, 1.0]] 
+  df          = spark.createDataFrame(corr_matrix, schema= np.arange( 0, len(arr)  )  )
+  return df
+
+
+
+def sp_df_todb(df, table, url ) :  
+  df.write.jdbc(url, table)
+
+
+
+
+
+
+
+
 
 
 
@@ -236,8 +251,7 @@ def sp_sql_todf(sc, sql='', outype='df/dset/rdd') :
     spark_df = spark.sql(sql)
     if outype == 'df':
         return spark_df
-    if outype == 'dset':
-        pass
+    if outype == 'dset':    pass
     if outype == 'rdd':
         spark_df.rdd
         
@@ -268,12 +282,13 @@ def saveToCouchDb(dataFrame,dbName,url):
     jData.foreach(lambda x: couchdb.Server(url)[dbName].save(json.loads(x)))
 
 
+
+
+
+
 def sp_df_toscimatrix(df=None) :
    '''  Spark dataframe to Scipy Matrix
         numpy Matrix[ u(i), h(j) ] = 1   if     df : shape =  (100000, 2)  ['user', 'item' ]   
-         
-         
-        Matrix is split into 5 components if very large. 
          
    '''
    temp_list = df.collect()
@@ -294,6 +309,9 @@ def sp_df_toscimatrix(df=None) :
    np_column = np.array(tem_columr)
    np_data = np.array(data)
    return csr_matrix((np_data, (np_row, np_column)), shape=(rows, colums))
+
+
+
 
 
 ###############################################################################################################################
