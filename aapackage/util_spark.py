@@ -334,7 +334,7 @@ def sp_df_toscimatrix(df=None) :
 
 
 
-###############################################################################################################################
+#############################################################################################################################
 def py_exception_print():
     import linecache
     exc_type, exc_obj, tb = sys.exc_info()
@@ -359,6 +359,20 @@ def py_log_write(LOGFILE, prefix):
  return UNIQUE_ID
  ###########################################################################################################################
 
+
+
+'''
+calling select will result is lazy evaluation: for example:
+
+val df1 = df.select("col1")
+val df2 = df1.filter("col1 == 3")
+both above statements crate lazy path that will be executed when you call action on that df, such as show, collect etc.
+
+val df3 = df2.collect()
+use .explain at the end of your transformation to follow its plan here is more detailed info Transformations and Actions
+
+
+'''
 
 
 
