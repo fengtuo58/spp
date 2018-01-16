@@ -13,7 +13,7 @@ import datetime, time, arrow,  shutil,  IPython, gc, copy, re, argparse
 import numexpr as ne, numpy as np, pandas as pd, scipy as sci, tensorflow as tf
 from numba import jit, float32
 from attrdict import AttrDict as dict2
-
+from scipy.sparse import csr_matrix
 
 ################################################################################################################
 ### Need to create ENV variable  CONFIGMY_ROOT_FILE = YourFOlder/CONFIGMY_ROOT_FILE.py
@@ -163,7 +163,8 @@ def pd_to_onehotsparse(df, colcat, colnum=None,  onehotfit=None, onehotype='floa
 Sparkcontext = None
 import pyspark
 from pyspark.sql import SparkSession
-
+import couchdb
+import json
 
 
 def zdoc():
@@ -202,22 +203,22 @@ https://gist.github.com/search?p=3&q=pyspark&ref=searchresults&utf8=%E2%9C%93
  
  
  
-
+''''
 def sp_file_tohive(sc, filename='' , dbname, sql) :
-   ''' local binary file to hive file
+    local binary file to hive file
 
-   '''
 
+    
 
 
 
 def sp_hive_tomemory(sc, filename='' , dbname, sql) :
-   ''' local binary file to hive file
+   local binary file to hive file
 
-   '''
+  
 
    
-
+'''
 
    
 def sp_df_tocsv(sc, df, filename) :
@@ -232,12 +233,15 @@ def sp_df_tocsv(sc, df, filename) :
 
 def sp_sql_todf(sc, sql='', outype='df/dset/rdd') :
     spark = SparkSession.builder.config(conf=sc.getConf()).enableHiveSupport().getOrCreate()
-    
-    if outype = 'df'   :    spark_df = spark.sql(sql)
-    if outype = 'dset' :  
-    if outype = 'rdd'  :    
+    spark_df = spark.sql(sql)
+    if outype == 'df':
+        return spark_df
+    if outype == 'dset':
+        pass
+    if outype == 'rdd':
+        spark_df.rdd
         
-    return spark_df
+
 
 
 
@@ -259,10 +263,12 @@ def sp_df_tosql(sc, dbname, sql='') :
    '''
 
 
+def saveToCouchDb(dataFrame,dbName,url):
+    jData = dataFrame.toJSON()
+    jData.foreach(lambda x: couchdb.Server(url)[dbName].save(json.loads(x)))
 
 
-
-def sp_df_toscimatrix(sc= Sparkcontext, df=None, nsplit=5) :
+def sp_df_toscimatrix(df=None) :
    '''  Spark dataframe to Scipy Matrix
         numpy Matrix[ u(i), h(j) ] = 1   if     df : shape =  (100000, 2)  ['user', 'item' ]   
          
@@ -270,27 +276,24 @@ def sp_df_toscimatrix(sc= Sparkcontext, df=None, nsplit=5) :
         Matrix is split into 5 components if very large. 
          
    '''
-   
+   temp_list = df.collect()
 
+   rows = len(temp_list)
+   colums = len(temp_list[0])
 
+   tem_row = []
+   tem_columr = []
+   data = []
+   for i in range(0, rows):
+       for j in range(0, colums):
+           tem_row.append(i)
+           tem_columr.append(j)
+           data.append(temp_list[i][j])
 
-
-
-
-
-
-
-
- 
- 
-
-
-
-
-
-
-
-
+   np_row = np.array(tem_row)
+   np_column = np.array(tem_columr)
+   np_data = np.array(data)
+   return csr_matrix((np_data, (np_row, np_column)), shape=(rows, colums))
 
 
 ###############################################################################################################################
@@ -324,6 +327,7 @@ def py_log_write(LOGFILE, prefix):
 
 ####################################################################################################################
 ############################ UNIT TEST #############################################################################
+'''
 if __name__ == '__main__' :
   import argparse;  ppa = argparse.ArgumentParser()       # Command Line input
   ppa.add_argument('--do', type=str, default= 'action',  help='test / test02')
@@ -345,7 +349,7 @@ if __name__ == '__main__' and arg.do == "test":
      print(err)
 
 
-
+'''
 
 
 
