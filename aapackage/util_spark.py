@@ -197,9 +197,18 @@ https://docs.databricks.com/spark/latest/data-sources/zip-files.html
 https://gist.github.com/search?p=3&q=pyspark&ref=searchresults&utf8=%E2%9C%93
 
 
+
+# https://chriscoughlin.com/category/spark/
+import pyspark
+from pyspark.serializers import CompressedSerializer, AutoSerializer
+sc = pyspark.SparkContext(conf=config, serializer=CompressedSerializer(AutoSerializer())
+
+
+
 ''' )
+
  
- 
+
 def to_primitive(arg):
     """Converts NumPy arrays, Pandas Dataframes or Pandas series to their primitive Python equivalent.
        
@@ -226,12 +235,11 @@ def sp_file_tohive(sc, filename='' , dbname, sql) :
     pass
 
 
+
 def sp_hive_tomemory(sc, filename='' , dbname, sql) :
     # local binary file to hive file
     pass
   
-
-   
 
    
 def sp_df_tocsv(sc, df, filename) :
@@ -252,12 +260,6 @@ def sp_numpy_todf( arr )
 
 def sp_df_todb(df, table, url ) :  
   df.write.jdbc(url, table)
-
-
-
-
-
-
 
 
 
