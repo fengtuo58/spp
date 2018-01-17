@@ -158,6 +158,8 @@ def pd_to_onehotsparse(df, colcat, colnum=None,  onehotfit=None, onehotype='floa
 
 
 
+
+##########################################################################################################
 #################### Spark functions   ###################################################################
 # sc: sparkcontext
 Sparkcontext = None
@@ -169,7 +171,7 @@ import json
 
 def zdoc():
   print(
-  '''
+'''
 https://boazmohar.github.io/pySparkUtils/pySparkUtils.html#module-pySparkUtils.utils
 
 http://deelesh.github.io/pyspark-windows.html
@@ -198,9 +200,105 @@ https://gist.github.com/search?p=3&q=pyspark&ref=searchresults&utf8=%E2%9C%93
 
 
 
-  ''' )
+# https://chriscoughlin.com/category/spark/
+import pyspark
+from pyspark.serializers import CompressedSerializer, AutoSerializer
+sc = pyspark.SparkContext(conf=config, serializer=CompressedSerializer(AutoSerializer())
+
+
+
+''' )
+
  
+
+def to_primitive(arg):
+    """Converts NumPy arrays, Pandas Dataframes or Pandas series to their primitive Python equivalent.
+       
+        to_primitive(np.array([1,2,3])) --> [1, 2, 3]
+        to_primitive(np.array([[[1,3,4], [1.1,2.2,None], [0,0.1,0]],[[1,0,0],[0,1,0],[0,0,1]]])) --> [[[1, 3, 4], [1.1, 2.2, None], [0, 0.1, 0]], [[1, 0, 0], [0, 1, 0], [0, 0, 1]]]
+        to_primitive(pd.Series([1,3.141592654,33])) --> [1.0, 3.141592654, 33.0]
+        to_primitive(pd.DataFrame([[1,2,3], [3,3,3], [1.1,2.2,None]])) --> [[1.0, 2.0, 3.0], [3.0, 3.0, 3.0], [1.1, 2.2, nan]]
+    """
+    val = arg
+    if isinstance(arg, pd.Series) or isinstance(arg, pd.DataFrame):
+        return to_primitive(arg.values)
+    if isinstance(arg, np.generic):
+        val = np.asscalar(arg)
+    elif isinstance(arg, np.ndarray):
+        val = [to_primitive(el) for el in arg.tolist()]
+    return val
+    
+
+  
+def sp_df_tohive( data , mode1 = "append"):
+  data = hiveContext.sql("select \"hej\" as test1, \"med\" as test2")
+  data.write.mode( mode1 ).saveAsTable("TestTable")
+
+  data = hiveContext.sql("select \"hej\" as test2, \"med\" as test1")
+  data.write.mode( mode1 ).saveAsTable("TestTable")     
  
+  impressionsDF.write.mode("overwrite").partitionBy("country", "year", "month", "day").json("s3://output_bucket/stats")
+
+
+
+
+#######################   Details   #################################################################
+'''
+/ Create SparkSession with Hive dynamic partitioning enabled
+val spark: SparkSession =
+    SparkSession
+        .builder()
+        .appName("StatsAnalyzer")
+        .enableHiveSupport()
+        .config("hive.exec.dynamic.partition", "true")
+        .config("hive.exec.dynamic.partition.mode", "nonstrict")
+        .getOrCreate()
+// Register the dataframe as a Hive table
+impressionsDF.createOrReplaceTempView("impressions_dataframe")
+// Create the output Hive table
+spark.sql(
+    s"""
+      |CREATE EXTERNAL TABLE stats (
+      |   ad            STRING,
+      |   impressions   INT,
+      |   clicks        INT
+      |) PARTITIONED BY (country STRING, year INT, month INT, day INT)
+      |ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'
+    """.stripMargin
+)
+// Write the data into disk as Hive partitions
+spark.sql(
+    s"""
+      |INSERT OVERWRITE TABLE stats 
+      |PARTITION(country = 'US', year = 2017, month = 3, day)
+      |SELECT ad, SUM(impressions), SUM(clicks), day
+      |FROM impressions_dataframe
+      |GROUP BY ad
+    """.stripMargin
+)
+
+
+https://my.vertica.com/docs/8.0.x/HTML/#Authoring/HadoopIntegrationGuide/NativeFormats/QueryPerformance.htm%3FTocPath%3DIntegrating%2520with%2520Apache%2520Hadoop%7CReading%2520Native%2520Hadoop%2520File%2520Formats%7C_____2
+
+
+
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
  
 ''''
