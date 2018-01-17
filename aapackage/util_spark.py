@@ -344,7 +344,7 @@ def sp_sql_todf(sc, sql='', outype='df/dset/rdd') :
     if outype == 'dset':
         pass
     if outype == 'rdd':
-        spark_df.rdd
+        return spark_df.rdd
         
 
 
