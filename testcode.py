@@ -7,7 +7,7 @@ import numpy as np
 
 sc = pyspark.SparkContext(master='local[*]', appName='Python Spark SQL Hive integration example')
 
-###########################################Test case for Hive Table to spark dataframe##########################
+###########################################Test case for Hive Table to spark dataframe####################################
 #us.sp_sql_todf(sc,"SELECT * FROM src","df").show()
 '''
 +---+-------+
