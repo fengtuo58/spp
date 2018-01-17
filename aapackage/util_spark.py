@@ -232,6 +232,13 @@ def sp_df_tocsv(sc, df, filename) :
 
 
 def sp_sql_todf(sc, sql='', outype='df/dset/rdd') :
+    '''
+
+    :param sc: Spark context
+    :param sql: Sql query
+    :param outype: output Type
+    :return: spark dataframe or rdd
+    '''
     spark = SparkSession.builder.config(conf=sc.getConf()).enableHiveSupport().getOrCreate()
     spark_df = spark.sql(sql)
     if outype == 'df':
@@ -248,8 +255,9 @@ def sp_sql_todf(sc, sql='', outype='df/dset/rdd') :
 
 def sp_df_to_pandasdf(df):
   '''
-     Issue if driver memory < distributed memory
-  
+
+  :param df: Spark Dataframe
+  :return: Pandas dataframe
   '''
   return df.toPandas()
 
@@ -264,37 +272,27 @@ def sp_df_tosql(sc, dbname, sql='') :
 
 
 def sp_df_tocouchdb(dataFrame,dbName,url):
+    '''
+
+    :param dataFrame:Spark dataframe
+    :param dbName: database name
+    :param url: Url of Couch DB
+    :return: None
+
+    saving a dataframe to couch DB
+    '''
     jData = dataFrame.toJSON()
     jData.foreach(lambda x: couchdb.Server(url)[dbName].save(json.loads(x)))
 
 
 def sp_df_toscimatrix(df=None) :
-   '''  Spark dataframe to Scipy Matrix
-        numpy Matrix[ u(i), h(j) ] = 1   if     df : shape =  (100000, 2)  ['user', 'item' ]   
-         
-         
-        Matrix is split into 5 components if very large. 
-         
+   '''
+
+   :param df: Spark dataFrame
+   :return: Scipy Sparse Array
    '''
    temp_list = df.collect()
-   '''
-   print(np.array(temp_list))
-   rows = len(temp_list)
-   colums = len(temp_list[0])
 
-   tem_row = []
-   tem_columr = []
-   data = []
-   for i in range(0, rows):
-       for j in range(0, colums):
-           tem_row.append(i)
-           tem_columr.append(j)
-           data.append(temp_list[i][j])
-
-   np_row = np.array(tem_row)
-   np_column = np.array(tem_columr)
-   np_data = np.array(data)
-   '''
    return csr_matrix(np.array(temp_list))
 
 ###############################################################################################################################

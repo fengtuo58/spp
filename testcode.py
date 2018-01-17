@@ -8,7 +8,7 @@ import numpy as np
 sc = pyspark.SparkContext(master='local[*]', appName='Python Spark SQL Hive integration example')
 
 ###########################################Test case for Hive Table to spark dataframe##########################
-us.sp_sql_todf(sc,"SELECT * FROM src","df").show()
+#us.sp_sql_todf(sc,"SELECT * FROM src","df").show()
 '''
 +---+-------+
 |key|  value|
@@ -48,7 +48,7 @@ ll = np.random.randint(5, size=(row, column)).tolist()
 spark_df = sc.parallelize(ll).toDF(col)
 
 sci_csr = us.sp_df_toscimatrix(spark_df)
-print(sci_csr)
+#print(sci_csr)
 
 '''
 Output
@@ -78,7 +78,7 @@ Output
 
 ###########################################Test case for spark dataframe to Panda datafrmae##########################
 panda_df = us.sp_df_to_pandasdf(spark_df)
-print(panda_df)
+#print(panda_df)
 
 '''
      col0  col1  col2  col3  col4  col5  col6  col7  col8  col9   ...    \
