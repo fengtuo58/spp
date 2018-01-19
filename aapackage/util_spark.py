@@ -286,21 +286,6 @@ https://my.vertica.com/docs/8.0.x/HTML/#Authoring/HadoopIntegrationGuide/NativeF
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
- 
 ''''
 def sp_file_tohive(sc, filename='' , dbname, sql) :
     local binary file to hive file
@@ -331,7 +316,6 @@ def sp_df_tocsv(sc, df, filename) :
 
 def sp_sql_todf(sc, sql='', outype='df/dset/rdd') :
     '''
-
     :param sc: Spark context
     :param sql: Sql query
     :param outype: output Type
@@ -353,7 +337,6 @@ def sp_sql_todf(sc, sql='', outype='df/dset/rdd') :
 
 def sp_df_to_pandasdf(df):
   '''
-
   :param df: Spark Dataframe
   :return: Pandas dataframe
   '''
@@ -363,20 +346,17 @@ def sp_df_to_pandasdf(df):
 
 
 def sp_df_tosql(sc, dbname, sql='') :
-   ''' Spark dataframe to HIVE SQL  
- 
-
+   ''' 
+   Spark dataframe to HIVE SQL  
    '''
 
 
 def sp_df_tocouchdb(dataFrame,dbName,url):
     '''
-
     :param dataFrame:Spark dataframe
     :param dbName: database name
     :param url: Url of Couch DB
     :return: None
-
     saving a dataframe to couch DB
     '''
     jData = dataFrame.toJSON()
@@ -385,12 +365,10 @@ def sp_df_tocouchdb(dataFrame,dbName,url):
 
 def sp_df_toscimatrix(df=None) :
    '''
-
    :param df: Spark dataFrame
    :return: Scipy Sparse Array
    '''
    temp_list = df.collect()
-
    return csr_matrix(np.array(temp_list))
 
 ###############################################################################################################################
