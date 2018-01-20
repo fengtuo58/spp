@@ -18,14 +18,12 @@ from scipy.sparse import csr_matrix
 ################################################################################################################
 ################################################################################################################
 try :
-    DIRCWD  =  os.path.dirname( os.path.abspath( __file__ ).replace('/aapackage' , '' ) )    # as import
+    DIRCWD =  os.path.dirname(os.path.abspath( __file__ ))    # as import
 except :
   try :
     DIRCWD  =  os.path.abspath(os.path.dirname(sys.argv[0]))   # running as standalone
   except : sys.exit()
-os.chdir(DIRCWD);  sys.path.append(DIRCWD + '/aapackage/');
-
-
+  
 __path__=     DIRCWD +'/aapackage/'
 __version__=  "1.0.0"
 
@@ -214,7 +212,7 @@ https://towardsdatascience.com/writing-into-dynamic-partitions-using-spark-2e2b8
 ''' )
 
 
-
+'''
 def py_to_primitive(arg):
     """Converts NumPy arrays, Pandas Dataframes or Pandas series to their primitive Python equivalent.
         to_primitive(np.array([1,2,3])) --> [1, 2, 3]
@@ -243,11 +241,11 @@ def sp_df_tohive( data , mode1 = "append"):
   impressionsDF.write.mode("overwrite").partitionBy("country", "year", "month", "day").json("s3://output_bucket/stats")
 
 
+'''
 
 
 
-
-def sp_file_tohive(sc, filename='' , dbname, sql) :
+def sp_file_tohive(sc , dbname, sql, filename='') :
     # local binary file to hive table
     pass
 
@@ -255,7 +253,7 @@ def sp_file_tohive(sc, filename='' , dbname, sql) :
 
 
 
-def sp_hive_tomemory(sc, filename='' , dbname, sql) :
+def sp_hive_tomemory(sc , dbname, sql, filename='') :
    # file in hive as binary into dataframe / memory read
    pass 
   

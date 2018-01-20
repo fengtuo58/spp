@@ -6,6 +6,7 @@ from pyspark import sql
 import scipy
 from aapackage import util_spark as us
 import numpy as np
+import pandas
 
 sc = pyspark.SparkContext(master='local[*]', appName='Python Spark SQL Hive integration example')
 ###########################################Test case for Hive Table to spark dataframe and rdd##########################
