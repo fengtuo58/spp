@@ -165,8 +165,7 @@ def pd_to_onehotsparse(df, colcat, colnum=None,  onehotfit=None, onehotype='floa
 Sparkcontext = None
 import pyspark
 from pyspark.sql import SparkSession
-import couchdb
-import json
+import couchdb, json
 
 
 def zdoc():
@@ -199,21 +198,18 @@ https://docs.databricks.com/spark/latest/data-sources/zip-files.html
 https://gist.github.com/search?p=3&q=pyspark&ref=searchresults&utf8=%E2%9C%93
 
 
-
 # https://chriscoughlin.com/category/spark/
 import pyspark
 from pyspark.serializers import CompressedSerializer, AutoSerializer
 sc = pyspark.SparkContext(conf=config, serializer=CompressedSerializer(AutoSerializer())
 
 
-
 ''' )
 
  
 
-def to_primitive(arg):
+def py_to_primitive(arg):
     """Converts NumPy arrays, Pandas Dataframes or Pandas series to their primitive Python equivalent.
-       
         to_primitive(np.array([1,2,3])) --> [1, 2, 3]
         to_primitive(np.array([[[1,3,4], [1.1,2.2,None], [0,0.1,0]],[[1,0,0],[0,1,0],[0,0,1]]])) --> [[[1, 3, 4], [1.1, 2.2, None], [0, 0.1, 0]], [[1, 0, 0], [0, 1, 0], [0, 0, 1]]]
         to_primitive(pd.Series([1,3.141592654,33])) --> [1.0, 3.141592654, 33.0]
@@ -277,9 +273,7 @@ spark.sql(
     """.stripMargin
 )
 
-
 https://my.vertica.com/docs/8.0.x/HTML/#Authoring/HadoopIntegrationGuide/NativeFormats/QueryPerformance.htm%3FTocPath%3DIntegrating%2520with%2520Apache%2520Hadoop%7CReading%2520Native%2520Hadoop%2520File%2520Formats%7C_____2
-
 
 
 '''
@@ -293,30 +287,38 @@ https://my.vertica.com/docs/8.0.x/HTML/#Authoring/HadoopIntegrationGuide/NativeF
 
  
  
-''''
-def sp_file_tohive(sc, filename='' , dbname, sql) :
-    local binary file to hive file
 
+def sp_file_tohive(sc, filename='' , dbname, sql) :
+    # local binary file to hive table
+    pass
 
     
 
 
 
 def sp_hive_tomemory(sc, filename='' , dbname, sql) :
-   local binary file to hive file
-
+   # local binary file to hive file
+   pass 
   
 
    
-'''
 
+def sp_csv_todf(sc, filename) :
+   '''
+        csv file on driver to filename.
+        
+   
+   '''
+   pass
+   
+   
    
 def sp_df_tocsv(sc, df, filename) :
-   ''' Spark dataframe to local csv
+   ''' Spark dataframe to local csv gzip
        Issues with driver memory
 
    '''
-   
+   pass
 
 
 
@@ -328,17 +330,12 @@ def sp_sql_todf(sc, sql='', outype='df/dset/rdd') :
     :param outype: output Type
     :return: spark dataframe or rdd
     '''
-    spark = SparkSession.builder.config(conf=sc.getConf()).enableHiveSupport().getOrCreate()
-    spark_df = spark.sql(sql)
-    if outype == 'df':
-        return spark_df
-    if outype == 'dset':
-        pass
-    if outype == 'rdd':
-        return spark_df.rdd
+    spark     = SparkSession.builder.config(conf=sc.getConf()).enableHiveSupport().getOrCreate()
+    spark_df  = spark.sql(sql)
+    if outype == 'df':   return spark_df
+    if outype == 'dset': pass
+    if outype == 'rdd':  return spark_df.rdd
         
-
-
 
 
 
@@ -352,13 +349,15 @@ def sp_df_to_pandasdf(df):
 
 
 
-def sp_df_tosql(sc, dbname, sql='') :
+def sp_df_tohive(sc, dbname, table) :
    ''' 
-   Spark dataframe to HIVE SQL  
+   Spark dataframe insert as  HIVE table using ORC format, partition or parquet format
    '''
+   pass
+   
+   
 
-
-def sp_df_tocouchdb(dataFrame,dbName,url):
+def sp_df_tocouchdb(df, dbname,url):
     '''
     :param dataFrame:Spark dataframe
     :param dbName: database name
@@ -366,8 +365,8 @@ def sp_df_tocouchdb(dataFrame,dbName,url):
     :return: None
     saving a dataframe to couch DB
     '''
-    jData = dataFrame.toJSON()
-    jData.foreach(lambda x: couchdb.Server(url)[dbName].save(json.loads(x)))
+    jData = df.toJSON()
+    jData.foreach(lambda x: couchdb.Server(url)[dbname].save(json.loads(x)))
 
 
 def sp_df_toscimatrix(df=None) :
@@ -377,6 +376,12 @@ def sp_df_toscimatrix(df=None) :
    '''
    temp_list = df.collect()
    return csr_matrix(np.array(temp_list))
+
+
+
+
+
+
 
 
 
@@ -411,7 +416,7 @@ def py_log_write(LOGFILE, prefix):
 
 ####################################################################################################################
 ############################ UNIT TEST #############################################################################
-'''
+
 if __name__ == '__main__' :
   import argparse;  ppa = argparse.ArgumentParser()       # Command Line input
   ppa.add_argument('--do', type=str, default= 'action',  help='test / test02')
@@ -419,7 +424,6 @@ if __name__ == '__main__' :
 
 
 if __name__ == '__main__' and arg.do == "test":
- print(__file__)
  try:
    UNIQUE_ID = py_log_write( DIRCWD + '/aapackage/ztest_log_all.txt', "util")
 
@@ -433,7 +437,7 @@ if __name__ == '__main__' and arg.do == "test":
      print(err)
 
 
-'''
+
 
 
 
