@@ -28,7 +28,20 @@ __path__=     DIRCWD +'/aapackage/'
 __version__=  "1.0.0"
 
 #############################################################################################################
+'''
+import sys, os, re, unittest
 
+def regressionTest():
+    path = os.getcwd()       1
+    sys.path.append(path)    2
+    files = os.listdir(path) 3
+1	Instead of setting path to the directory where the currently running script is located, you set it to the current working directory instead. This will be whatever directory you were in before you ran the script, which is not necessarily the same as the directory the script is in. (Read that sentence a few times until you get it.)
+2	Append this directory to the Python library search path, so that when you dynamically import the unit test modules later, Python can find them. You didn't need to do this when path was the directory of the currently running script, because Python always looks in that directory.
+3	The rest of the function is the same.
+This technique will allow you to re-use this regression.py script on multiple projects. Just put the script in a common directory, then change to the project's directory before running it. All of that project's unit tests will be found and tested, instead of the unit tests in the common directory where regression.py is located.
+
+
+'''
 
 
 
