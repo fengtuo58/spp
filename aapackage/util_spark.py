@@ -18,12 +18,14 @@ from scipy.sparse import csr_matrix
 ################################################################################################################
 ################################################################################################################
 try :
-    DIRCWD =  os.path.dirname(os.path.abspath( __file__ ))    # as import
+    DIRCWD  =  os.path.dirname( os.path.abspath( __file__ ).replace('/aapackage' , '' ) )    # as import
 except :
   try :
     DIRCWD  =  os.path.abspath(os.path.dirname(sys.argv[0]))   # running as standalone
   except : sys.exit()
-  
+os.chdir(DIRCWD);  sys.path.append(DIRCWD + '/aapackage/');
+
+
 __path__=     DIRCWD +'/aapackage/'
 __version__=  "1.0.0"
 
