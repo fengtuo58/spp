@@ -16,52 +16,17 @@ from attrdict import AttrDict as dict2
 from scipy.sparse import csr_matrix
 
 ################################################################################################################
-### Need to create ENV variable  CONFIGMY_ROOT_FILE = YourFOlder/CONFIGMY_ROOT_FILE.py
-'''
-#  encoding=utf-8
-#  Need to create ENV variable  CONFIGMY_ROOT_FILE = YourFOlder/CONFIGMY_ROOT_FILE.py
-#  CONFIGMY_ROOT_FILE.py     OS_Name + username
-#  DIRCWD is root folder of your project
-
-{
- "win+asus1": {  # windows platform + asus1 user
-   "DIRCWD" :          "D:/_devs/Python01/project27/",
-
-   "github_login" :    "",
-   "github_pass" :     "",
-   "aws_login"    :     "",
-   "aws_password" :     "",
-   "EC2CWD"       :     "/home/ubuntu/notebook/"
-},
-               
-
- "lin+ubuntu": {
-   "DIRCWD" :     "/home/ubuntu/project27/",
-   "conda_env":   ["tf_gpu_12", "root"],
-   "github_login" :    "",
-   "github_pass" :     "",
-
-},
-
-
-}
-'''
-#############################################################################################################
-'''
+################################################################################################################
 try :
- import configmy; CFG, DIRCWD= configmy.get(config_file="_ROOT", output= ["_CFG", "DIRCWD"])
- os.chdir(DIRCWD); sys.path.append(DIRCWD + '/aapackage')
+    DIRCWD =  os.path.dirname(os.path.abspath( __file__ ))    # as import
 except :
- DIRCWD= 'your folder '
- os.chdir(DIRCWD); sys.path.append(DIRCWD + '/aapackage')
-
-
-
+  try :
+    DIRCWD  =  os.path.abspath(os.path.dirname(sys.argv[0]))   # running as standalone
+  except : sys.exit()
+  
 __path__=     DIRCWD +'/aapackage/'
 __version__=  "1.0.0"
-__file__=     "util_spark.py"
 
-'''
 #############################################################################################################
 
 
@@ -204,42 +169,6 @@ from pyspark.serializers import CompressedSerializer, AutoSerializer
 sc = pyspark.SparkContext(conf=config, serializer=CompressedSerializer(AutoSerializer())
 
 
-''' )
-
- 
-
-def py_to_primitive(arg):
-    """Converts NumPy arrays, Pandas Dataframes or Pandas series to their primitive Python equivalent.
-        to_primitive(np.array([1,2,3])) --> [1, 2, 3]
-        to_primitive(np.array([[[1,3,4], [1.1,2.2,None], [0,0.1,0]],[[1,0,0],[0,1,0],[0,0,1]]])) --> [[[1, 3, 4], [1.1, 2.2, None], [0, 0.1, 0]], [[1, 0, 0], [0, 1, 0], [0, 0, 1]]]
-        to_primitive(pd.Series([1,3.141592654,33])) --> [1.0, 3.141592654, 33.0]
-        to_primitive(pd.DataFrame([[1,2,3], [3,3,3], [1.1,2.2,None]])) --> [[1.0, 2.0, 3.0], [3.0, 3.0, 3.0], [1.1, 2.2, nan]]
-    """
-    val = arg
-    if isinstance(arg, pd.Series) or isinstance(arg, pd.DataFrame):
-        return to_primitive(arg.values)
-    if isinstance(arg, np.generic):
-        val = np.asscalar(arg)
-    elif isinstance(arg, np.ndarray):
-        val = [to_primitive(el) for el in arg.tolist()]
-    return val
-    
-
-  
-def sp_df_tohive( data , mode1 = "append"):
-  data = hiveContext.sql("select \"hej\" as test1, \"med\" as test2")
-  data.write.mode( mode1 ).saveAsTable("TestTable")
-
-  data = hiveContext.sql("select \"hej\" as test2, \"med\" as test1")
-  data.write.mode( mode1 ).saveAsTable("TestTable")     
- 
-  impressionsDF.write.mode("overwrite").partitionBy("country", "year", "month", "day").json("s3://output_bucket/stats")
-
-
-
-
-#######################   Details   #################################################################
-'''
 / Create SparkSession with Hive dynamic partitioning enabled
 val spark: SparkSession =
     SparkSession
@@ -275,18 +204,46 @@ spark.sql(
 
 https://my.vertica.com/docs/8.0.x/HTML/#Authoring/HadoopIntegrationGuide/NativeFormats/QueryPerformance.htm%3FTocPath%3DIntegrating%2520with%2520Apache%2520Hadoop%7CReading%2520Native%2520Hadoop%2520File%2520Formats%7C_____2
 
+https://hadoopsters.net/2017/09/01/how-to-write-orc-files-and-hive-partitions-in-spark/
 
-'''
-
-
-
+https://towardsdatascience.com/writing-into-dynamic-partitions-using-spark-2e2b818a007a
 
 
+''' )
 
 
 
+def py_to_primitive(arg):
+    """Converts NumPy arrays, Pandas Dataframes or Pandas series to their primitive Python equivalent.
+        to_primitive(np.array([1,2,3])) --> [1, 2, 3]
+        to_primitive(np.array([[[1,3,4], [1.1,2.2,None], [0,0.1,0]],[[1,0,0],[0,1,0],[0,0,1]]])) --> [[[1, 3, 4], [1.1, 2.2, None], [0, 0.1, 0]], [[1, 0, 0], [0, 1, 0], [0, 0, 1]]]
+        to_primitive(pd.Series([1,3.141592654,33])) --> [1.0, 3.141592654, 33.0]
+        to_primitive(pd.DataFrame([[1,2,3], [3,3,3], [1.1,2.2,None]])) --> [[1.0, 2.0, 3.0], [3.0, 3.0, 3.0], [1.1, 2.2, nan]]
+    """
+    val = arg
+    if isinstance(arg, pd.Series) or isinstance(arg, pd.DataFrame):
+        return to_primitive(arg.values)
+    if isinstance(arg, np.generic):
+        val = np.asscalar(arg)
+    elif isinstance(arg, np.ndarray):
+        val = [to_primitive(el) for el in arg.tolist()]
+    return val
+
+
+
+def sp_df_tohive( data , mode1 = "append"):
+  data = hiveContext.sql("select \"hej\" as test1, \"med\" as test2")
+  data.write.mode( mode1 ).saveAsTable("TestTable")
+
+  data = hiveContext.sql("select \"hej\" as test2, \"med\" as test1")
+  data.write.mode( mode1 ).saveAsTable("TestTable")     
  
- 
+  impressionsDF.write.mode("overwrite").partitionBy("country", "year", "month", "day").json("s3://output_bucket/stats")
+
+
+
+
+
 
 def sp_file_tohive(sc, filename='' , dbname, sql) :
     # local binary file to hive table
@@ -297,7 +254,7 @@ def sp_file_tohive(sc, filename='' , dbname, sql) :
 
 
 def sp_hive_tomemory(sc, filename='' , dbname, sql) :
-   # local binary file to hive file
+   # file in hive as binary into dataframe / memory read
    pass 
   
 
@@ -421,6 +378,10 @@ if __name__ == '__main__' :
   import argparse;  ppa = argparse.ArgumentParser()       # Command Line input
   ppa.add_argument('--do', type=str, default= 'action',  help='test / test02')
   arg = ppa.parse_args()
+
+
+  import os, sys
+  DIRCWD  =  os.path.abspath(os.path.dirname(sys.argv[0]))
 
 
 if __name__ == '__main__' and arg.do == "test":
