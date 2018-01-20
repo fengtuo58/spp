@@ -286,6 +286,13 @@ https://my.vertica.com/docs/8.0.x/HTML/#Authoring/HadoopIntegrationGuide/NativeF
 
 
 
+
+
+
+
+
+ 
+ 
 ''''
 def sp_file_tohive(sc, filename='' , dbname, sql) :
     local binary file to hive file
@@ -370,6 +377,8 @@ def sp_df_toscimatrix(df=None) :
    '''
    temp_list = df.collect()
    return csr_matrix(np.array(temp_list))
+
+
 
 ###############################################################################################################################
 def py_exception_print():
