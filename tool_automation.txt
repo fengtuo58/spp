@@ -1,0 +1,12 @@
+
+
+1) Create 1 windows bat to automate some process.
+ git create new repo.    :  gitcreaterepo.bat   NameRepo  URLproject
+ git create new branch   :  gitcreatbranch.bat    NameofBranch
+ 
+
+
+2)   
+
+
+
