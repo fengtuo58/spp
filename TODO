@@ -1,7 +1,13 @@
 
+TODO List
 
-Use HDFS as key value store :
 
+1) Python CLI script to use HDFS as key value store :
+    Insert binary gzip in HDFS from local drive.
+    Copy   binary gzip in HDFS to local drive.
+    
+    Input:  (KeyName, LocalFileDirectory)
+    
 
 https://stackoverflow.com/questions/16546040/store-images-videos-into-hadoop-hdfs
 
@@ -11,6 +17,8 @@ https://www.google.com/search?q=hdfs+as+key+value+store+github+bash+script&rlz=1
 
 
 
+
+2)
 
 
 
