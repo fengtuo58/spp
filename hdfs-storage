@@ -1,0 +1,22 @@
+
+
+Use HDFS as key value store :
+
+
+https://stackoverflow.com/questions/16546040/store-images-videos-into-hadoop-hdfs
+
+bin/hadoop fs -put /src_image_file /dst_image_file
+
+https://www.google.com/search?q=hdfs+as+key+value+store+github+bash+script&rlz=1C1GCEB_enJP766JP767&ei=dFxtWvPZDoiZ8gX6nruABA&start=10&sa=N&biw=1478&bih=774
+
+
+
+
+
+
+
+
+
+
+
+
