@@ -19,6 +19,18 @@ https://www.google.com/search?q=hdfs+as+key+value+store+github+bash+script&rlz=1
 
 
 2)
+1) Create 1 windows bat to automate some process.
+ git create new repo.    :  gitcreaterepo.bat   NameRepo  URLproject
+ git create new branch   :  gitcreatbranch.bat    NameofBranch
+ 
+
+
+2)   
+https://github.com/bernhard-42/spark-unzip
+
+
+
+
 
 
 
