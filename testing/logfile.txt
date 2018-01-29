@@ -1,0 +1,19 @@
+[2017-10-29 00:41:23] --Starting up--
+[2017-10-29 00:41:23] found task folder: task1_finished
+[2017-10-29 00:41:23] created the folder structure for: testing/task1_finished
+[2017-10-29 00:41:23] found script: test01.py
+[2017-10-29 00:41:23] found task folder: task2_finished
+[2017-10-29 00:41:23] created the folder structure for: testing/task2_finished
+[2017-10-29 00:41:23] found script: test02.py
+[2017-10-29 00:41:23] Scanning header for testing/task1_finished/test01.py
+[2017-10-29 00:41:23] script test01.py has been processed, and the header has been executed
+[2017-10-29 00:41:23] Scanning header for testing/task2_finished/test02.py
+[2017-10-29 00:41:23] script test02.py has been processed, and the header has been executed
+[2017-10-29 00:41:23] running script: testing/task1_finished/test01.py
+[2017-10-29 00:41:23] [*] testing/task1_finished/test01.py's pid is : 5800
+[2017-10-29 00:41:23] running script: testing/task2_finished/test02.py
+[2017-10-29 00:41:23] [*] testing/task2_finished/test02.py's pid is : 6948
+[2017-10-29 00:41:23] --going into monitor loop--
+[2017-10-29 00:41:23] task task1_finished is finished
+[2017-10-29 00:41:23] task task2_finished is finished
+[2017-10-29 00:41:23] All task are finished!
