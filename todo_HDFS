@@ -4,8 +4,8 @@ TODO List
 
 1) 
    In aapackage/util_spark.py
-   create functions to
-    to use HDFS as key value store :
+    create functions to
+    to use Hadoop / HDFS as key value store :
     Insert binary gzip or folder in HDFS from local drive.
     Copy   binary gzip or folder in HDFS to local drive.
     
@@ -19,7 +19,7 @@ TODO List
     https://github.com/xolox/python-executor
 
 
-
+   https://github.com/spotify/snakebite
 
 
     https://stackoverflow.com/questions/16546040/store-images-videos-into-hadoop-hdfs
