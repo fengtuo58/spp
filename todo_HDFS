@@ -1,0 +1,64 @@
+
+TODO List
+
+
+1) 
+   In aapackage/util_spark.py
+   create functions to
+    to use HDFS as key value store :
+    Insert binary gzip or folder in HDFS from local drive.
+    Copy   binary gzip or folder in HDFS to local drive.
+    
+    Input:  (KeyName, LocalFileDirectory)
+    
+    
+    Ressources :
+    https://stackoverflow.com/questions/28213116/hadoop-copy-a-local-file-system-folder-to-hdfs
+
+    sub-process launcher  asynchronous mode
+    https://github.com/xolox/python-executor
+
+
+
+
+
+    https://stackoverflow.com/questions/16546040/store-images-videos-into-hadoop-hdfs
+
+    bin/hadoop fs -put /src_image_file /dst_image_file
+
+    https://www.google.com/search?q=hdfs+as+key+value+store+github+bash+script&rlz=1C1GCEB_enJP766JP767&ei=dFxtWvPZDoiZ8gX6nruABA&start=10&sa=N&biw=1478&bih=774
+
+
+
+
+
+
+
+
+
+
+
+
+
+2)
+1) Create 1 windows bat to automate some process.
+ git create new repo.    :  gitcreaterepo.bat   NameRepo  URLproject
+ git create new branch   :  gitcreatbranch.bat    NameofBranch
+ 
+
+
+2)   
+https://github.com/bernhard-42/spark-unzip
+
+
+
+
+
+
+
+
+
+
+
+
+
