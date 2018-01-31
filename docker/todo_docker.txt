@@ -1,0 +1,53 @@
+﻿################################################################################
+############# To do  ###########################################################
+
+Create dockerfile
+1) Create docker file with CentOS containing:  (yum)
+
+  HIVE     
+  HADDOP   
+  Spark    2.2
+  Anaconda with python 3.5
+  using   conda env create -n python3    -f   conda_python3_sandbox_aws.txt
+  add those packages : 
+     tensorflow, scikit-learn, pandas, 
+     https://pypi.python.org/pypi/lightfm/1.8
+     conda install -c anaconda libgcc 
+
+
+
+2) Explain how to launch docker on ubuntu
+
+
+
+3) Write python script to check if docker container works well :
+     import tensorflow
+     import lightfm     
+     import pandas
+     import pyspark
+
+
+   pyspark in  bash
+   SparkContext
+
+
+
+4) Screenshots
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
