@@ -1,23 +1,24 @@
 ﻿################################################################################
 ############# To do  ###########################################################
-
 Create dockerfile
 1) Create docker file with CentOS containing:  (yum)
 
   HIVE     
   HADDOP   
   Spark    2.2
+  micro   https://github.com/zyedidia/micro
+  nano    https://www.centos.org/forums/viewtopic.php?t=52506
+
   Anaconda with python 3.5
   using   conda env create -n python3    -f   conda_python3_sandbox_aws.txt
   add those packages : 
      tensorflow, scikit-learn, pandas, 
      https://pypi.python.org/pypi/lightfm/1.8
      conda install -c anaconda libgcc 
+     conda install -c anaconda pytest 
 
 
-
-2) Explain how to launch docker on ubuntu
-
+2) Explain how to launch docker on ubuntu 
 
 
 3) Write python script to check if docker container works well :
@@ -25,14 +26,56 @@ Create dockerfile
      import lightfm     
      import pandas
      import pyspark
-
+     import pytest
 
    pyspark in  bash
    SparkContext
 
 
+4) Screenshots that it's working on your side.
 
-4) Screenshots
+
+
+
+
+#######Tasks 2       ############################################################################
+########### To do  : Jenkins building ###########################################################
+
+   1) Same Anaconda environnement than above
+       https://jenkins.io/doc/tutorials/build-a-python-app-with-pyinstaller/
+
+   2) git clone  https://github.com/arita37/spp.git
+
+   3) Run some basic pytest python scripts with   Jenkins:
+         Setup ---> Build ---> Run tests
+
+   4) Write down some explanation
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
