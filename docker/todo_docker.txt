@@ -1,10 +1,10 @@
-﻿################################################################################
-############# To do  ###########################################################
+﻿######################################################################################################
+############# To do  #################################################################################
 Create dockerfile
 1) Create docker file with CentOS containing:  (yum)
+   https://github.com/thuongdinh/docker-spark-anaconda
 
   HIVE     
-  HADDOP   
   Spark    2.2
   micro   https://github.com/zyedidia/micro
   nano    https://www.centos.org/forums/viewtopic.php?t=52506
@@ -13,15 +13,15 @@ Create dockerfile
   using   conda env create -n python3    -f   conda_python3_sandbox_aws.txt
   add those packages : 
      tensorflow, scikit-learn, pandas, 
-     https://pypi.python.org/pypi/lightfm/1.8
+     https://pypi.python.org/pypi/lightfm/1.8      pip install lightfm
      conda install -c anaconda libgcc 
      conda install -c anaconda pytest 
 
-
+ 
 2) Explain how to launch docker on ubuntu 
 
 
-3) Write python script to check if docker container works well :
+3) Write basic python script to check if python in docker container works well :
      import tensorflow
      import lightfm     
      import pandas
@@ -33,6 +33,9 @@ Create dockerfile
 
 
 4) Screenshots that it's working on your side.
+
+
+
 
 
 
