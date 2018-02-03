@@ -1,7 +1,7 @@
-import task_parallel as tpar
+import util_parallel as tpar
 
 #todo_folder= "c:/My_todoFolder/"
-todo_folder="testing/"
+todo_folder="test_parallel/"
 tpar.execute(todo_folder, starttime="2017-01-02-15:25")
 
 

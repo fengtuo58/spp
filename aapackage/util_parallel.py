@@ -7,21 +7,13 @@
 4/ Launch in paralell task_0002.py with different input  ( using  file_slit_XXXX) using sub_process
 5/When script is finished ---> Move script into  with name:  task_0001_20160202HHMMSS.py
 6/ Write in log_file
--------------------------------------
-Recomended tab length for good alignement: 4
-Recomended tab type for python: space
-
-TODO:
-    - rethink folder architecture inside of the code
-    - try and improve time (for infinite time with 2 times that are euqal
-    - add psutils for windows
-
+----------------------------------------------------------------------------------------------------
 Input :
   folder_root :   /myfolderoftasks/
   start_time  :   2017-12-03 15:45
   timeout_time :  2025-12-03 15:45
 
-Folder Strucutre:
+Folder Structure:
   /folder_root/  task1_finished/      #finished
                                 task1.py
                                 file2.pkl
@@ -46,28 +38,42 @@ task_launcher.py
   import task_parallel as taskpa
   taskpa.execute("/myfolder/", starttime="2017-03-05 11:45")
 
-python   /my_script_folder/task_launcher.py  /folder_task/"   "2017-03-05 11:45"
 
+python   util_parallel.py --do test
 
 
 '''
+import os, sys, platform, pandas as pd,  subprocess, re, ast
 
-#### Folder ROOT  ################################################################################
-import os, sys
-DIRCWD=  'D:/_devs/Python01/project27/'  if (os.path.expanduser('~').find('asus1') >-1  and sys.platform.find('win')>-1)\
-    else  'G:/_devs/project27/'  if sys.platform.find('win')> -1 else  '/home/noel/project27/'\
-    if  os.path.expanduser('~').find('noel') >-1 and  sys.platform.find('linux')> -1\
-    else 'lin, virtualbox'
-DIRPACKAGE= DIRCWD +'/github/parallel_python/'
-sys.path.append(DIRPACKAGE + '/aapackage/');
+def os_getparent(dir0):
+    return os.path.abspath(os.path.join(dir0, os.pardir))
+
+try:    DIRCWD = os_getparent(os.path.dirname(os.path.abspath(__file__)))
+except:
+    try:
+        if sys.argv[0] == '': raise Exception
+        DIRCWD = os_getparent(os.path.abspath(os.path.dirname(sys.argv[0])))
+    except:
+        DIRCWD = '/mnt/hgfs/project27_raku/git_dev/agit_sortrank/'
+
+try:
+    import argparse
+    ppa = argparse.ArgumentParser()  # Command Line input
+    ppa.add_argument('--DIRCWD', type=str, default='', help=' Root Folder')
+    ppa.add_argument('--do', type=str, default='user', help=' user/item/rating')
+
+    arg = ppa.parse_args()
+    if arg.DIRCWD != ''  :  DIRCWD = arg.DIRCWD
+
+except Exception as e:
+    print(e);
+    sys.exit(1)
+os.chdir(DIRCWD); sys.path.append(DIRCWD + '/aapackage')
+
+##################################################################################################
+import subprocess, shlex, datetime, time, pickle,  arrow, psutil
 
 
-### System package  ##############################################################################
-import subprocess, shlex, datetime, time, pickle, numpy as np, pandas as pd
-import arrow, psutil
-
-###Local package  from  DIRPACKAGE/aapackage/
-# import processify  #Laucnh function into sub-process
 
 
 #-------------------------------Util functions ####################################################
@@ -107,7 +113,7 @@ def py_load_object(folder='/folder1/keyname', isabsolutpath=0, encoding1='utf-8'
 
 
 #---------------------------------------------------------------------------------------------------------------
-class manage():
+class task_parallel():
     '''This is the main class of this script
         IT controls the basic flow of the program
         and defines all of the global variables'''
@@ -140,7 +146,7 @@ class manage():
         self.sub_proc = None
         self.v = verbose
 
-    #---------------------misc fucntions--------------------
+    #---------------------misc fucntions----------------------------------------
     def run_check_timeout(self):
         if arrow.now() > self.timeout:  return True
         else:    return False
@@ -158,7 +164,7 @@ class manage():
         if self.v:
             print(string)
 
-    #---------------------header functions-----------------
+    #---------------------header functions--------------------------------------
     def script_header_isok(self, fname):
         ''' chek if header has the correct variables such as,
             NSPLIT | ARRAY '''
@@ -176,9 +182,9 @@ class manage():
         source = ""
 
         self.log_write("Scanning header for %s" % fname)
-        with open(fname, "r") as f:                                # open the file
+        with open(fname, "r") as f:                             # open the file
             for line in f.readlines():
-                if "START_HEADER_SCRIPT" in line:       # figure out if you are at the start of the
+                if "START_HEADER_SCRIPT" in line:               # figure out if you are at the start of the
                     in_header = True                            # header or not, set a variable true if it is
                 else:
                     if in_header:
@@ -189,7 +195,7 @@ class manage():
         self.header_vars[fname] = dict()
         try:
             exec(source, self.env_vars, self.header_vars[fname])   # executing source, watch out for the EOF print_error,
-        except EOFError:                                             # if python find EOF in source it will crash
+        except EOFError:                                           # if python find EOF in source it will crash
             self.log_write("EOF print_error in the script: {0}".format(fname))
             self.log_write("please check the data in the source header")
 
@@ -240,6 +246,7 @@ class manage():
             self.log_write('%s name is not a directory, please put scripts inside of a directory')
 
 
+
     def folder_retrieve_task(self):
         ''' this function checks if the folders exists and add the file in the todo array, it also
             creates, the individual task folders for the inputs and outputs of each individual tasks.
@@ -254,7 +261,7 @@ class manage():
 
                 if 'finished' in folder:   self.task_list[folder][0] = 2             # finished folders those will get ignored
                 elif 'failed' in folder:   self.task_list[folder][0] = 1             # failed folders those will get reexecuted to see
-                else:                 self.task_list[folder][0] = 0             # normal folders waiting to be executed
+                else:                 self.task_list[folder][0] = 0                  # normal folders waiting to be executed
                 self.folder_create_structure(self.folder_root + folder, folder)
 
         if len(self.task_list) == 0:  self.log_write("Did not find any task to work with...")
@@ -283,7 +290,7 @@ class manage():
             os.rename(folder_name, renamed_folder_name)
 
 
-    #-------------------running scripts-------------------
+    #-------------------running scripts----------------------------------------------------------
     def run_command(self, command):
         ''' Function ot run a script, provide it a script formated like this "/script/path/name args" it will then
             cut this into an array for the Popen function, and it will also start the start_process_time for the
@@ -324,7 +331,7 @@ class manage():
         else:                             return False
 
 
-    #------------------process data files----------------------------------------------
+    #------------------process data files--------------------------------------------------------
     def data_split(self, NSPLIT, ar, folder_name):
         ''' splitting function to split the given arrays into a number nsplit of parts
             it gets the split size then saves it into sub arrays that then get save to the acording folders '''
@@ -347,9 +354,7 @@ class manage():
                 self.data_split(nsplit, arr, self.folder_root + iname)
 
 
-
-
-    #-----------------monitoring------------------------------------------------------
+    #-----------------monitoring----------------------------------------------------------------
     # TODO:dont forget to monitor timeout
     def task_isok(self, task):
         ''' check if the pid names and startime are all present if one is missing there is an error and the task
@@ -453,39 +458,31 @@ class manage():
 
 
 
-def execute(folder_root, starttime="2010-03-01 11:25", timeout="2020-01-01 11:00"):
+def execute(folder_root, starttime="2010-03-01 11:25", timeout="2020-01-01 11:00", verbose=1):
     ''' Launch a independant sub-process where the python code below is executed at time 2017 03 01 11:25
         this is a function wrapper for execute_sub
     '''
 
-    timeout= arrow.get(timeout)
-    m = manage(timeout=timeout , folder_root=folder_root, verbose=True)
-    starttime= arrow.get(starttime)
+    starttime = arrow.get(starttime)
+    timeout   = arrow.get(timeout)
+
+    tpar = task_parallel(timeout=timeout, folder_root=folder_root, verbose=True)
+
     while arrow.now() < starttime :
          time.sleep(30)
-    m.run_main()
 
-    '''
-    #@processify.processify.processify
-    #def execute_sub(folder_root, starttime, timeout) :
-       m = manage(timeout=timeout , folder_root=folder_root, verbose=True)
-       t0= arrow.get(starttime)
-       while arrow.now() < t0 :
-         time.sleep(30)
-       m.main()
-    '''
     #### Execute in separate sub-process
-    #execute_sub(folder_root, starttime, timeout)
+    tpar.run_main()
 
 
 
 
 
-# folder_setup
-if __name__ == "__main__":
+# Test
+if __name__ == "__main__" and  arg.do == 'test' :
     # execute('testing/', starttime=arrow.now().format('YYYY-MM-DD HH:mm:ss'), timeout='2000-01-01 00:00:00')
     #m = manage(timeout="2020-01-01 11:00" , folder_root='testing/', verbose=True)
-    import task_parallel as tpar
+    import util_parallel as tpar
 
     #todo_folder= "c:/My_todoFolder/"
     todo_folder="testing/"
