@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<!-- saved from url=(0077)http://dacatay.com/data-science/part-5-time-series-prediction-prophet-python/ -->
+<html lang="en-US" prefix="og: http://ogp.me/ns#" class="js"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+		<link rel="pingback" href="http://dacatay.com/xmlrpc.php">
+		<script src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/ca-pub-6962034930395047.js.download"></script><script async="" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/analytics.js.download"></script><script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>
+<title>Part 5: Time Series Prediction with Prophet in Python - dacatay</title>
+
+<!-- This site is optimized with the Yoast SEO plugin v5.9.1 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="In this fifth part of the series we will learn how to apply the Prophet forecasting model to predict and decompose a time series using Python.">
+<link rel="canonical" href="http://dacatay.com/data-science/part-5-time-series-prediction-prophet-python/">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Part 5: Time Series Prediction with Prophet in Python - dacatay">
+<meta property="og:description" content="In this fifth part of the series we will learn how to apply the Prophet forecasting model to predict and decompose a time series using Python.">
+<meta property="og:url" content="http://dacatay.com/data-science/part-5-time-series-prediction-prophet-python/">
+<meta property="og:site_name" content="dacatay">
+<meta property="article:tag" content="data science">
+<meta property="article:tag" content="fbprophet">
+<meta property="article:tag" content="forecast">
+<meta property="article:tag" content="matplotlib">
+<meta property="article:tag" content="prediction">
+<meta property="article:tag" content="prophet">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="time series forecast">
+<meta property="article:tag" content="time series prediction">
+<meta property="article:section" content="Data Science">
+<meta property="article:published_time" content="2017-11-21T16:50:00+00:00">
+<meta property="article:modified_time" content="2017-12-01T18:13:13+00:00">
+<meta property="og:updated_time" content="2017-12-01T18:13:13+00:00">
+<meta property="og:image" content="http://dacatay.com/wp-content/uploads/2017/11/pexels-photo-269613-e1512140594125.jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="410">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:description" content="In this fifth part of the series we will learn how to apply the Prophet forecasting model to predict and decompose a time series using Python.">
+<meta name="twitter:title" content="Part 5: Time Series Prediction with Prophet in Python - dacatay">
+<meta name="twitter:image" content="https://i0.wp.com/dacatay.com/wp-content/uploads/2017/11/pexels-photo-269613-e1512140594125.jpeg?fit=1200%2C410">
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"http:\/\/dacatay.com\/","name":"dacatay","potentialAction":{"@type":"SearchAction","target":"http:\/\/dacatay.com\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Person","url":"http:\/\/dacatay.com\/data-science\/part-5-time-series-prediction-prophet-python\/","sameAs":[],"@id":"#person","name":"Daniel Kerim Acatay"}</script>
+<!-- / Yoast SEO plugin. -->
+
+<link rel="dns-prefetch" href="http://s0.wp.com/">
+<link rel="dns-prefetch" href="http://s.gravatar.com/">
+<link rel="dns-prefetch" href="http://fonts.googleapis.com/">
+<link rel="dns-prefetch" href="http://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="dacatay » Feed" href="http://dacatay.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="dacatay » Comments Feed" href="http://dacatay.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="dacatay » Part 5: Time Series Prediction with Prophet in Python Comments Feed" href="http://dacatay.com/data-science/part-5-time-series-prediction-prophet-python/feed/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.3\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/dacatay.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.1"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56794,8205,9794,65039],[55358,56794,8203,9794,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/wp-emoji-release.min.js.download" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="twentysixteen-jetpack-css" href="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/twentysixteen.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-css" href="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/crayon.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-theme-classic-css" href="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/classic.css" type="text/css" media="all">
+<link rel="stylesheet" id="crayon-font-monaco-css" href="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/monaco.css" type="text/css" media="all">
+<link rel="stylesheet" id="twentysixteen-fonts-css" href="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="genericons-css" href="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/genericons.css" type="text/css" media="all">
+<link rel="stylesheet" id="twentysixteen-style-css" href="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/style.css" type="text/css" media="all">
+<style id="twentysixteen-style-inline-css" type="text/css">
+
+		/* Custom Link Color */
+		.menu-toggle:hover,
+		.menu-toggle:focus,
+		a,
+		.main-navigation a:hover,
+		.main-navigation a:focus,
+		.dropdown-toggle:hover,
+		.dropdown-toggle:focus,
+		.social-navigation a:hover:before,
+		.social-navigation a:focus:before,
+		.post-navigation a:hover .post-title,
+		.post-navigation a:focus .post-title,
+		.tagcloud a:hover,
+		.tagcloud a:focus,
+		.site-branding .site-title a:hover,
+		.site-branding .site-title a:focus,
+		.entry-title a:hover,
+		.entry-title a:focus,
+		.entry-footer a:hover,
+		.entry-footer a:focus,
+		.comment-metadata a:hover,
+		.comment-metadata a:focus,
+		.pingback .comment-edit-link:hover,
+		.pingback .comment-edit-link:focus,
+		.comment-reply-link,
+		.comment-reply-link:hover,
+		.comment-reply-link:focus,
+		.required,
+		.site-info a:hover,
+		.site-info a:focus {
+			color: #ff0066;
+		}
+
+		mark,
+		ins,
+		button:hover,
+		button:focus,
+		input[type="button"]:hover,
+		input[type="button"]:focus,
+		input[type="reset"]:hover,
+		input[type="reset"]:focus,
+		input[type="submit"]:hover,
+		input[type="submit"]:focus,
+		.pagination .prev:hover,
+		.pagination .prev:focus,
+		.pagination .next:hover,
+		.pagination .next:focus,
+		.widget_calendar tbody a,
+		.page-links a:hover,
+		.page-links a:focus {
+			background-color: #ff0066;
+		}
+
+		input[type="date"]:focus,
+		input[type="time"]:focus,
+		input[type="datetime-local"]:focus,
+		input[type="week"]:focus,
+		input[type="month"]:focus,
+		input[type="text"]:focus,
+		input[type="email"]:focus,
+		input[type="url"]:focus,
+		input[type="password"]:focus,
+		input[type="search"]:focus,
+		input[type="tel"]:focus,
+		input[type="number"]:focus,
+		textarea:focus,
+		.tagcloud a:hover,
+		.tagcloud a:focus,
+		.menu-toggle:hover,
+		.menu-toggle:focus {
+			border-color: #ff0066;
+		}
+
+		@media screen and (min-width: 56.875em) {
+			.main-navigation li:hover > a,
+			.main-navigation li.focus > a {
+				color: #ff0066;
+			}
+		}
+	
+
+		/* Custom Main Text Color */
+		body,
+		blockquote cite,
+		blockquote small,
+		.main-navigation a,
+		.menu-toggle,
+		.dropdown-toggle,
+		.social-navigation a,
+		.post-navigation a,
+		.pagination a:hover,
+		.pagination a:focus,
+		.widget-title a,
+		.site-branding .site-title a,
+		.entry-title a,
+		.page-links > .page-links-title,
+		.comment-author,
+		.comment-reply-title small a:hover,
+		.comment-reply-title small a:focus {
+			color: #3a3a3a
+		}
+
+		blockquote,
+		.menu-toggle.toggled-on,
+		.menu-toggle.toggled-on:hover,
+		.menu-toggle.toggled-on:focus,
+		.post-navigation,
+		.post-navigation div + div,
+		.pagination,
+		.widget,
+		.page-header,
+		.page-links a,
+		.comments-title,
+		.comment-reply-title {
+			border-color: #3a3a3a;
+		}
+
+		button,
+		button[disabled]:hover,
+		button[disabled]:focus,
+		input[type="button"],
+		input[type="button"][disabled]:hover,
+		input[type="button"][disabled]:focus,
+		input[type="reset"],
+		input[type="reset"][disabled]:hover,
+		input[type="reset"][disabled]:focus,
+		input[type="submit"],
+		input[type="submit"][disabled]:hover,
+		input[type="submit"][disabled]:focus,
+		.menu-toggle.toggled-on,
+		.menu-toggle.toggled-on:hover,
+		.menu-toggle.toggled-on:focus,
+		.pagination:before,
+		.pagination:after,
+		.pagination .prev,
+		.pagination .next,
+		.page-links a {
+			background-color: #3a3a3a;
+		}
+
+		/* Border Color */
+		fieldset,
+		pre,
+		abbr,
+		acronym,
+		table,
+		th,
+		td,
+		input[type="date"],
+		input[type="time"],
+		input[type="datetime-local"],
+		input[type="week"],
+		input[type="month"],
+		input[type="text"],
+		input[type="email"],
+		input[type="url"],
+		input[type="password"],
+		input[type="search"],
+		input[type="tel"],
+		input[type="number"],
+		textarea,
+		.main-navigation li,
+		.main-navigation .primary-menu,
+		.menu-toggle,
+		.dropdown-toggle:after,
+		.social-navigation a,
+		.image-navigation,
+		.comment-navigation,
+		.tagcloud a,
+		.entry-content,
+		.entry-summary,
+		.page-links a,
+		.page-links > span,
+		.comment-list article,
+		.comment-list .pingback,
+		.comment-list .trackback,
+		.comment-reply-link,
+		.no-comments,
+		.widecolumn .mu_register .mu_alert {
+			border-color: #3a3a3a; /* Fallback for IE7 and IE8 */
+			border-color: rgba( 58, 58, 58, 0.2);
+		}
+
+		hr,
+		code {
+			background-color: #3a3a3a; /* Fallback for IE7 and IE8 */
+			background-color: rgba( 58, 58, 58, 0.2);
+		}
+
+		@media screen and (min-width: 56.875em) {
+			.main-navigation ul ul,
+			.main-navigation ul ul li {
+				border-color: rgba( 58, 58, 58, 0.2);
+			}
+
+			.main-navigation ul ul:before {
+				border-top-color: rgba( 58, 58, 58, 0.2);
+				border-bottom-color: rgba( 58, 58, 58, 0.2);
+			}
+		}
+	
+</style>
+<!--[if lt IE 10]>
+<link rel='stylesheet' id='twentysixteen-ie-css'  href='http://dacatay.com/wp-content/themes/twentysixteen/css/ie.css?ver=1.4' type='text/css' media='all' />
+<![endif]-->
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentysixteen-ie8-css'  href='http://dacatay.com/wp-content/themes/twentysixteen/css/ie8.css?ver=1.4' type='text/css' media='all' />
+<![endif]-->
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='twentysixteen-ie7-css'  href='http://dacatay.com/wp-content/themes/twentysixteen/css/ie7.css?ver=1.4' type='text/css' media='all' />
+<![endif]-->
+<link rel="stylesheet" id="social-logos-css" href="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/social-logos.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/jetpack.css" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var theme_data = {"themeLogo":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/jquery.js.download"></script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/jquery-migrate.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var related_posts_js_options = {"post_heading":"h4"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/related-posts.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var CrayonSyntaxSettings = {"version":"_2.7.2_beta","is_admin":"0","ajaxurl":"http:\/\/dacatay.com\/wp-admin\/admin-ajax.php","prefix":"crayon-","setting":"crayon-setting","selected":"crayon-setting-selected","changed":"crayon-setting-changed","special":"crayon-setting-special","orig_value":"data-orig-value","debug":""};
+var CrayonSyntaxStrings = {"copy":"Press %s to Copy, %s to Paste","minimize":"Click To Expand Code"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/crayon.min.js.download"></script>
+<!--[if lt IE 9]>
+<script type='text/javascript' src='http://dacatay.com/wp-content/themes/twentysixteen/js/html5.js?ver=3.7.3'></script>
+<![endif]-->
+<link rel="https://api.w.org/" href="http://dacatay.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://dacatay.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://dacatay.com/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 4.9.1">
+<link rel="shortlink" href="https://wp.me/p9o2dy-kI">
+<link rel="alternate" type="application/json+oembed" href="http://dacatay.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fdacatay.com%2Fdata-science%2Fpart-5-time-series-prediction-prophet-python%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://dacatay.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fdacatay.com%2Fdata-science%2Fpart-5-time-series-prediction-prophet-python%2F&amp;format=xml">
+<script data-cfasync="false" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/saved_resource" data-sumo-platform="wordpress" data-sumo-site-id="54b53746db250ae940d5077624fc6584407414b7d479bf93efd20a416940726c" async=""></script>
+<link rel="dns-prefetch" href="http://v0.wordpress.com/">
+<link rel="dns-prefetch" href="http://widgets.wp.com/">
+<link rel="dns-prefetch" href="http://s0.wp.com/">
+<link rel="dns-prefetch" href="http://0.gravatar.com/">
+<link rel="dns-prefetch" href="http://1.gravatar.com/">
+<link rel="dns-prefetch" href="http://2.gravatar.com/">
+<link rel="dns-prefetch" href="http://i0.wp.com/">
+<link rel="dns-prefetch" href="http://i1.wp.com/">
+<link rel="dns-prefetch" href="http://i2.wp.com/">
+<style type="text/css">img#wpstats{display:none}</style><style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #3a3a3a; }
+</style>
+<!-- BEGIN GADWP v5.1.2.3 Universal Analytics - https://deconf.com/google-analytics-dashboard-wordpress/ -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-104014448-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- END GADWP Universal Analytics -->
+<link rel="preload" href="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/integrator.js.download" as="script"><script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/integrator.js.download"></script><link rel="preload" href="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/integrator.js(1).download" as="script"><script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/integrator.js(1).download"></script><style type="text/css"></style><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/services.css"></head>
+
+<body class="post-template-default single single-post postid-1284 single-format-standard custom-background" style="">
+<div id="page" class="site">
+	<div class="site-inner">
+		<a class="skip-link screen-reader-text" href="http://dacatay.com/data-science/part-5-time-series-prediction-prophet-python/#content">Skip to content</a>
+
+		<header id="masthead" class="site-header" role="banner">
+			<div class="site-header-main">
+				<div class="site-branding">
+					
+											<p class="site-title"><a href="http://dacatay.com/" rel="home">dacatay</a></p>
+											<p class="site-description">Quant and Data Science Blog</p>
+									</div><!-- .site-branding -->
+
+									<button id="menu-toggle" class="menu-toggle">Menu</button>
+
+					<div id="site-header-menu" class="site-header-menu">
+													<nav id="site-navigation" class="main-navigation" role="navigation" aria-label="Primary Menu">
+								<div class="menu-primary-container"><ul id="menu-primary" class="primary-menu"><li id="menu-item-1001" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1001"><a href="http://dacatay.com/">Home</a></li>
+<li id="menu-item-1013" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-1013"><a href="http://dacatay.com/blog/">Blog</a></li>
+<li id="menu-item-16" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16"><a href="http://dacatay.com/contact/">Contact</a></li>
+</ul></div>							</nav><!-- .main-navigation -->
+						
+													<nav id="social-navigation" class="social-navigation" role="navigation" aria-label="Social Links Menu">
+								<div class="menu-social-container"><ul id="menu-social" class="social-links-menu"><li id="menu-item-21" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-21"><a href="http://facebook.com/"><span class="screen-reader-text">Fb</span></a></li>
+<li id="menu-item-779" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-779"><a href="http://twitter.com/"><span class="screen-reader-text">Twitter</span></a></li>
+<li id="menu-item-782" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-782"><a href="http://linkedin.com/"><span class="screen-reader-text">Linkedin</span></a></li>
+<li id="menu-item-1134" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1134"><a href="http://github.com/dacatay"><span class="screen-reader-text">github</span></a></li>
+</ul></div>							</nav><!-- .social-navigation -->
+											</div><!-- .site-header-menu -->
+							</div><!-- .site-header-main -->
+
+											<div class="header-image">
+					<a href="http://dacatay.com/" rel="home">
+						<img src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/cropped-morning-glow-2140867-e1501170411534.jpg" srcset="https://i1.wp.com/dacatay.com/wp-content/uploads/2017/07/cropped-morning-glow-2140867-e1501170411534.jpg?w=1200 1200w, https://i0.wp.com/dacatay.com/wp-content/uploads/2017/07/cropped-morning-glow-2140867-e1501170411534.jpg?resize=300%2C70 300w, https://i0.wp.com/dacatay.com/wp-content/uploads/2017/07/cropped-morning-glow-2140867-e1501170411534.jpg?resize=768%2C179 768w, https://i0.wp.com/dacatay.com/wp-content/uploads/2017/07/cropped-morning-glow-2140867-e1501170411534.jpg?resize=1024%2C238 1024w" sizes="(max-width: 709px) 85vw, (max-width: 909px) 81vw, (max-width: 1362px) 88vw, 1200px" width="1200" height="279" alt="dacatay">
+					</a>
+				</div><!-- .header-image -->
+					</header><!-- .site-header -->
+
+		<div id="content" class="site-content">
+
+<div id="primary" class="content-area">
+	<main id="main" class="site-main" role="main">
+		
+<article id="post-1284" class="post-1284 post type-post status-publish format-standard has-post-thumbnail hentry category-data-science category-python tag-data-science tag-fbprophet tag-forecast tag-matplotlib tag-prediction tag-prophet tag-python tag-time-series-forecast tag-time-series-prediction">
+	<header class="entry-header">
+		<h1 class="entry-title">Part 5: Time Series Prediction with Prophet in Python</h1>	</header><!-- .entry-header -->
+
+	
+	
+	<div class="post-thumbnail">
+		<img width="1200" height="410" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/pexels-photo-269613-e1512140594125.jpeg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" sizes="(max-width: 709px) 85vw, (max-width: 909px) 67vw, (max-width: 984px) 60vw, (max-width: 1362px) 62vw, 840px" data-attachment-id="1526" data-permalink="http://dacatay.com/data-science/part-6-time-series-prediction-neural-networks-python/attachment/pexels-photo-269613/" data-orig-file="https://i1.wp.com/dacatay.com/wp-content/uploads/2017/11/pexels-photo-269613-e1512140594125.jpeg?fit=1200%2C410" data-orig-size="1200,410" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;3&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;NIKON D7100&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;40&quot;,&quot;iso&quot;:&quot;1600&quot;,&quot;shutter_speed&quot;:&quot;0.0004&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="pexels-photo-269613" data-image-description="" data-medium-file="https://i1.wp.com/dacatay.com/wp-content/uploads/2017/11/pexels-photo-269613-e1512140594125.jpeg?fit=300%2C102" data-large-file="https://i0.wp.com/dacatay.com/wp-content/uploads/2017/11/pexels-photo-269613-e1512140594125.jpeg?fit=840%2C287">	</div><!-- .post-thumbnail -->
+
+	
+	<div class="entry-content">
+		<span class="rt-reading-time" style="display: block;"><span class="rt-label">Reading Time: </span><span class="rt-time">4</span><span class="rt-label"> minutes</span></span><p>Welcome to the fifth part Time Series Prediction with Prophet in Python of the <a href="http://dacatay.com/data-science/comprehensive-guide-time-series-analytics-visualization-prediction-python/">Comprehensive Guide on Time Series Analytics, Decomposition and Prediction with Python</a>.</p>
+<p>In this part we introduce the Prophet forecasting model open sourced by Facebook and conduct out-of-sample predictions on our time series using the Python programming language. This modules requires minimal effort to perform a prediction, however, it requires a specific data input format in order to predict efficiently. In this article we will learn how.</p>
+
+<!-- WP QUADS Content Ad Plugin v. 1.7.2 -->
+<div class="quads-location quads-ad1" id="quads-ad1" style="float:none;margin:0px;">
+
+ <!-- WP QUADS - Quick AdSense Reloaded v.1.7.2 Content AdSense async --> 
+
+<script async="" data-cfasync="false" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/adsbygoogle.js.download"></script><script type="text/javascript" data-cfasync="false">
+var quads_screen_width = document.body.clientWidth;
+if ( quads_screen_width >= 1140 ) {
+/* desktop monitors */
+document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px;" data-ad-client="ca-pub-6962034930395047" data-ad-slot="" ></ins>');
+(adsbygoogle = window.adsbygoogle || []).push({});
+}if ( quads_screen_width >= 1024  && quads_screen_width < 1140 ) {
+/* tablet landscape */
+document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px;" data-ad-client="ca-pub-6962034930395047" data-ad-slot="" ></ins>');
+(adsbygoogle = window.adsbygoogle || []).push({});
+}if ( quads_screen_width >= 768  && quads_screen_width < 1024 ) {
+/* tablet portrait */
+document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px;" data-ad-client="ca-pub-6962034930395047" data-ad-slot="" ></ins>');
+(adsbygoogle = window.adsbygoogle || []).push({});
+}if ( quads_screen_width < 768 ) {
+/* phone */
+document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px;" data-ad-client="ca-pub-6962034930395047" data-ad-slot="" ></ins>');
+(adsbygoogle = window.adsbygoogle || []).push({});
+}</script><ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-6962034930395047" data-ad-slot="" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent;"><iframe width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:300px;height:250px;" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/saved_resource.html"></iframe></ins></ins></ins>
+
+ <!-- end WP QUADS --> 
+
+
+</div>
+
+<p>The code for all calculations and graphs can be found on my <a href="https://github.com/dacatay/time-series-analysis/blob/master/02_Decomposition.ipynb">GitHub</a>.</p>
+<h1>Overview</h1>
+<p>You are currently in part four of the&nbsp;<a href="http://dacatay.com/data-science/comprehensive-guide-time-series-analytics-visualization-prediction-python/">Comprehensive Guide on Time Series Analytics, Decomposition and Prediction with Python</a>.</p>
+<ol>
+<li><a href="http://dacatay.com/uncategorized/part-1-time-series-basics-python/">Time Series Basics and Visualization</a></li>
+<li><a href="http://dacatay.com/uncategorized/part-2-time-series-decomposition-python/">Visual Time Series Decomposition</a></li>
+<li><a href="http://dacatay.com/uncategorized/part-3-time-series-stationarity-python/">Time Series and Stationarity</a></li>
+<li><a href="http://dacatay.com/uncategorized/part-4-time-series-prediction-arima-python/">Time Series Prediction using ARIMA</a></li>
+<li><a href="http://dacatay.com/uncategorized/part-5-time-series-prediction-prophet-python/">Time Series Prediction using Prophet</a></li>
+<li><a href="http://dacatay.com/uncategorized/part-6-time-series-prediction-neural-networks-python/">Time Series Prediction using Neural Networks</a></li>
+</ol>
+<p>For this notebook we require the following modules to be loaded</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a8d7308023f4502225507" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 14px !important; line-height: 16px !important; height: auto;">
+		
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 14px !important; line-height: 16px !important; z-index: 0; opacity: 0; overflow: hidden;"># load required modules
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from fbprophet import Prophet</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 14px !important; line-height: 16px !important;"><div class="crayon-num" data-line="crayon-5a8d7308023f4502225507-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d7308023f4502225507-2">2</div><div class="crayon-num" data-line="crayon-5a8d7308023f4502225507-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d7308023f4502225507-4">4</div><div class="crayon-num" data-line="crayon-5a8d7308023f4502225507-5">5</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 14px !important; line-height: 16px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a8d7308023f4502225507-1"><span class="crayon-c"># load required modules</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d7308023f4502225507-2"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-e">pandas </span><span class="crayon-st">as</span><span class="crayon-h"> </span><span class="crayon-e">pd</span></div><div class="crayon-line" id="crayon-5a8d7308023f4502225507-3"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-e">numpy </span><span class="crayon-st">as</span><span class="crayon-h"> </span><span class="crayon-e">np</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d7308023f4502225507-4"><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">matplotlib</span><span class="crayon-sy">.</span><span class="crayon-e">pyplot </span><span class="crayon-st">as</span><span class="crayon-h"> </span><span class="crayon-e">plt</span></div><div class="crayon-line" id="crayon-5a8d7308023f4502225507-5"><span class="crayon-st">from</span><span class="crayon-h"> </span><span class="crayon-e">fbprophet </span><span class="crayon-r">import</span><span class="crayon-h"> </span><span class="crayon-v">Prophet</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0008 seconds] -->
+<p>The whole series will use the international airline passenger data set of Box and Jenkins (1973). It can be found freely on the web or in <a href="https://github.com/dacatay/time-series-analysis/tree/master/data">this GitHub repository</a>.</p>
+<h1>Time Series Forecasting with Prophet</h1>
+<p>Prophet is a procedure for forecasting time series data. It is based on an additive model where non-linear trends are fitted with yearly and weekly seasonality, plus holidays. It works best with <strong>daily periodicity data</strong> with at least one year of historical data. Prophet is robust to missing data, shifts in the trend, and large outliers. – <a href="https://facebookincubator.github.io/prophet/">Prophet</a></p>
+<h2>The Model</h2>
+<p>Forecasting in the domain of Prophet is a curve-fitting task. The underlying model has an additive form</p>
+<p style="text-align: center;"><img src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/latex.php" alt="y(t) = d(t) + s(t) + h(t) + \varepsilon_t" title="y(t) = d(t) + s(t) + h(t) + \varepsilon_t" class="latex"></p>
+<p>where <img src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/latex(1).php" alt="d(t)" title="d(t)" class="latex"> denotes a trend function modeling non-periodic changes, <img src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/latex(2).php" alt="s(t)" title="s(t)" class="latex"> denotes seasonality modeling periodic changes and <img src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/latex(3).php" alt="h(t)" title="h(t)" class="latex"> representing the effects of holidays. This model assumes time as its only regressor, however, linear and non-linear transformations are included if it increases the models fit.</p>
+<h2>Preparing Data input</h2>
+<p>The input to Prophet is always a <code>pandas.DataFrame</code> object with two columns and headers: <code>ds</code> and <code>y</code>. The <code>ds</code> (datestamp) column must contain a <code>date</code> or <code>datetime</code> object (either is fine). The <code>y</code> column must be numeric, and represents the time series to forecast.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a8d7308023f9694617240" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 14px !important; line-height: 16px !important; height: auto;">
+		
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 14px !important; line-height: 16px !important; z-index: 0; opacity: 0; overflow: hidden;">df = pd.read_csv('./data/passengers.csv', sep=';', header=0, parse_dates=True)
+
+# create new coumns, specific headers needed for Prophet
+df['ds'] = df['month']
+df['y'] = pd.DataFrame(df['n_passengers'])
+df.pop('month')
+df.pop('n_passengers')</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 14px !important; line-height: 16px !important;"><div class="crayon-num" data-line="crayon-5a8d7308023f9694617240-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d7308023f9694617240-2">2</div><div class="crayon-num" data-line="crayon-5a8d7308023f9694617240-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d7308023f9694617240-4">4</div><div class="crayon-num" data-line="crayon-5a8d7308023f9694617240-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d7308023f9694617240-6">6</div><div class="crayon-num" data-line="crayon-5a8d7308023f9694617240-7">7</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 14px !important; line-height: 16px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a8d7308023f9694617240-1"><span class="crayon-v">df</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">pd</span><span class="crayon-sy">.</span><span class="crayon-e">read_csv</span><span class="crayon-sy">(</span><span class="crayon-s">'./data/passengers.csv'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">sep</span><span class="crayon-o">=</span><span class="crayon-s">';'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">header</span><span class="crayon-o">=</span><span class="crayon-cn">0</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">parse_dates</span><span class="crayon-o">=</span><span class="crayon-t">True</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d7308023f9694617240-2">&nbsp;</div><div class="crayon-line" id="crayon-5a8d7308023f9694617240-3"><span class="crayon-c"># create new coumns, specific headers needed for Prophet</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d7308023f9694617240-4"><span class="crayon-v">df</span><span class="crayon-sy">[</span><span class="crayon-s">'ds'</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">df</span><span class="crayon-sy">[</span><span class="crayon-s">'month'</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-5a8d7308023f9694617240-5"><span class="crayon-v">df</span><span class="crayon-sy">[</span><span class="crayon-s">'y'</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">pd</span><span class="crayon-sy">.</span><span class="crayon-e">DataFrame</span><span class="crayon-sy">(</span><span class="crayon-v">df</span><span class="crayon-sy">[</span><span class="crayon-s">'n_passengers'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d7308023f9694617240-6"><span class="crayon-v">df</span><span class="crayon-sy">.</span><span class="crayon-e">pop</span><span class="crayon-sy">(</span><span class="crayon-s">'month'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a8d7308023f9694617240-7"><span class="crayon-v">df</span><span class="crayon-sy">.</span><span class="crayon-e">pop</span><span class="crayon-sy">(</span><span class="crayon-s">'n_passengers'</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p>Prophet assumes an additive model and thus we need to log transform our input data</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a8d7308023fc135147796" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 14px !important; line-height: 16px !important; height: auto;">
+		
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 14px !important; line-height: 16px !important; z-index: 0; opacity: 0; overflow: hidden;"># log transform data
+df['y'] = pd.DataFrame(np.log(df['y']))
+
+# plot data
+ax = df.set_index('ds').plot(color='#006699');
+ax.set_ylabel('Passengers');
+ax.set_xlabel('Date');
+plt.savefig('./img/log_transformed_passenger.png')
+plt.show()</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 14px !important; line-height: 16px !important;"><div class="crayon-num" data-line="crayon-5a8d7308023fc135147796-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d7308023fc135147796-2">2</div><div class="crayon-num" data-line="crayon-5a8d7308023fc135147796-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d7308023fc135147796-4">4</div><div class="crayon-num" data-line="crayon-5a8d7308023fc135147796-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d7308023fc135147796-6">6</div><div class="crayon-num" data-line="crayon-5a8d7308023fc135147796-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d7308023fc135147796-8">8</div><div class="crayon-num" data-line="crayon-5a8d7308023fc135147796-9">9</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 14px !important; line-height: 16px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a8d7308023fc135147796-1"><span class="crayon-c"># log transform data</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d7308023fc135147796-2"><span class="crayon-v">df</span><span class="crayon-sy">[</span><span class="crayon-s">'y'</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">pd</span><span class="crayon-sy">.</span><span class="crayon-e">DataFrame</span><span class="crayon-sy">(</span><span class="crayon-v">np</span><span class="crayon-sy">.</span><span class="crayon-e">log</span><span class="crayon-sy">(</span><span class="crayon-v">df</span><span class="crayon-sy">[</span><span class="crayon-s">'y'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a8d7308023fc135147796-3">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5a8d7308023fc135147796-4"><span class="crayon-c"># plot data</span></div><div class="crayon-line" id="crayon-5a8d7308023fc135147796-5"><span class="crayon-v">ax</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">df</span><span class="crayon-sy">.</span><span class="crayon-e">set_index</span><span class="crayon-sy">(</span><span class="crayon-s">'ds'</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">plot</span><span class="crayon-sy">(</span><span class="crayon-v">color</span><span class="crayon-o">=</span><span class="crayon-s">'#006699'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d7308023fc135147796-6"><span class="crayon-v">ax</span><span class="crayon-sy">.</span><span class="crayon-e">set_ylabel</span><span class="crayon-sy">(</span><span class="crayon-s">'Passengers'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-5a8d7308023fc135147796-7"><span class="crayon-v">ax</span><span class="crayon-sy">.</span><span class="crayon-e">set_xlabel</span><span class="crayon-sy">(</span><span class="crayon-s">'Date'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d7308023fc135147796-8"><span class="crayon-v">plt</span><span class="crayon-sy">.</span><span class="crayon-e">savefig</span><span class="crayon-sy">(</span><span class="crayon-s">'./img/log_transformed_passenger.png'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a8d7308023fc135147796-9"><span class="crayon-v">plt</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0009 seconds] -->
+<p><a href="https://i1.wp.com/dacatay.com/wp-content/uploads/2017/11/log_transformed_passenger.png"><img data-attachment-id="1486" data-permalink="http://dacatay.com/data-science/part-5-time-series-prediction-prophet-python/attachment/log_transformed_passenger/" data-orig-file="https://i1.wp.com/dacatay.com/wp-content/uploads/2017/11/log_transformed_passenger.png?fit=1920%2C960" data-orig-size="1920,960" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="log_transformed_passenger" data-image-description="" data-medium-file="https://i2.wp.com/dacatay.com/wp-content/uploads/2017/11/log_transformed_passenger.png?fit=300%2C150" data-large-file="https://i2.wp.com/dacatay.com/wp-content/uploads/2017/11/log_transformed_passenger.png?fit=840%2C420" class="alignnone size-large wp-image-1486" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/log_transformed_passenger.png" alt="" width="556" height="278" srcset="https://i0.wp.com/dacatay.com/wp-content/uploads/2017/11/log_transformed_passenger.png?resize=1024%2C512 1024w, https://i1.wp.com/dacatay.com/wp-content/uploads/2017/11/log_transformed_passenger.png?resize=300%2C150 300w, https://i1.wp.com/dacatay.com/wp-content/uploads/2017/11/log_transformed_passenger.png?resize=768%2C384 768w, https://i1.wp.com/dacatay.com/wp-content/uploads/2017/11/log_transformed_passenger.png?resize=1200%2C600 1200w, https://i2.wp.com/dacatay.com/wp-content/uploads/2017/11/log_transformed_passenger.png?w=1680 1680w" sizes="(max-width: 709px) 85vw, (max-width: 909px) 67vw, (max-width: 1362px) 62vw, 840px"></a></p>
+<p>Next, we split our data into a training and test set</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a8d7308023fe366075834" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 14px !important; line-height: 16px !important; height: auto;">
+		
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 14px !important; line-height: 16px !important; z-index: 0; opacity: 0; overflow: hidden;"># train test split
+df_train = df[:120]
+df_test = df[120:]</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 14px !important; line-height: 16px !important;"><div class="crayon-num" data-line="crayon-5a8d7308023fe366075834-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d7308023fe366075834-2">2</div><div class="crayon-num" data-line="crayon-5a8d7308023fe366075834-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 14px !important; line-height: 16px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a8d7308023fe366075834-1"><span class="crayon-c"># train test split</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d7308023fe366075834-2"><span class="crayon-v">df_train</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">df</span><span class="crayon-sy">[</span><span class="crayon-o">:</span><span class="crayon-cn">120</span><span class="crayon-sy">]</span></div><div class="crayon-line" id="crayon-5a8d7308023fe366075834-3"><span class="crayon-v">df_test</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">df</span><span class="crayon-sy">[</span><span class="crayon-cn">120</span><span class="crayon-o">:</span><span class="crayon-sy">]</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p></p>
+<h2>Model Fitting</h2>
+<p>The Prophet syntax is very minimalistic. We first instantiate the <code>Prophet</code> class. Then we fit the model to our training data. We then define the time horizon over which the model should perform a forecast starting from the last historic data point.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a8d730802400820149387" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 14px !important; line-height: 16px !important; height: auto;">
+		
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 14px !important; line-height: 16px !important; z-index: 0; opacity: 0; overflow: hidden;"># instantiate the Prophet class
+mdl = Prophet(interval_width=0.95)
+
+# fit the model on the training data
+mdl.fit(df_train)
+
+# define future time frame
+future = mdl.make_future_dataframe(periods=24, freq='MS')</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 14px !important; line-height: 16px !important;"><div class="crayon-num" data-line="crayon-5a8d730802400820149387-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d730802400820149387-2">2</div><div class="crayon-num" data-line="crayon-5a8d730802400820149387-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d730802400820149387-4">4</div><div class="crayon-num" data-line="crayon-5a8d730802400820149387-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d730802400820149387-6">6</div><div class="crayon-num" data-line="crayon-5a8d730802400820149387-7">7</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d730802400820149387-8">8</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 14px !important; line-height: 16px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a8d730802400820149387-1"><span class="crayon-c"># instantiate the Prophet class</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d730802400820149387-2"><span class="crayon-v">mdl</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-e">Prophet</span><span class="crayon-sy">(</span><span class="crayon-v">interval_width</span><span class="crayon-o">=</span><span class="crayon-cn">0.95</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a8d730802400820149387-3">&nbsp;</div><div class="crayon-line crayon-striped-line" id="crayon-5a8d730802400820149387-4"><span class="crayon-c"># fit the model on the training data</span></div><div class="crayon-line" id="crayon-5a8d730802400820149387-5"><span class="crayon-v">mdl</span><span class="crayon-sy">.</span><span class="crayon-e">fit</span><span class="crayon-sy">(</span><span class="crayon-v">df_train</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d730802400820149387-6">&nbsp;</div><div class="crayon-line" id="crayon-5a8d730802400820149387-7"><span class="crayon-c"># define future time frame</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d730802400820149387-8"><span class="crayon-v">future</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">mdl</span><span class="crayon-sy">.</span><span class="crayon-e">make_future_dataframe</span><span class="crayon-sy">(</span><span class="crayon-v">periods</span><span class="crayon-o">=</span><span class="crayon-cn">24</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">freq</span><span class="crayon-o">=</span><span class="crayon-s">'MS'</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0006 seconds] -->
+<p>The <code>predict</code> method assigns each row in <code>future</code> a predicted value <code>yhat</code>.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a8d730802401852709874" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 14px !important; line-height: 16px !important; height: auto;">
+		
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 14px !important; line-height: 16px !important; z-index: 0; opacity: 0; overflow: hidden;"># generate the forecast
+forecast = mdl.predict(future)
+forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 14px !important; line-height: 16px !important;"><div class="crayon-num" data-line="crayon-5a8d730802401852709874-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d730802401852709874-2">2</div><div class="crayon-num" data-line="crayon-5a8d730802401852709874-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 14px !important; line-height: 16px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a8d730802401852709874-1"><span class="crayon-c"># generate the forecast</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d730802401852709874-2"><span class="crayon-v">forecast</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">mdl</span><span class="crayon-sy">.</span><span class="crayon-e">predict</span><span class="crayon-sy">(</span><span class="crayon-v">future</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a8d730802401852709874-3"><span class="crayon-v">forecast</span><span class="crayon-sy">[</span><span class="crayon-sy">[</span><span class="crayon-s">'ds'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'yhat'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'yhat_lower'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">'yhat_upper'</span><span class="crayon-sy">]</span><span class="crayon-sy">]</span><span class="crayon-sy">.</span><span class="crayon-e">tail</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0004 seconds] -->
+<p></p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a8d730802403467966979" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 14px !important; line-height: 16px !important; height: auto;">
+		
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 14px !important; line-height: 16px !important; z-index: 0; opacity: 0; overflow: hidden;">	ds	yhat	yhat_lower	yhat_upper
+139	1960-08-01	6.27984	6.15677	6.40865
+140	1960-09-01	6.13677	6.00941	6.28504
+141	1960-10-01	6.01055	5.88168	6.16515
+142	1960-11-01	5.88457	5.74329	6.04917
+143	1960-12-01	5.99797	5.83933	6.15461</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 14px !important; line-height: 16px !important;"><div class="crayon-num" data-line="crayon-5a8d730802403467966979-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d730802403467966979-2">2</div><div class="crayon-num" data-line="crayon-5a8d730802403467966979-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d730802403467966979-4">4</div><div class="crayon-num" data-line="crayon-5a8d730802403467966979-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d730802403467966979-6">6</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 14px !important; line-height: 16px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a8d730802403467966979-1">	ds	yhat	yhat_lower	yhat_upper</div><div class="crayon-line crayon-striped-line" id="crayon-5a8d730802403467966979-2">139	1960-08-01	6.27984	6.15677	6.40865</div><div class="crayon-line" id="crayon-5a8d730802403467966979-3">140	1960-09-01	6.13677	6.00941	6.28504</div><div class="crayon-line crayon-striped-line" id="crayon-5a8d730802403467966979-4">141	1960-10-01	6.01055	5.88168	6.16515</div><div class="crayon-line" id="crayon-5a8d730802403467966979-5">142	1960-11-01	5.88457	5.74329	6.04917</div><div class="crayon-line crayon-striped-line" id="crayon-5a8d730802403467966979-6">143	1960-12-01	5.99797	5.83933	6.15461</div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0001 seconds] -->
+<p><code>mdl</code> is a <code>Prophet</code> object and and can be plotted with predefined settings</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a8d730802405123169219" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 14px !important; line-height: 16px !important; height: auto;">
+		
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 14px !important; line-height: 16px !important; z-index: 0; opacity: 0; overflow: hidden;">mdl.plot(forecast);
+plt.show()</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 14px !important; line-height: 16px !important;"><div class="crayon-num" data-line="crayon-5a8d730802405123169219-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d730802405123169219-2">2</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 14px !important; line-height: 16px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a8d730802405123169219-1"><span class="crayon-v">mdl</span><span class="crayon-sy">.</span><span class="crayon-e">plot</span><span class="crayon-sy">(</span><span class="crayon-v">forecast</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d730802405123169219-2"><span class="crayon-v">plt</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p>Similar to the <code>statsmodels</code> module a time series decomposition method is available.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a8d730802406760872517" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 14px !important; line-height: 16px !important; height: auto;">
+		
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 14px !important; line-height: 16px !important; z-index: 0; opacity: 0; overflow: hidden;"># plot time series components
+mdl.plot_components(forecast)
+plt.show()</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 14px !important; line-height: 16px !important;"><div class="crayon-num" data-line="crayon-5a8d730802406760872517-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d730802406760872517-2">2</div><div class="crayon-num" data-line="crayon-5a8d730802406760872517-3">3</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 14px !important; line-height: 16px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a8d730802406760872517-1"><span class="crayon-c"># plot time series components</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d730802406760872517-2"><span class="crayon-v">mdl</span><span class="crayon-sy">.</span><span class="crayon-e">plot_components</span><span class="crayon-sy">(</span><span class="crayon-v">forecast</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a8d730802406760872517-3"><span class="crayon-v">plt</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0003 seconds] -->
+<p></p>
+<h2>Evaluating the Model Fit</h2>
+<p>Since we have log transformed our time series in the beginning we now need to revert this transformation by applying the exponential function. We then compute the <strong>Mean Squared Error (MSE)</strong> and <strong>Root Mean Squared Error (RMSE)</strong> to compare the model performance with the <a href="http://dacatay.com/data-science/part-4-time-series-prediction-arima-python/">previously applied</a> ARIMA model.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a8d730802408005330755" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 14px !important; line-height: 16px !important; height: auto;">
+		
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 14px !important; line-height: 16px !important; z-index: 0; opacity: 0; overflow: hidden;"># retransform using e
+y_hat = np.exp(forecast['yhat'][120:])
+y_true = np.exp(df_test['y'])
+
+# compute the mean square error
+mse = ((y_hat - y_true) ** 2).mean()
+print('Prediction quality: {:.2f} MSE ({:.2f} RMSE)'.format(mse, math.sqrt(mse)))</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 14px !important; line-height: 16px !important;"><div class="crayon-num" data-line="crayon-5a8d730802408005330755-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d730802408005330755-2">2</div><div class="crayon-num" data-line="crayon-5a8d730802408005330755-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d730802408005330755-4">4</div><div class="crayon-num" data-line="crayon-5a8d730802408005330755-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d730802408005330755-6">6</div><div class="crayon-num" data-line="crayon-5a8d730802408005330755-7">7</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 14px !important; line-height: 16px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a8d730802408005330755-1"><span class="crayon-c"># retransform using e</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d730802408005330755-2"><span class="crayon-v">y_hat</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">np</span><span class="crayon-sy">.</span><span class="crayon-e">exp</span><span class="crayon-sy">(</span><span class="crayon-v">forecast</span><span class="crayon-sy">[</span><span class="crayon-s">'yhat'</span><span class="crayon-sy">]</span><span class="crayon-sy">[</span><span class="crayon-cn">120</span><span class="crayon-o">:</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a8d730802408005330755-3"><span class="crayon-v">y_true</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-v">np</span><span class="crayon-sy">.</span><span class="crayon-e">exp</span><span class="crayon-sy">(</span><span class="crayon-v">df_test</span><span class="crayon-sy">[</span><span class="crayon-s">'y'</span><span class="crayon-sy">]</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d730802408005330755-4">&nbsp;</div><div class="crayon-line" id="crayon-5a8d730802408005330755-5"><span class="crayon-c"># compute the mean square error</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d730802408005330755-6"><span class="crayon-v">mse</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-sy">(</span><span class="crayon-v">y_hat</span><span class="crayon-h"> </span><span class="crayon-o">-</span><span class="crayon-h"> </span><span class="crayon-v">y_true</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-o">*</span><span class="crayon-o">*</span><span class="crayon-h"> </span><span class="crayon-cn">2</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">mean</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a8d730802408005330755-7"><span class="crayon-k ">print</span><span class="crayon-sy">(</span><span class="crayon-s">'Prediction quality: {:.2f} MSE ({:.2f} RMSE)'</span><span class="crayon-sy">.</span><span class="crayon-k ">format</span><span class="crayon-sy">(</span><span class="crayon-v">mse</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-k ">math</span><span class="crayon-sy">.</span><span class="crayon-e">sqrt</span><span class="crayon-sy">(</span><span class="crayon-v">mse</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0010 seconds] -->
+<p></p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a8d73080240a684039983" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 14px !important; line-height: 16px !important; height: auto;">
+		
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 14px !important; line-height: 16px !important; z-index: 0; opacity: 0; overflow: hidden;">Prediction quality: 1610.75 MSE (40.13 RMSE)</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 14px !important; line-height: 16px !important;"><div class="crayon-num" data-line="crayon-5a8d73080240a684039983-1">1</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 14px !important; line-height: 16px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a8d73080240a684039983-1">Prediction quality: 1610.75 MSE (40.13 RMSE)</div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0000 seconds] -->
+<p>Comparing this result with the SARIMAX model fit of the <code>statsmodels</code> module we find that the RMSE for the Prohet forecasting model is lower, i.e. the Prophet forecasting model appears to be more accurate.</p><!-- Crayon Syntax Highlighter v_2.7.2_beta -->
+
+		<div id="crayon-5a8d73080240c001851872" class="crayon-syntax crayon-theme-classic crayon-font-monaco crayon-os-pc print-yes notranslate" data-settings=" minimize scroll-mouseover" style="margin-top: 12px; margin-bottom: 12px; font-size: 14px !important; line-height: 16px !important; height: auto;">
+		
+			<div class="crayon-plain-wrap"><textarea wrap="soft" class="crayon-plain print-no" data-settings="" readonly="" style="tab-size: 4; font-size: 14px !important; line-height: 16px !important; z-index: 0; opacity: 0; overflow: hidden;">plt.plot(y_true_plot, label='Original', color='#006699');
+plt.plot(y_hat_plot, color='#ff0066', label='Forecast');
+plt.fill_between(y_true_plot[120:].index, y_hat_upper, y_hat_lower, color='#ff0066', alpha=0.25)
+plt.ylabel('Passengers');
+plt.xlabel('Date');
+plt.savefig('./img/prophet_forecast.png')
+plt.show()</textarea></div>
+			<div class="crayon-main" style="position: relative; z-index: 1; overflow: hidden;">
+				<table class="crayon-table" style="">
+					<tbody><tr class="crayon-row">
+				<td class="crayon-nums " data-settings="show">
+					<div class="crayon-nums-content" style="font-size: 14px !important; line-height: 16px !important;"><div class="crayon-num" data-line="crayon-5a8d73080240c001851872-1">1</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d73080240c001851872-2">2</div><div class="crayon-num" data-line="crayon-5a8d73080240c001851872-3">3</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d73080240c001851872-4">4</div><div class="crayon-num" data-line="crayon-5a8d73080240c001851872-5">5</div><div class="crayon-num crayon-striped-num" data-line="crayon-5a8d73080240c001851872-6">6</div><div class="crayon-num" data-line="crayon-5a8d73080240c001851872-7">7</div></div>
+				</td>
+						<td class="crayon-code"><div class="crayon-pre" style="font-size: 14px !important; line-height: 16px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;"><div class="crayon-line" id="crayon-5a8d73080240c001851872-1"><span class="crayon-v">plt</span><span class="crayon-sy">.</span><span class="crayon-e">plot</span><span class="crayon-sy">(</span><span class="crayon-v">y_true_plot</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">label</span><span class="crayon-o">=</span><span class="crayon-s">'Original'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">color</span><span class="crayon-o">=</span><span class="crayon-s">'#006699'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d73080240c001851872-2"><span class="crayon-v">plt</span><span class="crayon-sy">.</span><span class="crayon-e">plot</span><span class="crayon-sy">(</span><span class="crayon-v">y_hat_plot</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">color</span><span class="crayon-o">=</span><span class="crayon-s">'#ff0066'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">label</span><span class="crayon-o">=</span><span class="crayon-s">'Forecast'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-5a8d73080240c001851872-3"><span class="crayon-v">plt</span><span class="crayon-sy">.</span><span class="crayon-e">fill_between</span><span class="crayon-sy">(</span><span class="crayon-v">y_true_plot</span><span class="crayon-sy">[</span><span class="crayon-cn">120</span><span class="crayon-o">:</span><span class="crayon-sy">]</span><span class="crayon-sy">.</span><span class="crayon-v">index</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">y_hat_upper</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">y_hat_lower</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">color</span><span class="crayon-o">=</span><span class="crayon-s">'#ff0066'</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-v">alpha</span><span class="crayon-o">=</span><span class="crayon-cn">0.25</span><span class="crayon-sy">)</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d73080240c001851872-4"><span class="crayon-v">plt</span><span class="crayon-sy">.</span><span class="crayon-e">ylabel</span><span class="crayon-sy">(</span><span class="crayon-s">'Passengers'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line" id="crayon-5a8d73080240c001851872-5"><span class="crayon-v">plt</span><span class="crayon-sy">.</span><span class="crayon-e">xlabel</span><span class="crayon-sy">(</span><span class="crayon-s">'Date'</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span></div><div class="crayon-line crayon-striped-line" id="crayon-5a8d73080240c001851872-6"><span class="crayon-v">plt</span><span class="crayon-sy">.</span><span class="crayon-e">savefig</span><span class="crayon-sy">(</span><span class="crayon-s">'./img/prophet_forecast.png'</span><span class="crayon-sy">)</span></div><div class="crayon-line" id="crayon-5a8d73080240c001851872-7"><span class="crayon-v">plt</span><span class="crayon-sy">.</span><span class="crayon-e">show</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span></div></div></td>
+					</tr>
+				</tbody></table>
+			</div>
+		</div>
+<!-- [Format Time: 0.0013 seconds] -->
+<p><a href="https://i0.wp.com/dacatay.com/wp-content/uploads/2017/11/prophet_forecast.png"><img data-attachment-id="1487" data-permalink="http://dacatay.com/data-science/part-5-time-series-prediction-prophet-python/attachment/prophet_forecast/" data-orig-file="https://i1.wp.com/dacatay.com/wp-content/uploads/2017/11/prophet_forecast.png?fit=1920%2C960" data-orig-size="1920,960" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="prophet_forecast" data-image-description="" data-medium-file="https://i2.wp.com/dacatay.com/wp-content/uploads/2017/11/prophet_forecast.png?fit=300%2C150" data-large-file="https://i1.wp.com/dacatay.com/wp-content/uploads/2017/11/prophet_forecast.png?fit=840%2C420" class="alignnone size-large wp-image-1487" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/prophet_forecast.png" alt="" width="556" height="278" srcset="https://i0.wp.com/dacatay.com/wp-content/uploads/2017/11/prophet_forecast.png?resize=1024%2C512 1024w, https://i2.wp.com/dacatay.com/wp-content/uploads/2017/11/prophet_forecast.png?resize=300%2C150 300w, https://i2.wp.com/dacatay.com/wp-content/uploads/2017/11/prophet_forecast.png?resize=768%2C384 768w, https://i0.wp.com/dacatay.com/wp-content/uploads/2017/11/prophet_forecast.png?resize=1200%2C600 1200w, https://i2.wp.com/dacatay.com/wp-content/uploads/2017/11/prophet_forecast.png?w=1680 1680w" sizes="(max-width: 709px) 85vw, (max-width: 909px) 67vw, (max-width: 1362px) 62vw, 840px"></a></p>
+<h1>Summary</h1>
+<p>In this article we learned how to effectively apply the <code>Prophet</code> framework for time series prediction. The modules syntax is is minimal and the computation time and model accuracy appear better then the results obtained from the ARIMA prediction models <a href="http://dacatay.com/data-science/part-4-time-series-prediction-arima-python/">applied previously</a>.</p>
+<p>In the next part we will discuss <a href="http://dacatay.com/data-science/part-6-time-series-prediction-neural-networks-python/">Time Series Perdiction with Artificial Neural Network in Python</a>.</p>
+<div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-1284" class="share-twitter sd-button share-icon no-text" href="http://dacatay.com/data-science/part-5-time-series-prediction-prophet-python/?share=twitter&amp;nb=1" target="_blank" title="Click to share on Twitter"><span></span><span class="sharing-screen-reader-text">Click to share on Twitter (Opens in new window)</span></a></li><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-1284" class="share-facebook sd-button share-icon no-text" href="http://dacatay.com/data-science/part-5-time-series-prediction-prophet-python/?share=facebook&amp;nb=1" target="_blank" title="Click to share on Facebook"><span></span><span class="sharing-screen-reader-text">Click to share on Facebook (Opens in new window)</span></a></li><li class="share-google-plus-1"><a rel="nofollow" data-shared="sharing-google-1284" class="share-google-plus-1 sd-button share-icon no-text" href="http://dacatay.com/data-science/part-5-time-series-prediction-prophet-python/?share=google-plus-1&amp;nb=1" target="_blank" title="Click to share on Google+"><span></span><span class="sharing-screen-reader-text">Click to share on Google+ (Opens in new window)</span></a></li><li class="share-end"></li></ul></div></div></div>
+<div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-138715424-1284-5a8d730811ec2" data-src="https://widgets.wp.com/likes/#blog_id=138715424&amp;post_id=1284&amp;origin=dacatay.com&amp;obj_id=138715424-1284-5a8d730811ec2" data-name="like-post-frame-138715424-1284-5a8d730811ec2"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe name="like-post-frame-138715424-1284-5a8d730811ec2" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/saved_resource(2).html" height="55px" width="100%" frameborder="0" scrolling="no"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-minimal jp-relatedposts-grid "><p class="jp-relatedposts-post jp-relatedposts-post0" data-post-id="1272" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="http://dacatay.com/data-science/comprehensive-guide-time-series-analytics-visualization-prediction-python/" title="Comprehensive Guide to Time Series Analytics, Visualization and Prediction with Python
+
+This notebook collection provides you with a comprehensive overview of time series analytics, visualization and prediction using the Python programming language. Knowledge of these concepts and methodologies are the base requirement for every good data scientist. This includes (at least) a basic knowledge of the underlying statistics and math as…" rel="nofollow" data-origin="1284" data-position="0">Comprehensive Guide to Time Series Analytics, Visualization and Prediction with Python</a></span><span class="jp-relatedposts-post-date">November 21, 2017</span><span class="jp-relatedposts-post-context">In "Data Science"</span></p><p class="jp-relatedposts-post jp-relatedposts-post1" data-post-id="1276" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="http://dacatay.com/data-science/part-2-time-series-decomposition-python/" title="Part 2: Visual Time Series Decomposition with Python
+
+Welcome to the second part Visual Time Series Decomposition of the Comprehensive Guide on Time Series Analytics, Decomposition and Prediction with Python. In this section we discuss how to decompose time series. Moreover, we program further time series analysis tool using Python which will allow us to visually present the components of…" rel="nofollow" data-origin="1284" data-position="1">Part 2: Visual Time Series Decomposition with Python</a></span><span class="jp-relatedposts-post-date">November 21, 2017</span><span class="jp-relatedposts-post-context">In "Data Science"</span></p><p class="jp-relatedposts-post jp-relatedposts-post2" data-post-id="1282" data-post-format="false"><span class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="http://dacatay.com/data-science/part-4-time-series-prediction-arima-python/" title="Part 4: Time Series Prediction with ARIMA Models in Python
+
+Welcome to the fourth part Time Series Prediction with ARIMA in Python of the Comprehensive Guide on Time Series Analytics, Decomposition and Prediction with Python. In this part we introduce the ARIMA model and conduct in and out-of-sample predictions on our time series using the Python programming language. For maximum…" rel="nofollow" data-origin="1284" data-position="2">Part 4: Time Series Prediction with ARIMA Models in Python</a></span><span class="jp-relatedposts-post-date">November 21, 2017</span><span class="jp-relatedposts-post-context">In "Data Science"</span></p></div></div>	</div><!-- .entry-content -->
+
+	<footer class="entry-footer">
+		<span class="byline"><span class="author vcard"><img src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/dka.png" width="49" height="49" alt="admin" class="avatar avatar-49 wp-user-avatar wp-user-avatar-49 alignnone photo"><span class="screen-reader-text">Author </span> <a class="url fn n" href="http://dacatay.com/author/admin/">admin</a></span></span><span class="posted-on"><span class="screen-reader-text">Posted on </span><a href="http://dacatay.com/data-science/part-5-time-series-prediction-prophet-python/" rel="bookmark"><time class="entry-date published" datetime="2017-11-21T16:50:00+00:00">November 21, 2017</time><time class="updated" datetime="2017-12-01T18:13:13+00:00">December 1, 2017</time></a></span><span class="cat-links"><span class="screen-reader-text">Categories </span><a href="http://dacatay.com/category/data-science/" rel="category tag">Data Science</a>, <a href="http://dacatay.com/category/python/" rel="category tag">Python</a></span><span class="tags-links"><span class="screen-reader-text">Tags </span><a href="http://dacatay.com/tag/data-science/" rel="tag">data science</a>, <a href="http://dacatay.com/tag/fbprophet/" rel="tag">fbprophet</a>, <a href="http://dacatay.com/tag/forecast/" rel="tag">forecast</a>, <a href="http://dacatay.com/tag/matplotlib/" rel="tag">matplotlib</a>, <a href="http://dacatay.com/tag/prediction/" rel="tag">prediction</a>, <a href="http://dacatay.com/tag/prophet/" rel="tag">prophet</a>, <a href="http://dacatay.com/tag/python/" rel="tag">Python</a>, <a href="http://dacatay.com/tag/time-series-forecast/" rel="tag">time series forecast</a>, <a href="http://dacatay.com/tag/time-series-prediction/" rel="tag">time series prediction</a></span>			</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+<div id="comments" class="comments-area">
+
+	
+	
+		<div id="respond" class="comment-respond">
+		<h2 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://dacatay.com/data-science/part-5-time-series-prediction-prophet-python/#respond" style="display:none;">Cancel reply</a></small></h2>			<form action="http://dacatay.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate="">
+				<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" aria-required="true" required="required"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" aria-required="true" required="required"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200"></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="1284" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_comments" id="subscribe_comments" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;"> <label class="subscribe-label" id="subscribe-label" for="subscribe_comments">Notify me of follow-up comments by email.</label></p><p class="comment-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto; -moz-appearance: checkbox; -webkit-appearance: checkbox;"> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog">Notify me of new posts by email.</label></p>			</form>
+			</div><!-- #respond -->
+	
+</div><!-- .comments-area -->
+
+	<nav class="navigation post-navigation" role="navigation">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="http://dacatay.com/data-science/part-4-time-series-prediction-arima-python/" rel="prev"><span class="meta-nav" aria-hidden="true">Previous</span> <span class="screen-reader-text">Previous post:</span> <span class="post-title">Part 4: Time Series Prediction with ARIMA Models in Python</span></a></div><div class="nav-next"><a href="http://dacatay.com/data-science/part-6-time-series-prediction-neural-networks-python/" rel="next"><span class="meta-nav" aria-hidden="true">Next</span> <span class="screen-reader-text">Next post:</span> <span class="post-title">Part 6: Time Series Prediction with Neural Networks in Python</span></a></div></div>
+	</nav>
+	</main><!-- .site-main -->
+
+	
+</div><!-- .content-area -->
+
+
+	<aside id="secondary" class="sidebar widget-area" role="complementary">
+		<section id="text-3" class="widget widget_text"><h2 class="widget-title">About</h2>			<div class="textwidget"><p>Welcome to my quant and data science blog. All code provided is free to use and can also be found on my <a href="https://github.com/dacatay">github</a>.</p>
+</div>
+		</section><section id="search-2" class="widget widget_search">
+<form role="search" method="get" class="search-form" action="http://dacatay.com/">
+	<label>
+		<span class="screen-reader-text">Search for:</span>
+		<input type="search" class="search-field" placeholder="Search …" value="" name="s">
+	</label>
+	<button type="submit" class="search-submit"><span class="screen-reader-text">Search</span></button>
+</form>
+</section><style>
+.rpwe-block ul{list-style:none!important;margin-left:0!important;padding-left:0!important;}.rpwe-block li{border-bottom:1px solid #eee;margin-bottom:10px;padding-bottom:10px;list-style-type: none;}.rpwe-block a{display:inline!important;text-decoration:none;}.rpwe-block h3{background:none!important;clear:none;margin-bottom:0!important;margin-top:0!important;font-weight:400;font-size:12px!important;line-height:1.5em;}.rpwe-thumb{border:1px solid #EEE!important;box-shadow:none!important;margin:2px 10px 2px 0;padding:3px!important;}.rpwe-summary{font-size:12px;}.rpwe-time{color:#bbb;font-size:11px;}.rpwe-comment{color:#bbb;font-size:11px;padding-left:5px;}.rpwe-alignleft{display:inline;float:left;}.rpwe-alignright{display:inline;float:right;}.rpwe-aligncenter{display:block;margin-left: auto;margin-right: auto;}.rpwe-clearfix:before,.rpwe-clearfix:after{content:"";display:table !important;}.rpwe-clearfix:after{clear:both;}.rpwe-clearfix{zoom:1;}
+</style>
+	<section id="rpwe_widget-3" class="widget rpwe_widget recent-posts-extended"><h2 class="widget-title">Recent Posts</h2><div class="rpwe-block "><ul class="rpwe-ul"><li class="rpwe-li rpwe-clearfix"><a class="rpwe-img" href="http://dacatay.com/data-science/download-free-intraday-stock-data-from-google-finance-with-python/" rel="bookmark"><img class="rpwe-alignleft rpwe-thumb" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/candlestick-e1512473067603-75x50.png" alt="Download Free Intraday Stock Data from Google Finance with Python"></a><h3 class="rpwe-title"><a href="http://dacatay.com/data-science/download-free-intraday-stock-data-from-google-finance-with-python/" title="Permalink to Download Free Intraday Stock Data from Google Finance with Python" rel="bookmark">Download Free Intraday Stock Data from Google Finance with Python</a></h3><time class="rpwe-time published" datetime="2017-12-05T15:55:40+00:00">December 5, 2017</time><div class="rpwe-summary">Reading Time: 3 minutesIn this article I will show you how to easily download free …</div></li><li class="rpwe-li rpwe-clearfix"><a class="rpwe-img" href="http://dacatay.com/data-science/comprehensive-guide-time-series-analytics-visualization-prediction-python/" rel="bookmark"><img class="rpwe-alignleft rpwe-thumb" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/pexels-photo-277371-75x50.jpeg" alt="Comprehensive Guide to Time Series Analytics, Visualization and Prediction with Python"></a><h3 class="rpwe-title"><a href="http://dacatay.com/data-science/comprehensive-guide-time-series-analytics-visualization-prediction-python/" title="Permalink to Comprehensive Guide to Time Series Analytics, Visualization and Prediction with Python" rel="bookmark">Comprehensive Guide to Time Series Analytics, Visualization and Prediction with Python</a></h3><time class="rpwe-time published" datetime="2017-11-21T16:54:36+00:00">November 21, 2017</time><div class="rpwe-summary">Reading Time: 1 minuteThis notebook collection provides you with a comprehensive overview of time series …</div></li><li class="rpwe-li rpwe-clearfix"><a class="rpwe-img" href="http://dacatay.com/data-science/part-6-time-series-prediction-neural-networks-python/" rel="bookmark"><img class="rpwe-alignleft rpwe-thumb" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/mechanical-2901094_1920-e1512140315767-75x50.jpg" alt="Part 6: Time Series Prediction with Neural Networks in Python"></a><h3 class="rpwe-title"><a href="http://dacatay.com/data-science/part-6-time-series-prediction-neural-networks-python/" title="Permalink to Part 6: Time Series Prediction with Neural Networks in Python" rel="bookmark">Part 6: Time Series Prediction with Neural Networks in Python</a></h3><time class="rpwe-time published" datetime="2017-11-21T16:51:35+00:00">November 21, 2017</time><div class="rpwe-summary">Reading Time: 10 minutesWelcome to the sixth part Time Series Prediction with Neural Networks in …</div></li><li class="rpwe-li rpwe-clearfix"><a class="rpwe-img" href="http://dacatay.com/data-science/part-4-time-series-prediction-arima-python/" rel="bookmark"><img class="rpwe-alignleft rpwe-thumb" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/pexels-photo-280361-e1512140713482-75x50.jpeg" alt="Part 4: Time Series Prediction with ARIMA Models in Python"></a><h3 class="rpwe-title"><a href="http://dacatay.com/data-science/part-4-time-series-prediction-arima-python/" title="Permalink to Part 4: Time Series Prediction with ARIMA Models in Python" rel="bookmark">Part 4: Time Series Prediction with ARIMA Models in Python</a></h3><time class="rpwe-time published" datetime="2017-11-21T16:49:14+00:00">November 21, 2017</time><div class="rpwe-summary">Reading Time: 9 minutesWelcome to the fourth part Time Series Prediction with ARIMA in Python …</div></li><li class="rpwe-li rpwe-clearfix"><a class="rpwe-img" href="http://dacatay.com/data-science/part-3-time-series-stationarity-python/" rel="bookmark"><img class="rpwe-alignleft rpwe-thumb" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/pexels-photo-678248-75x50.png" alt="Part 3: Time Series and Stationarity with Python"></a><h3 class="rpwe-title"><a href="http://dacatay.com/data-science/part-3-time-series-stationarity-python/" title="Permalink to Part 3: Time Series and Stationarity with Python" rel="bookmark">Part 3: Time Series and Stationarity with Python</a></h3><time class="rpwe-time published" datetime="2017-11-21T16:48:34+00:00">November 21, 2017</time><div class="rpwe-summary">Reading Time: 7 minutesWelcome to the third part Time Series and Stationarity of the Comprehensive …</div></li></ul></div><!-- Generated by http://wordpress.org/plugins/recent-posts-widget-extended/ --></section><section id="categories-2" class="widget widget_categories"><h2 class="widget-title">Categories</h2>		<ul>
+	<li class="cat-item cat-item-5"><a href="http://dacatay.com/category/data-science/">Data Science</a>
+</li>
+	<li class="cat-item cat-item-10"><a href="http://dacatay.com/category/python/">Python</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://dacatay.com/category/uncategorized/">Uncategorized</a>
+</li>
+		</ul>
+</section><section id="f2-tagcloud-2" class="widget widget_f2-tagcloud"><h2 class="widget-title">Tags</h2><div class="tagcloud" style="text-align: right;"><ul class="wp-tag-cloud" role="list">
+	<li><a href="http://dacatay.com/tag/finance/" class="tag-cloud-link tag-link-85 tag-link-position-1" style="font-size: 1em;">finance</a></li>
+	<li><a href="http://dacatay.com/tag/programming/" class="tag-cloud-link tag-link-32 tag-link-position-2" style="font-size: 1em;">Programming</a></li>
+	<li><a href="http://dacatay.com/tag/ide/" class="tag-cloud-link tag-link-26 tag-link-position-3" style="font-size: 1em;">IDE</a></li>
+	<li><a href="http://dacatay.com/tag/optimization/" class="tag-cloud-link tag-link-83 tag-link-position-4" style="font-size: 1em;">optimization</a></li>
+	<li><a href="http://dacatay.com/tag/time-series-analysis/" class="tag-cloud-link tag-link-88 tag-link-position-5" style="font-size: 1em;">time series analysis</a></li>
+	<li><a href="http://dacatay.com/tag/data-science/" class="tag-cloud-link tag-link-75 tag-link-position-6" style="font-size: 1em;">data science</a></li>
+	<li><a href="http://dacatay.com/tag/forecast/" class="tag-cloud-link tag-link-105 tag-link-position-7" style="font-size: 1em;">forecast</a></li>
+	<li><a href="http://dacatay.com/tag/stationarity/" class="tag-cloud-link tag-link-118 tag-link-position-8" style="font-size: 1em;">stationarity</a></li>
+	<li><a href="http://dacatay.com/tag/jupyter/" class="tag-cloud-link tag-link-72 tag-link-position-9" style="font-size: 1em;">Jupyter</a></li>
+	<li><a href="http://dacatay.com/tag/bash/" class="tag-cloud-link tag-link-18 tag-link-position-10" style="font-size: 1em;">Bash</a></li>
+	<li><a href="http://dacatay.com/tag/portfolio-optimization/" class="tag-cloud-link tag-link-81 tag-link-position-11" style="font-size: 1em;">portfolio optimization</a></li>
+	<li><a href="http://dacatay.com/tag/python/" class="tag-cloud-link tag-link-34 tag-link-position-12" style="font-size: 1em;">Python</a></li>
+	<li><a href="http://dacatay.com/tag/windows-10/" class="tag-cloud-link tag-link-43 tag-link-position-13" style="font-size: 1em;">Windows 10</a></li>
+	<li><a href="http://dacatay.com/tag/quantitative-finance/" class="tag-cloud-link tag-link-78 tag-link-position-14" style="font-size: 1em;">quantitative finance</a></li>
+	<li><a href="http://dacatay.com/tag/matplotlib/" class="tag-cloud-link tag-link-96 tag-link-position-15" style="font-size: 1em;">matplotlib</a></li>
+	<li><a href="http://dacatay.com/tag/numpy/" class="tag-cloud-link tag-link-30 tag-link-position-16" style="font-size: 1em;">numpy</a></li>
+	<li><a href="http://dacatay.com/tag/visualization/" class="tag-cloud-link tag-link-90 tag-link-position-17" style="font-size: 1em;">visualization</a></li>
+	<li><a href="http://dacatay.com/tag/prediction/" class="tag-cloud-link tag-link-106 tag-link-position-18" style="font-size: 1em;">prediction</a></li>
+	<li><a href="http://dacatay.com/tag/beginner/" class="tag-cloud-link tag-link-19 tag-link-position-19" style="font-size: 1em;">Beginner</a></li>
+	<li><a href="http://dacatay.com/tag/keras/" class="tag-cloud-link tag-link-77 tag-link-position-20" style="font-size: 1em;">keras</a></li>
+	<li><a href="http://dacatay.com/tag/arima/" class="tag-cloud-link tag-link-115 tag-link-position-21" style="font-size: 1em;">ARIMA</a></li>
+	<li><a href="http://dacatay.com/tag/ann/" class="tag-cloud-link tag-link-109 tag-link-position-22" style="font-size: 1em;">ann</a></li>
+	<li><a href="http://dacatay.com/tag/development/" class="tag-cloud-link tag-link-74 tag-link-position-23" style="font-size: 1em;">development</a></li>
+	<li><a href="http://dacatay.com/tag/fbprophet/" class="tag-cloud-link tag-link-102 tag-link-position-24" style="font-size: 1em;">fbprophet</a></li>
+	<li><a href="http://dacatay.com/tag/neural-network/" class="tag-cloud-link tag-link-51 tag-link-position-25" style="font-size: 1em;">Neural Network</a></li>
+	<li><a href="http://dacatay.com/tag/pandas/" class="tag-cloud-link tag-link-31 tag-link-position-26" style="font-size: 1em;">pandas</a></li>
+	<li><a href="http://dacatay.com/tag/stock-returns/" class="tag-cloud-link tag-link-84 tag-link-position-27" style="font-size: 1em;">stock returns</a></li>
+	<li><a href="http://dacatay.com/tag/quant/" class="tag-cloud-link tag-link-79 tag-link-position-28" style="font-size: 1em;">quant</a></li>
+	<li><a href="http://dacatay.com/tag/anaconda/" class="tag-cloud-link tag-link-17 tag-link-position-29" style="font-size: 1em;">Anaconda</a></li>
+	<li><a href="http://dacatay.com/tag/statistics/" class="tag-cloud-link tag-link-117 tag-link-position-30" style="font-size: 1em;">statistics</a></li>
+	<li><a href="http://dacatay.com/tag/lstm/" class="tag-cloud-link tag-link-112 tag-link-position-31" style="font-size: 1em;">LSTM</a></li>
+	<li><a href="http://dacatay.com/tag/portfolio/" class="tag-cloud-link tag-link-80 tag-link-position-32" style="font-size: 1em;">portfolio</a></li>
+	<li><a href="http://dacatay.com/tag/jupyter-notebook/" class="tag-cloud-link tag-link-73 tag-link-position-33" style="font-size: 1em;">Jupyter Notebook</a></li>
+	<li><a href="http://dacatay.com/tag/tensorflow/" class="tag-cloud-link tag-link-76 tag-link-position-34" style="font-size: 1em;">tensorflow</a></li>
+	<li><a href="http://dacatay.com/tag/time-series-prediction/" class="tag-cloud-link tag-link-103 tag-link-position-35" style="font-size: 1em;">time series prediction</a></li>
+	<li><a href="http://dacatay.com/tag/time-series/" class="tag-cloud-link tag-link-86 tag-link-position-36" style="font-size: 1em;">time series</a></li>
+	<li><a href="http://dacatay.com/tag/prophet/" class="tag-cloud-link tag-link-107 tag-link-position-37" style="font-size: 1em;">prophet</a></li>
+	<li><a href="http://dacatay.com/tag/statistical-learning/" class="tag-cloud-link tag-link-39 tag-link-position-38" style="font-size: 1em;">statistical learning</a></li>
+	<li><a href="http://dacatay.com/tag/neural-net/" class="tag-cloud-link tag-link-108 tag-link-position-39" style="font-size: 1em;">neural net</a></li>
+	<li><a href="http://dacatay.com/tag/tutorial/" class="tag-cloud-link tag-link-41 tag-link-position-40" style="font-size: 1em;">Tutorial</a></li>
+	<li><a href="http://dacatay.com/tag/guide/" class="tag-cloud-link tag-link-24 tag-link-position-41" style="font-size: 1em;">Guide</a></li>
+	<li><a href="http://dacatay.com/tag/cvxopt/" class="tag-cloud-link tag-link-82 tag-link-position-42" style="font-size: 1em;">cvxopt</a></li>
+	<li><a href="http://dacatay.com/tag/ubuntu-bash/" class="tag-cloud-link tag-link-42 tag-link-position-43" style="font-size: 1em;">Ubuntu Bash</a></li>
+	<li><a href="http://dacatay.com/tag/time-series-forecast/" class="tag-cloud-link tag-link-104 tag-link-position-44" style="font-size: 1em;">time series forecast</a></li>
+	<li><a href="http://dacatay.com/tag/pycharm/" class="tag-cloud-link tag-link-33 tag-link-position-45" style="font-size: 1em;">PyCharm</a></li>
+</ul>
+</div></section><section id="text-5" class="widget widget_text"><h2 class="widget-title">google ad</h2>			<div class="textwidget"><p><script async="" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/adsbygoogle.js.download"></script><br>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-6962034930395047",
+    enable_page_level_ads: true
+  });
+</script></p>
+</div>
+		</section><section id="archives-2" class="widget widget_archive"><h2 class="widget-title">Archives</h2>		<ul>
+			<li><a href="http://dacatay.com/2017/12/">December 2017</a></li>
+	<li><a href="http://dacatay.com/2017/11/">November 2017</a></li>
+	<li><a href="http://dacatay.com/2017/09/">September 2017</a></li>
+	<li><a href="http://dacatay.com/2017/07/">July 2017</a></li>
+	<li><a href="http://dacatay.com/2017/06/">June 2017</a></li>
+	<li><a href="http://dacatay.com/2017/05/">May 2017</a></li>
+		</ul>
+		</section>	</aside><!-- .sidebar .widget-area -->
+
+		</div><!-- .site-content -->
+
+		<footer id="colophon" class="site-footer" role="contentinfo">
+							<nav class="main-navigation" role="navigation" aria-label="Footer Primary Menu">
+					<div class="menu-primary-container"><ul id="menu-primary-1" class="primary-menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1001"><a href="http://dacatay.com/">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-1013"><a href="http://dacatay.com/blog/">Blog</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16"><a href="http://dacatay.com/contact/">Contact</a></li>
+</ul></div>				</nav><!-- .main-navigation -->
+			
+							<nav class="social-navigation" role="navigation" aria-label="Footer Social Links Menu">
+					<div class="menu-social-container"><ul id="menu-social-1" class="social-links-menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-21"><a href="http://facebook.com/"><span class="screen-reader-text">Fb</span></a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-779"><a href="http://twitter.com/"><span class="screen-reader-text">Twitter</span></a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-782"><a href="http://linkedin.com/"><span class="screen-reader-text">Linkedin</span></a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1134"><a href="http://github.com/dacatay"><span class="screen-reader-text">github</span></a></li>
+</ul></div>				</nav><!-- .social-navigation -->
+			
+			<div class="site-info">
+								<span class="site-title"><a href="http://dacatay.com/" rel="home">dacatay</a></span>
+				<a href="https://wordpress.org/">Proudly powered by WordPress</a>
+			</div><!-- .site-info -->
+		</footer><!-- .site-footer -->
+	</div><!-- .site-inner -->
+</div><iframe id="sumome-jquery-iframe" title="Sumo Hidden Content" style="display: none;" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/saved_resource(3).html"></iframe><ins class="adsbygoogle" data-adsbygoogle-status="done" style="display: none;"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:NaNpx;margin:0;padding:0;position:relative;visibility:visible;width:NaNpx;background-color:transparent;"><ins id="aswift_1_anchor" style="display:block;border:none;height:NaNpx;margin:0;padding:0;position:relative;visibility:visible;width:NaNpx;background-color:transparent;"><iframe frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;width:NaNpx;height:NaNpx;" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/saved_resource(4).html"></iframe></ins></ins></ins><!-- .site -->
+
+<div data-animation="no-animation" data-icons-animation="rubberBand" data-overlay="" data-change-size="" data-button-size="1" style="font-size: 1em; top: 196px; display: block;" class="supsystic-social-sharing supsystic-social-sharing-package-flat supsystic-social-sharing-fixed supsystic-social-sharing-left supsystic-social-sharing-init supsystic-social-sharing-loaded" data-text=""><a class="social-sharing-button sharer-flat sharer-flat-3 counter-standard without-counter facebook" target="_blank" title="Facebook" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fdacatay.com%2Fdata-science%2Fpart-5-time-series-prediction-prophet-python%2F" data-nid="1" data-name="" data-pid="1" data-post-id="1284" data-url="http://dacatay.com/wp-admin/admin-ajax.php" data-description="Part 5: Time Series Prediction with Prophet in Python" rel="nofollow"><i class="fa fa-fw fa-facebook"></i><div class="counter-wrap standard"><span class="counter">0</span></div></a><a class="social-sharing-button sharer-flat sharer-flat-3 counter-standard without-counter twitter" target="_blank" title="Twitter" href="https://twitter.com/share?url=http%3A%2F%2Fdacatay.com%2Fdata-science%2Fpart-5-time-series-prediction-prophet-python%2F&amp;text=Part+5%3A+Time+Series+Prediction+with+Prophet+in+Python" data-nid="2" data-name="" data-pid="1" data-post-id="1284" data-url="http://dacatay.com/wp-admin/admin-ajax.php" data-description="Part 5: Time Series Prediction with Prophet in Python" rel="nofollow"><i class="fa fa-fw fa-twitter"></i><div class="counter-wrap standard"><span class="counter">1</span></div></a><a class="social-sharing-button sharer-flat sharer-flat-3 counter-standard without-counter googleplus" target="_blank" title="Google+" href="https://plus.google.com/share?url=http%3A%2F%2Fdacatay.com%2Fdata-science%2Fpart-5-time-series-prediction-prophet-python%2F" data-nid="3" data-name="" data-pid="1" data-post-id="1284" data-url="http://dacatay.com/wp-admin/admin-ajax.php" data-description="Part 5: Time Series Prediction with Prophet in Python" rel="nofollow"><i class="fa fa-fw fa-google-plus"></i><div class="counter-wrap standard"><span class="counter">0</span></div></a><a class="social-sharing-button sharer-flat sharer-flat-3 counter-standard without-counter reddit" target="_blank" title="Reddit" href="http://reddit.com/submit?url=http%3A%2F%2Fdacatay.com%2Fdata-science%2Fpart-5-time-series-prediction-prophet-python%2F&amp;title=Part+5%3A+Time+Series+Prediction+with+Prophet+in+Python" data-nid="6" data-name="" data-pid="1" data-post-id="1284" data-url="http://dacatay.com/wp-admin/admin-ajax.php" data-description="Part 5: Time Series Prediction with Prophet in Python" rel="nofollow"><i class="fa fa-fw fa-reddit"></i><div class="counter-wrap standard"><span class="counter">1</span></div></a><a class="social-sharing-button sharer-flat sharer-flat-3 counter-standard without-counter linkedin" target="_blank" title="Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;title=Part+5%3A+Time+Series+Prediction+with+Prophet+in+Python&amp;url=http%3A%2F%2Fdacatay.com%2Fdata-science%2Fpart-5-time-series-prediction-prophet-python%2F" data-nid="13" data-name="" data-pid="1" data-post-id="1284" data-url="http://dacatay.com/wp-admin/admin-ajax.php" data-description="Part 5: Time Series Prediction with Prophet in Python" rel="nofollow"><i class="fa fa-fw fa-linkedin"></i><div class="counter-wrap standard"><span class="counter">0</span></div></a><a class="social-sharing-button sharer-flat sharer-flat-3 counter-standard without-counter bookmark" target="_blank" title="Add Bookmark" href="http://dacatay.com/data-science/part-5-time-series-prediction-prophet-python/#" data-nid="15" data-name="" data-pid="1" data-post-id="1284" data-url="http://dacatay.com/wp-admin/admin-ajax.php" data-description="Part 5: Time Series Prediction with Prophet in Python" rel="nofollow"><i class="fa fa-fw fa-plus"></i><div class="counter-wrap standard"><span class="counter">0</span></div></a></div>	<div style="display:none">
+	<div class="grofile-hash-map-3a7355cdfc1a1ddd31347e876a461a30">
+	</div>
+	</div>
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"http:\/\/dacatay.com\/data-science\/part-5-time-series-prediction-prophet-python\/":1284};
+	</script>
+<!--[if lte IE 8]>
+<link rel='stylesheet' id='jetpack-carousel-ie8fix-css'  href='http://dacatay.com/wp-content/plugins/jetpack/modules/carousel/jetpack-carousel-ie8fix.css?ver=20121024' type='text/css' media='all' />
+<![endif]-->
+<link rel="stylesheet" id="sss-base-css" href="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/base.css" type="text/css" media="all">
+<link rel="stylesheet" id="sss-tooltipster-main-css" href="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/tooltipster.css" type="text/css" media="all">
+<link rel="stylesheet" id="sss-brand-icons-css" href="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/brand-icons.css" type="text/css" media="all">
+<link rel="stylesheet" id="sss-tooltipster-shadow-css" href="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/tooltipster-shadow.css" type="text/css" media="all">
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/photon.js.download"></script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/devicepx-jetpack.js.download"></script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/gprofiles.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/wpgroho.js.download"></script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/skip-link-focus-fix.js.download"></script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/comment-reply.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var screenReaderText = {"expand":"expand child menu","collapse":"collapse child menu"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/functions.js.download"></script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/q2w3-fixed-widget.min.js.download"></script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/wp-embed.min.js.download"></script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/spin.min.js.download"></script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/jquery.spin.min.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var jetpackCarouselStrings = {"widths":[370,700,1000,1200,1400,2000],"is_logged_in":"","lang":"en","ajaxurl":"http:\/\/dacatay.com\/wp-admin\/admin-ajax.php","nonce":"60e0c23f3f","display_exif":"1","display_geo":"1","single_image_gallery":"1","single_image_gallery_media_file":"","background_color":"black","comment":"Comment","post_comment":"Post Comment","write_comment":"Write a Comment...","loading_comments":"Loading Comments...","download_original":"View full size <span class=\"photo-size\">{0}<span class=\"photo-size-times\">\u00d7<\/span>{1}<\/span>","no_comment_text":"Please be sure to submit some text with your comment.","no_comment_email":"Please provide an email address to comment.","no_comment_author":"Please provide your name to comment.","comment_post_error":"Sorry, but there was an error posting your comment. Please try again later.","comment_approved":"Your comment was approved.","comment_unapproved":"Your comment is in moderation.","camera":"Camera","aperture":"Aperture","shutter_speed":"Shutter Speed","focal_length":"Focal Length","copyright":"Copyright","comment_registration":"0","require_name_email":"1","login_url":"http:\/\/dacatay.com\/wp-login.php?redirect_to=http%3A%2F%2Fdacatay.com%2Fdata-science%2Fpart-5-time-series-prediction-prophet-python%2F","blog_id":"1","meta_data":["camera","aperture","shutter_speed","focal_length","copyright"],"local_comments_commenting_as":"<fieldset><label for=\"email\">Email (Required)<\/label> <input type=\"text\" name=\"email\" class=\"jp-carousel-comment-form-field jp-carousel-comment-form-text-field\" id=\"jp-carousel-comment-form-email-field\" \/><\/fieldset><fieldset><label for=\"author\">Name (Required)<\/label> <input type=\"text\" name=\"author\" class=\"jp-carousel-comment-form-field jp-carousel-comment-form-text-field\" id=\"jp-carousel-comment-form-author-field\" \/><\/fieldset><fieldset><label for=\"url\">Website<\/label> <input type=\"text\" name=\"url\" class=\"jp-carousel-comment-form-field jp-carousel-comment-form-text-field\" id=\"jp-carousel-comment-form-url-field\" \/><\/fieldset>"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/jetpack-carousel.js.download"></script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/postmessage.min.js.download"></script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/jquery.jetpack-resize.min.js.download"></script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/queuehandler.js.download"></script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/frontend.js.download"></script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/jquery.tooltipster.min.js.download"></script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/jquery.bpopup.min.js.download"></script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/share.js.download"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/sharing.js.download"></script>
+<script type="text/javascript">
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-twitter', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-facebook', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-google-plus-1', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=480,height=550' );
+				return false;
+			});
+</script>
+	<iframe src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+	<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+	<script type="text/javascript" src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/e-201808.js.download" async="" defer=""></script>
+<script type="text/javascript">
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:5.6',blog:'138715424',post:'1284',tz:'2',srv:'dacatay.com'} ]);
+	_stq.push([ 'clickTrackerInit', '138715424', '1284' ]);
+</script>
+
+
+
+<!-- Dynamic page generated in 0.884 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2018-02-21 15:24:24 -->
+
+<!-- super cache --><img src="./Part 5_ Time Series Prediction with Prophet in Python - dacatay_files/g.gif" alt=":)" width="6" height="5" id="wpstats"><a href="javascript:void(0);" title="Sumo" style="background-color: rgb(0, 115, 183); border-radius: 3px 0px 0px 3px; box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 10px; position: fixed; z-index: 2147483647; padding: 0px; width: 44px; height: 40px; text-indent: -10000px; opacity: 1; display: block !important; top: 40px; right: -40px;"><span style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; border-radius: 3px 0px 0px 3px; margin-left: 4px; margin-right: 0px;">Sumo</span><span style="display: block; width: 40px; height: 40px; background: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDoxZDQ2MjI4YS03NWY2LTRkZTQtOGJjYy1hODc1NjRkMjYxYTUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RDQ3MUVFMDFFMjVDMTFFNjlFQjhBRjdGODU5MDJBMDUiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RDQ3MUVFMDBFMjVDMTFFNjlFQjhBRjdGODU5MDJBMDUiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKE1hY2ludG9zaCkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxZDQ2MjI4YS03NWY2LTRkZTQtOGJjYy1hODc1NjRkMjYxYTUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MWQ0NjIyOGEtNzVmNi00ZGU0LThiY2MtYTg3NTY0ZDI2MWE1Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+8JtvywAAAKhQTFRFzOPxSJvLA3W4Mo7FBna5w97u8vj7EHy8a67VhbzdsdTpVaLPh73d9/v9C3m6QZfJbq/WXKbR3u32JIfB3ez1KorDir/eBHW4+/3+rtPoZarUG4K/LIvDDnu7ocvkf7nbdrTY9fr8E328WKPQO5PITJ3MPpXJstXptdbq+Pv9cbHXaq3VU6HOkMLgnMnjDHq62uv1/P3+6/T53Oz1cLDX/f7+AHO3////ptOZ5QAAADh0Uk5T/////////////////////////////////////////////////////////////////////////wA7XBHKAAAAmUlEQVR42sSRRxLCMAxFRSq9907ovebr/jdDMWYGxmZL3sIqbyFbJv4B/VlkVlerKALTD3G46Mx3AOR1UZ/TsDxW6W0gfYRNVfTCFu2AWpAMgMItMW+zQJU2UjWI29D0+e5KWNPMk+A9Om+B/UgOJyCuwMJCrpuziYkIsglfRByZ/XM3eXnBFEu1kpMpjq9dxQYp/OAXTwEGAB7Rc1xVnPemAAAAAElFTkSuQmCC&quot;) 8px 8px no-repeat white; margin-left: 4px; border-radius: 3px 0px 0px 3px; margin-right: 0px;"></span></a></body></html>
