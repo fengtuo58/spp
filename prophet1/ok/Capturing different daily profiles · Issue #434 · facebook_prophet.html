@@ -1,0 +1,2392 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)https://github.com/facebook/prophet/issues/434 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+  <link rel="dns-prefetch" href="https://assets-cdn.github.com/">
+  <link rel="dns-prefetch" href="https://avatars0.githubusercontent.com/">
+  <link rel="dns-prefetch" href="https://avatars1.githubusercontent.com/">
+  <link rel="dns-prefetch" href="https://avatars2.githubusercontent.com/">
+  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com/">
+  <link rel="dns-prefetch" href="https://github-cloud.s3.amazonaws.com/">
+  <link rel="dns-prefetch" href="https://user-images.githubusercontent.com/">
+
+
+
+  <link crossorigin="anonymous" href="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/frameworks-7a12427f1445.css" integrity="sha512-ehJCfxRFqU8Lt/+Hwc4cvp41sPisCp1U2d03SlbM3aKVZcxiYDTVmBsAtOVgAtZ912JFOebwrPXr/JcDNd6bGA==" media="all" rel="stylesheet">
+  <link crossorigin="anonymous" href="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/github-b4489e97a722.css" integrity="sha512-tEiel6cixumc6PO93LA0QzA+3Z4IbgljkbhiMnAI9g3/HX3UC8lGNY6sV+UDSICTq4r0pgZJiFb6RgAXiMdK9Q==" media="all" rel="stylesheet">
+  
+  
+  
+  
+
+  <meta name="viewport" content="width=device-width">
+  
+  <title>Capturing different daily profiles · Issue #434 · facebook/prophet</title>
+  <link rel="search" type="application/opensearchdescription+xml" href="https://github.com/opensearch.xml" title="GitHub">
+  <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+  <meta property="fb:app_id" content="1401488693436528">
+
+    
+    <meta content="https://avatars1.githubusercontent.com/u/36197920?s=400&amp;v=4" property="og:image"><meta content="GitHub" property="og:site_name"><meta content="object" property="og:type"><meta content="Capturing different daily profiles · Issue #434 · facebook/prophet" property="og:title"><meta content="https://github.com/facebook/prophet/issues/434" property="og:url"><meta content="I&#39;m using prophet on the following dataset
+ts_1_week.txt
+I&#39;m trying to fit the model as good as possible. This works reasonably, but weekends seem to have a different profile - which the model does..." property="og:description">
+
+  <link rel="assets" href="https://assets-cdn.github.com/">
+  <link rel="web-socket" href="wss://live.github.com/_sockets/VjI6MjM2MjUwNDE2OmIzOTNkZTA2OTRlY2ZhN2NiNGUwZmE1ZmE4NTBlNDlhYTIwYmYxMWJiOWM4NmZmNTFkNzQ4NjA2YTM3OGEzY2Q=--88f2aa4510c623cc6fdbaa94d6c66d87c74025a2">
+  <meta name="pjax-timeout" content="1000">
+  <link rel="sudo-modal" href="https://github.com/sessions/sudo_modal">
+  <meta name="request-id" content="CAE5:1CAA:8CAB8F:F8251F:5A8D77B1" data-pjax-transient="">
+  
+
+  <meta name="selected-link" value="repo_issues" data-pjax-transient="">
+
+    <meta name="google-site-verification" content="KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU">
+  <meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
+  <meta name="google-site-verification" content="GXs5KoUUkNCoaAZn7wPN-t01Pywp9M3sEjnt_3_ZWPc">
+    <meta name="google-analytics" content="UA-3769691-2">
+
+<meta content="collector.githubapp.com" name="octolytics-host"><meta content="github" name="octolytics-app-id"><meta content="https://collector.githubapp.com/github-external/browser_event" name="octolytics-event-url"><meta content="CAE5:1CAA:8CAB8F:F8251F:5A8D77B1" name="octolytics-dimension-request_id"><meta content="iad" name="octolytics-dimension-region_edge"><meta content="iad" name="octolytics-dimension-region_render"><meta content="18707623" name="octolytics-actor-id"><meta content="arita37" name="octolytics-actor-login"><meta content="83bc858906602fb2a6c986b13f33b8f789283491fe2aa013ba106ae4163e77b5" name="octolytics-actor-hash">
+<meta content="https://github.com/hydro_browser_events" name="hydro-events-url">
+<meta content="/&lt;user-name&gt;/&lt;repo-name&gt;/issues/show" data-pjax-transient="true" name="analytics-location">
+
+
+
+
+  <meta class="js-ga-set" name="dimension1" content="Logged In">
+
+
+  
+
+      <meta name="hostname" content="github.com">
+    <meta name="user-login" content="arita37">
+
+      <meta name="expected-hostname" content="github.com">
+    <meta name="js-proxy-site-detection-payload" content="ZThjOGNkZTc5YTUxNzM5ZGZhYzEzZDZhNDhiOTczNzkwOGQ1MTRlNzI1MzI2ZWI2OTJhYjM4ZjdkMDRlZDQ4Nnx7InJlbW90ZV9hZGRyZXNzIjoiNTguODkuNC4xMTIiLCJyZXF1ZXN0X2lkIjoiQ0FFNToxQ0FBOjhDQUI4RjpGODI1MUY6NUE4RDc3QjEiLCJ0aW1lc3RhbXAiOjE1MTkyMjA2NTgsImhvc3QiOiJnaXRodWIuY29tIn0=">
+
+    <meta name="enabled-features" content="UNIVERSE_BANNER,FREE_TRIALS,MARKETPLACE_HERO_CARD_UPLOADER,MARKETPLACE_INSIGHTS,MARKETPLACE_INSIGHTS_CONVERSION_PERCENTAGES">
+
+  <meta name="html-safe-nonce" content="09aa7a20d0f34ef4ec7fe2ac8ecc9b6d92fb594f">
+
+  <meta http-equiv="x-pjax-version" content="47b54145f88f12e1d2ebe2a727a07e81">
+  
+
+      <link href="https://github.com/facebook/prophet/commits/master.atom" rel="alternate" title="Recent Commits to prophet:master" type="application/atom+xml">
+
+  <meta name="description" content="prophet - Tool for producing high quality forecasts for time series data that has multiple seasonality with linear or non-linear growth.">
+  <meta name="go-import" content="github.com/facebook/prophet git https://github.com/facebook/prophet.git">
+
+  <meta content="69631" name="octolytics-dimension-user_id"><meta content="facebook" name="octolytics-dimension-user_login"><meta content="73872834" name="octolytics-dimension-repository_id"><meta content="facebook/prophet" name="octolytics-dimension-repository_nwo"><meta content="true" name="octolytics-dimension-repository_public"><meta content="false" name="octolytics-dimension-repository_is_fork"><meta content="73872834" name="octolytics-dimension-repository_network_root_id"><meta content="facebook/prophet" name="octolytics-dimension-repository_network_root_nwo"><meta content="false" name="octolytics-dimension-repository_explore_github_marketplace_ci_cta_shown">
+
+
+
+
+  <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
+
+  <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
+
+  <link rel="mask-icon" href="https://assets-cdn.github.com/pinned-octocat.svg" color="#000000">
+  <link rel="icon" type="image/x-icon" class="js-site-favicon" href="https://assets-cdn.github.com/favicon.ico">
+
+<meta name="theme-color" content="#1e2327">
+
+
+  <meta name="u2f-support" content="true">
+
+<link rel="manifest" href="https://github.com/manifest.json" crossorigin="use-credentials">
+
+  </head>
+
+  <body class="logged-in env-production">
+    
+
+  <div class="position-relative js-header-wrapper ">
+    <a href="https://github.com/facebook/prophet/issues/434#start-of-content" tabindex="1" class="bg-black text-white p-3 show-on-focus js-skip-to-content">Skip to content</a>
+    <div id="js-pjax-loader-bar" class="pjax-loader-bar"><div class="progress"></div></div>
+
+    
+    
+    
+
+
+
+        
+<header class="Header  f5" role="banner">
+  <div class="d-flex px-3 flex-justify-between container-lg">
+    <div class="d-flex flex-justify-between ">
+      <div class="">
+        <a class="header-logo-invertocat" href="https://github.com/" data-hotkey="g d" aria-label="Homepage" data-ga-click="Header, go to dashboard, icon:logo">
+  <svg aria-hidden="true" class="octicon octicon-mark-github" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+</a>
+
+      </div>
+
+    </div>
+
+    <div class="HeaderMenu d-flex flex-justify-between flex-auto">
+      <div class="d-flex">
+            <div class="">
+              <div class="header-search scoped-search site-scoped-search js-site-search" role="search">
+  <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/facebook/prophet/search" class="js-site-search-form" data-scoped-search-url="/facebook/prophet/search" data-unscoped-search-url="/search" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"></div>
+    <label class="form-control header-search-wrapper js-chromeless-input-container">
+        <a href="https://github.com/facebook/prophet/issues/434" class="header-search-scope no-underline">This repository</a>
+      <input type="text" class="form-control header-search-input js-site-search-focus js-site-search-field is-clearable" data-hotkey="s" name="q" value="" placeholder="Search" aria-label="Search this repository" data-unscoped-placeholder="Search GitHub" data-scoped-placeholder="Search" autocapitalize="off">
+        <input type="hidden" class="js-site-search-type-field" name="type">
+    </label>
+</form></div>
+
+            </div>
+
+          <ul class="d-flex pl-2 flex-items-center text-bold list-style-none" role="navigation">
+            <li>
+              <a href="https://github.com/pulls" aria-label="Pull requests you created" class="js-selected-navigation-item HeaderNavlink px-2" data-ga-click="Header, click, Nav menu - item:pulls context:user" data-hotkey="g p" data-selected-links="/pulls /pulls/assigned /pulls/mentioned /pulls">
+                Pull requests
+</a>            </li>
+            <li>
+              <a href="https://github.com/issues" aria-label="Issues you created" class="js-selected-navigation-item HeaderNavlink px-2" data-ga-click="Header, click, Nav menu - item:issues context:user" data-hotkey="g i" data-selected-links="/issues /issues/assigned /issues/mentioned /issues">
+                Issues
+</a>            </li>
+                <li>
+                  <a href="https://github.com/marketplace" class="js-selected-navigation-item HeaderNavlink px-2" data-ga-click="Header, click, Nav menu - item:marketplace context:user" data-selected-links=" /marketplace">
+                    Marketplace
+</a>                </li>
+            <li>
+              <a href="https://github.com/explore" class="js-selected-navigation-item HeaderNavlink px-2" data-ga-click="Header, click, Nav menu - item:explore" data-selected-links="/explore /trending /trending/developers /integrations /integrations/feature/code /integrations/feature/collaborate /integrations/feature/ship showcases showcases_search showcases_landing /explore">
+                Explore
+</a>            </li>
+          </ul>
+      </div>
+
+      <div class="d-flex">
+        
+<ul class="user-nav d-flex flex-items-center list-style-none" id="user-links">
+  <li class="dropdown js-menu-container">
+    <span class="d-inline-block  px-2">
+      
+
+    </span>
+  </li>
+
+  <li class="dropdown js-menu-container">
+    <details class="dropdown-details details-reset js-dropdown-details d-flex px-2 flex-items-center">
+      <summary class="HeaderNavlink" aria-label="Create new…" data-ga-click="Header, create new, icon:add">
+        <svg aria-hidden="true" class="octicon octicon-plus float-left mr-1 mt-1" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M12 9H7v5H5V9H0V7h5V2h2v5h5z"></path></svg>
+        <span class="dropdown-caret mt-1"></span>
+      </summary>
+
+      <ul class="dropdown-menu dropdown-menu-sw">
+        
+<a class="dropdown-item" href="https://github.com/new" data-ga-click="Header, create new repository">
+  New repository
+</a>
+
+  <a class="dropdown-item" href="https://github.com/new/import" data-ga-click="Header, import a repository">
+    Import repository
+  </a>
+
+<a class="dropdown-item" href="https://gist.github.com/" data-ga-click="Header, create new gist">
+  New gist
+</a>
+
+  <a class="dropdown-item" href="https://github.com/organizations/new" data-ga-click="Header, create new organization">
+    New organization
+  </a>
+
+
+
+  <div class="dropdown-divider"></div>
+  <div class="dropdown-header">
+    <span title="facebook/prophet">This repository</span>
+  </div>
+    <a class="dropdown-item" href="https://github.com/facebook/prophet/issues/new" data-ga-click="Header, create new issue">
+      New issue
+    </a>
+
+      </ul>
+    </details>
+  </li>
+
+  <li class="dropdown js-menu-container">
+
+    <details class="dropdown-details details-reset js-dropdown-details d-flex pl-2 flex-items-center">
+      <summary class="HeaderNavlink name mt-1" aria-label="View profile and more" data-ga-click="Header, show menu, icon:avatar">
+        <img alt="@arita37" class="avatar float-left mr-1" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/18707623" height="20" width="20">
+        <span class="dropdown-caret"></span>
+      </summary>
+
+      <ul class="dropdown-menu dropdown-menu-sw">
+        <li class="dropdown-header header-nav-current-user css-truncate">
+          Signed in as <strong class="css-truncate-target">arita37</strong>
+        </li>
+
+        <li class="dropdown-divider"></li>
+
+        <li><a class="dropdown-item" href="https://github.com/arita37" data-ga-click="Header, go to profile, text:your profile">
+          Your profile
+        </a></li>
+        <li><a class="dropdown-item" href="https://github.com/arita37?tab=stars" data-ga-click="Header, go to starred repos, text:your stars">
+          Your stars
+        </a></li>
+          <li><a class="dropdown-item" href="https://gist.github.com/" data-ga-click="Header, your gists, text:your gists">Your gists</a></li>
+
+        <li class="dropdown-divider"></li>
+
+        <li><a class="dropdown-item" href="https://help.github.com/" data-ga-click="Header, go to help, text:help">
+          Help
+        </a></li>
+
+        <li><a class="dropdown-item" href="https://github.com/settings/profile" data-ga-click="Header, go to settings, icon:settings">
+          Settings
+        </a></li>
+
+        <li><!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/logout" class="logout-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="CxY1R6Evgr9Ysbe7bHJ6h5Al3OqPLbI5PG7PGsXiJvqvwWqOrrO/HgdiA1wGfxLQ2MQlsGUnbWVfwTD5ySd8nA=="></div>
+          <button type="submit" class="dropdown-item dropdown-signout" data-ga-click="Header, sign out, icon:logout">
+            Sign out
+          </button>
+        </form></li>
+      </ul>
+    </details>
+  </li>
+</ul>
+
+
+
+        <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/logout" class="sr-only right-0" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="zyIfPtYNVrLATPYy8imAztUB+x4u9GmDg4H8vuXS1DVr9UD32ZFrE5+fQtWYJOiZneACRMT+tt/gLgNd6ReOUw=="></div>
+          <button type="submit" class="dropdown-item dropdown-signout" data-ga-click="Header, sign out, icon:logout">
+            Sign out
+          </button>
+</form>      </div>
+    </div>
+  </div>
+</header>
+
+      
+
+  </div>
+
+  <div id="start-of-content" class="show-on-focus"></div>
+
+    <div id="js-flash-container">
+</div>
+
+
+
+  <div role="main" class="application-main ">
+        <div itemscope="" itemtype="http://schema.org/SoftwareSourceCode" class="">
+    <div id="js-repo-pjax-container" data-pjax-container="">
+      
+<style type="text/css" media="screen" id="issue-labels-style">
+  span.labelstyle-ee0701, .linked-labelstyle-ee0701 {  background-color: #ee0701 !important;  color: #ffffff !important;}.labelstyle-ee0701.selected {  background-color: #ee0701 !important;  color: #ffffff !important;}.label-select-menu .labelstyle-ee0701.selected {  background: rgba(238, 7, 1, 0.12) !important;  color: #990400 !important;}
+
+span.labelstyle-009900, .linked-labelstyle-009900 {  background-color: #009900 !important;  color: #000000 !important;}.labelstyle-009900.selected {  background-color: #009900 !important;  color: #000000 !important;}.label-select-menu .labelstyle-009900.selected {  background: rgba(0, 153, 0, 0.12) !important;  color: #009900 !important;}
+
+span.labelstyle-fef2c0, .linked-labelstyle-fef2c0 {  background-color: #fef2c0 !important;  color: #000000 !important;}.labelstyle-fef2c0.selected {  background-color: #fef2c0 !important;  color: #000000 !important;}.label-select-menu .labelstyle-fef2c0.selected {  background: rgba(254, 242, 192, 0.12) !important;  color: #989173 !important;}
+
+span.labelstyle-cccccc, .linked-labelstyle-cccccc {  background-color: #cccccc !important;  color: #000000 !important;}.labelstyle-cccccc.selected {  background-color: #cccccc !important;  color: #000000 !important;}.label-select-menu .labelstyle-cccccc.selected {  background: rgba(204, 204, 204, 0.12) !important;  color: #999999 !important;}
+
+span.labelstyle-84b6eb, .linked-labelstyle-84b6eb {  background-color: #84b6eb !important;  color: #000000 !important;}.labelstyle-84b6eb.selected {  background-color: #84b6eb !important;  color: #000000 !important;}.label-select-menu .labelstyle-84b6eb.selected {  background: rgba(132, 182, 235, 0.12) !important;  color: #557699 !important;}
+
+span.labelstyle-128A0C, .linked-labelstyle-128A0C {  background-color: #128A0C !important;  color: #ffffff !important;}.labelstyle-128A0C.selected {  background-color: #128A0C !important;  color: #ffffff !important;}.label-select-menu .labelstyle-128A0C.selected {  background: rgba(18, 138, 12, 0.12) !important;  color: #13990d !important;}
+
+span.labelstyle-e6e6e6, .linked-labelstyle-e6e6e6 {  background-color: #e6e6e6 !important;  color: #000000 !important;}.labelstyle-e6e6e6.selected {  background-color: #e6e6e6 !important;  color: #000000 !important;}.label-select-menu .labelstyle-e6e6e6.selected {  background: rgba(230, 230, 230, 0.12) !important;  color: #999999 !important;}
+
+span.labelstyle-006b75, .linked-labelstyle-006b75 {  background-color: #006b75 !important;  color: #ffffff !important;}.labelstyle-006b75.selected {  background-color: #006b75 !important;  color: #ffffff !important;}.label-select-menu .labelstyle-006b75.selected {  background: rgba(0, 107, 117, 0.12) !important;  color: #008b99 !important;}
+
+span.labelstyle-0052cc, .linked-labelstyle-0052cc {  background-color: #0052cc !important;  color: #ffffff !important;}.labelstyle-0052cc.selected {  background-color: #0052cc !important;  color: #ffffff !important;}.label-select-menu .labelstyle-0052cc.selected {  background: rgba(0, 82, 204, 0.12) !important;  color: #003d99 !important;}
+
+span.labelstyle-cc317c, .linked-labelstyle-cc317c {  background-color: #cc317c !important;  color: #ffffff !important;}.labelstyle-cc317c.selected {  background-color: #cc317c !important;  color: #ffffff !important;}.label-select-menu .labelstyle-cc317c.selected {  background: rgba(204, 49, 124, 0.12) !important;  color: #99245c !important;}
+
+span.labelstyle-5319e7, .linked-labelstyle-5319e7 {  background-color: #5319e7 !important;  color: #ffffff !important;}.labelstyle-5319e7.selected {  background-color: #5319e7 !important;  color: #ffffff !important;}.label-select-menu .labelstyle-5319e7.selected {  background: rgba(83, 25, 231, 0.12) !important;  color: #361099 !important;}
+
+span.labelstyle-fbca04, .linked-labelstyle-fbca04 {  background-color: #fbca04 !important;  color: #000000 !important;}.labelstyle-fbca04.selected {  background-color: #fbca04 !important;  color: #000000 !important;}.label-select-menu .labelstyle-fbca04.selected {  background: rgba(251, 202, 4, 0.12) !important;  color: #997b02 !important;}
+
+span.labelstyle-b60205, .linked-labelstyle-b60205 {  background-color: #b60205 !important;  color: #ffffff !important;}.labelstyle-b60205.selected {  background-color: #b60205 !important;  color: #ffffff !important;}.label-select-menu .labelstyle-b60205.selected {  background: rgba(182, 2, 5, 0.12) !important;  color: #990104 !important;}
+
+span.labelstyle-ffffff, .linked-labelstyle-ffffff {  background-color: #ffffff !important;  color: #000000 !important;}.labelstyle-ffffff.selected {  background-color: #ffffff !important;  color: #000000 !important;}.label-select-menu .labelstyle-ffffff.selected {  background: rgba(255, 255, 255, 0.12) !important;  color: #999999 !important;}
+</style>
+
+
+
+
+
+  
+
+
+
+  <div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav  ">
+    <div class="repohead-details-container clearfix container">
+
+      <ul class="pagehead-actions">
+  <li>
+        <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/notifications/subscribe" class="js-social-container" data-autosubmit="true" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="w1nSZRa3bVIRj2qRUwEiubADAtJKh9Zl4Mz/T3b9BR0pLkdeHQ6mfHT6KTbAQ+Gr9+L4spXD1bDg5DgehNcH8A=="></div>      <input class="form-control" id="repository_id" name="repository_id" type="hidden" value="73872834">
+
+        <div class="select-menu js-menu-container js-select-menu">
+          <a href="https://github.com/facebook/prophet/subscription" class="btn btn-sm btn-with-count select-menu-button js-menu-target" role="button" aria-haspopup="true" aria-expanded="false" aria-label="Toggle repository notifications menu" data-ga-click="Repository, click Watch settings, action:issues#show">
+            <span class="js-select-button">
+                <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"></path></svg>
+                Watch
+            </span>
+          </a>
+          <a class="social-count js-social-count" href="https://github.com/facebook/prophet/watchers" aria-label="253 users are watching this repository">
+            253
+          </a>
+
+        <div class="select-menu-modal-holder">
+          <div class="select-menu-modal subscription-menu-modal js-menu-content">
+            <div class="select-menu-header js-navigation-enable" tabindex="-1">
+              <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path></svg>
+              <span class="select-menu-title">Notifications</span>
+            </div>
+
+              <div class="select-menu-list js-navigation-container" role="menu">
+
+                <div class="select-menu-item js-navigation-item selected" role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+                  <div class="select-menu-item-text">
+                    <input checked="checked" id="do_included" name="do" type="radio" value="included">
+                    <span class="select-menu-item-heading">Not watching</span>
+                    <span class="description">Be notified when participating or @mentioned.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"></path></svg>
+                      Watch
+                    </span>
+                  </div>
+                </div>
+
+                <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+                  <div class="select-menu-item-text">
+                    <input id="do_subscribed" name="do" type="radio" value="subscribed">
+                    <span class="select-menu-item-heading">Watching</span>
+                    <span class="description">Be notified of all conversations.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-eye" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"></path></svg>
+                        Unwatch
+                    </span>
+                  </div>
+                </div>
+
+                <div class="select-menu-item js-navigation-item " role="menuitem" tabindex="0">
+                  <svg aria-hidden="true" class="octicon octicon-check select-menu-item-icon" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5z"></path></svg>
+                  <div class="select-menu-item-text">
+                    <input id="do_ignore" name="do" type="radio" value="ignore">
+                    <span class="select-menu-item-heading">Ignoring</span>
+                    <span class="description">Never be notified.</span>
+                    <span class="js-select-button-text hidden-select-button-text">
+                      <svg aria-hidden="true" class="octicon octicon-mute" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8 2.81v10.38c0 .67-.81 1-1.28.53L3 10H1c-.55 0-1-.45-1-1V7c0-.55.45-1 1-1h2l3.72-3.72C7.19 1.81 8 2.14 8 2.81zm7.53 3.22l-1.06-1.06-1.97 1.97-1.97-1.97-1.06 1.06L11.44 8 9.47 9.97l1.06 1.06 1.97-1.97 1.97 1.97 1.06-1.06L13.56 8l1.97-1.97z"></path></svg>
+                        Stop ignoring
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+</form>
+  </li>
+
+  <li>
+    
+  <div class="js-toggler-container js-social-container starring-container ">
+    <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/facebook/prophet/unstar" class="starred js-social-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="lN75YSn1KtXZhfeEDee3Amxu1o4/D8gTYzs4mhqKWA+wtH2AYd1Ry41irSOxe44XiyGrJbzTzIY1TmH81qVBqQ=="></div>
+      <input type="hidden" name="context" value="repository">
+      <button type="submit" class="btn btn-sm btn-with-count js-toggler-target" aria-label="Unstar this repository" title="Unstar facebook/prophet" data-ga-click="Repository, click unstar button, action:issues#show; text:Unstar">
+        <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"></path></svg>
+        Unstar
+      </button>
+        <a class="social-count js-social-count" href="https://github.com/facebook/prophet/stargazers" aria-label="4889 users starred this repository">
+          4,889
+        </a>
+</form>
+    <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/facebook/prophet/star" class="unstarred js-social-form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="2/KYnpO/9NusjsWbK9O7c32SHI6ZZJBRSpuN3qgVnA3/k4Nh4GqA8fxtf1J8WDMZ+k1DdIgPv6kuSYUAUO2LOw=="></div>
+      <input type="hidden" name="context" value="repository">
+      <button type="submit" class="btn btn-sm btn-with-count js-toggler-target" aria-label="Star this repository" title="Star facebook/prophet" data-ga-click="Repository, click star button, action:issues#show; text:Star">
+        <svg aria-hidden="true" class="octicon octicon-star" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74z"></path></svg>
+        Star
+      </button>
+        <a class="social-count js-social-count" href="https://github.com/facebook/prophet/stargazers" aria-label="4889 users starred this repository">
+          4,889
+        </a>
+</form>  </div>
+
+  </li>
+
+  <li>
+          <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/facebook/prophet/fork" class="btn-with-count" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="MuFDUpVNm/3N1kb/xGSlH/L4tFWCpFquudTdl4ps26j6aD2piUYCYVhaTeusE9UWKrjVHGSU850Q/9To/zrLPw=="></div>
+            <button type="submit" class="btn btn-sm btn-with-count" data-ga-click="Repository, show fork modal, action:issues#show; text:Fork" title="Fork your own copy of facebook/prophet to your account" aria-label="Fork your own copy of facebook/prophet to your account">
+              <svg aria-hidden="true" class="octicon octicon-repo-forked" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"></path></svg>
+              Fork
+            </button>
+</form>
+    <a href="https://github.com/facebook/prophet/network" class="social-count" aria-label="899 users forked this repository">
+      899
+    </a>
+  </li>
+</ul>
+
+      <h1 class="public ">
+  <svg aria-hidden="true" class="octicon octicon-repo" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z"></path></svg>
+  <span class="author" itemprop="author"><a href="https://github.com/facebook" class="url fn" rel="author">facebook</a></span><!--
+--><span class="path-divider">/</span><!--
+--><strong itemprop="name"><a href="https://github.com/facebook/prophet" data-pjax="#js-repo-pjax-container">prophet</a></strong>
+
+</h1>
+
+    </div>
+    
+<nav class="reponav js-repo-nav js-sidenav-container-pjax container" itemscope="" itemtype="http://schema.org/BreadcrumbList" role="navigation" data-pjax="#js-repo-pjax-container">
+
+  <span itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="https://github.com/facebook/prophet" class="js-selected-navigation-item reponav-item" data-hotkey="g c" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches repo_packages /facebook/prophet" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-code" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"></path></svg>
+      <span itemprop="name">Code</span>
+      <meta itemprop="position" content="1">
+</a>  </span>
+
+    <span itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+      <a href="https://github.com/facebook/prophet/issues" class="js-selected-navigation-item selected reponav-item" data-hotkey="g i" data-selected-links="repo_issues repo_labels repo_milestones /facebook/prophet/issues" itemprop="url">
+        <svg aria-hidden="true" class="octicon octicon-issue-opened" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg>
+        <span itemprop="name">Issues</span>
+        <span class="Counter">63</span>
+        <meta itemprop="position" content="2">
+</a>    </span>
+
+  <span itemscope="" itemtype="http://schema.org/ListItem" itemprop="itemListElement">
+    <a href="https://github.com/facebook/prophet/pulls" class="js-selected-navigation-item reponav-item" data-hotkey="g p" data-selected-links="repo_pulls checks /facebook/prophet/pulls" itemprop="url">
+      <svg aria-hidden="true" class="octicon octicon-git-pull-request" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"></path></svg>
+      <span itemprop="name">Pull requests</span>
+      <span class="Counter">4</span>
+      <meta itemprop="position" content="3">
+</a>  </span>
+
+    <a href="https://github.com/facebook/prophet/projects" class="js-selected-navigation-item reponav-item" data-hotkey="g b" data-selected-links="repo_projects new_repo_project repo_project /facebook/prophet/projects">
+      <svg aria-hidden="true" class="octicon octicon-project" height="16" version="1.1" viewBox="0 0 15 16" width="15"><path fill-rule="evenodd" d="M10 12h3V2h-3v10zm-4-2h3V2H6v8zm-4 4h3V2H2v12zm-1 1h13V1H1v14zM14 0H1a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1z"></path></svg>
+      Projects
+      <span class="Counter">0</span>
+</a>
+
+
+  <a href="https://github.com/facebook/prophet/pulse" class="js-selected-navigation-item reponav-item" data-selected-links="repo_graphs repo_contributors dependency_graph pulse /facebook/prophet/pulse">
+    <svg aria-hidden="true" class="octicon octicon-graph" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z"></path></svg>
+    Insights
+</a>
+
+</nav>
+
+
+  </div>
+
+<div class="container new-discussion-timeline experiment-repo-nav  ">
+  <div class="repository-content ">
+
+    
+  <div class="issues-listing" data-pjax="">
+    
+  
+
+  <div id="show_issue" class="js-issues-results">
+
+    
+  <div id="partial-discussion-header" class="gh-header js-details-container Details js-socket-channel js-updatable-content issue" data-channel="issue:294785059" data-url="/facebook/prophet/issues/434/show_partial?partial=issues%2Ftitle">
+
+  <div class="gh-header-show ">
+      <div class="gh-header-actions">
+
+            <a href="https://github.com/facebook/prophet/issues/new" class="btn btn-sm btn-primary float-right" data-hotkey="c" data-ga-click="Issues, create new issue, view:issue_show location:issue_header style:button logged_in:true">
+              New issue
+            </a>
+      </div>
+
+    <h1 class="gh-header-title">
+      <span class="js-issue-title">
+        Capturing different daily profiles
+      </span>
+      <span class="gh-header-number">#434</span>
+    </h1>
+  </div>
+
+
+  <div class="TableObject gh-header-meta">
+    <div class="TableObject-item">
+        <div class="State State--green">
+          <svg aria-hidden="true" class="octicon octicon-issue-opened" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg>
+          Open
+        </div>
+    </div>
+    <div class="TableObject-item TableObject-item--primary">
+        <a href="https://github.com/gs9824" class="author">gs9824</a>  opened this <span class="noun">Issue</span>
+        <relative-time datetime="2018-02-06T14:45:52Z" title="Feb 6, 2018, 11:45 PM GMT+9">15 days ago</relative-time>
+        · 8 comments
+    </div>
+  </div>
+</div>
+
+
+    <h2 class="sr-only">Comments</h2>
+    <div id="discussion_bucket" class="clearfix" data-hovercard-context="issue:294785059">
+      <div class="discussion-sidebar">
+        <div id="partial-discussion-sidebar" class="js-socket-channel js-updatable-content" data-channel="issue:294785059" data-url="/facebook/prophet/issues/434/show_partial?partial=issues%2Fsidebar">
+
+
+
+  <div class="discussion-sidebar-item sidebar-assignee js-discussion-sidebar-item">
+  <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/facebook/prophet/issues/434?partial=issues%2Fsidebar%2Fshow%2Fassignees" class="js-issue-sidebar-form" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="fUdFx0+N1t58WCfkB7TrEbM6VenkDuOYZx6qmhuW7mrbPjUUxnGX5+cNR6nuVIL8chhcQvUrRywqMCd722Km3w=="></div>
+    
+
+  <div class="discussion-sidebar-heading text-bold">
+    Assignees
+  </div>
+
+    <span class="css-truncate">
+    No one assigned
+</span>
+
+</form></div>
+
+  <div class="discussion-sidebar-item sidebar-labels js-discussion-sidebar-item">
+  <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/facebook/prophet/issues/434?partial=issues%2Fsidebar%2Fshow%2Flabels" class="js-issue-sidebar-form" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="AzhcFtnv+Ds1v+Kp3DEQoYcprObLDmDEZXMr8IXoPO6lQSzFUBO5Aq7qguQ10XlMRgulTdorxHAoXaYRRRx0Ww=="></div>
+    <div class="js-issue-labels-container">
+      
+
+  <div class="discussion-sidebar-heading text-bold">
+    Labels
+  </div>
+
+
+    </div>
+    <div aria-live="polite" aria-label="Labels">
+      <div class="labels css-truncate">
+      <a href="https://github.com/facebook/prophet/labels/enhancement" class="sidebar-labels-style width-full d-block IssueLabel v-align-text-top labelstyle-84b6eb linked-labelstyle-84b6eb" style="background-color: #84b6eb; color: #000000" title="enhancement"><span class="css-truncate-target" style="max-width: 100%">enhancement</span></a>
+
+</div>
+
+    </div>
+</form></div>
+
+    <div class="discussion-sidebar-item js-discussion-sidebar-item">
+  <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/facebook/prophet/projects/issues/434" class="js-issue-sidebar-form" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="Vuv3ABt7pwkG0iZSl3H9sFB42e9/z/nrrUw1zi9ts2z/YL/X3aEfP6S+G1O0GIuGm77/zg0CGEXdolTzRiL1Tg=="></div>
+    
+
+  <div class="discussion-sidebar-heading text-bold">
+    Projects
+  </div>
+
+    
+<span class="css-truncate sidebar-projects">
+    None yet
+</span>
+
+</form></div>
+
+  <div class="discussion-sidebar-item sidebar-milestone js-discussion-sidebar-item">
+  <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/facebook/prophet/issues/434/set_milestone?partial=issues%2Fsidebar%2Fshow%2Fmilestone" class="js-issue-sidebar-form" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="yyTrN7e4Qubz08+KK1mLTN2iZbR7exITq9pEhAtYc2khS0tuOSONcs9VQKQ/edEFW7sax/6bsO+mxYNpPtFuyA=="></div>
+    
+
+  <div class="discussion-sidebar-heading text-bold">
+    Milestone
+  </div>
+
+      No milestone
+
+</form></div>
+
+    <div class="discussion-sidebar-item sidebar-notifications">
+    <div class="discussion-sidebar-heading text-bold">Notifications</div>
+    <div class="thread-subscription-status js-thread-subscription-status js-socket-channel js-updatable-content" data-channel="thread-subscription:294785059:18707623" data-url="/notifications/thread_subscription?repository_id=73872834&amp;thread_class=Issue&amp;thread_id=294785059">
+
+  <svg aria-hidden="true" class="octicon octicon-radio-tower" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M4.79 6.11c.25-.25.25-.67 0-.92-.32-.33-.48-.76-.48-1.19 0-.43.16-.86.48-1.19.25-.26.25-.67 0-.92a.613.613 0 0 0-.45-.19c-.16 0-.33.06-.45.19-.57.58-.85 1.35-.85 2.11 0 .76.29 1.53.85 2.11.25.25.66.25.9 0zM2.33.52a.651.651 0 0 0-.92 0C.48 1.48.01 2.74.01 3.99c0 1.26.47 2.52 1.4 3.48.25.26.66.26.91 0s.25-.68 0-.94c-.68-.7-1.02-1.62-1.02-2.54 0-.92.34-1.84 1.02-2.54a.66.66 0 0 0 .01-.93zm5.69 5.1A1.62 1.62 0 1 0 6.4 4c-.01.89.72 1.62 1.62 1.62zM14.59.53a.628.628 0 0 0-.91 0c-.25.26-.25.68 0 .94.68.7 1.02 1.62 1.02 2.54 0 .92-.34 1.83-1.02 2.54-.25.26-.25.68 0 .94a.651.651 0 0 0 .92 0c.93-.96 1.4-2.22 1.4-3.48A5.048 5.048 0 0 0 14.59.53zM8.02 6.92c-.41 0-.83-.1-1.2-.3l-3.15 8.37h1.49l.86-1h4l.84 1h1.49L9.21 6.62c-.38.2-.78.3-1.19.3zm-.01.48L9.02 11h-2l.99-3.6zm-1.99 5.59l1-1h2l1 1h-4zm5.19-11.1c-.25.25-.25.67 0 .92.32.33.48.76.48 1.19 0 .43-.16.86-.48 1.19-.25.26-.25.67 0 .92a.63.63 0 0 0 .9 0c.57-.58.85-1.35.85-2.11 0-.76-.28-1.53-.85-2.11a.634.634 0 0 0-.9 0z"></path></svg>
+
+  <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/notifications/thread" class="thread-subscribe-form js-thread-subscribe-form" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="eMlwbSmusHHOPLpJGn767Wuko4tsxgwoWB4I9UYR5qjbbbq6ujHnZjreXSZ7TwqwREgJd7pi/n46Yks3MZrGcg=="></div>    <input type="hidden" name="repository_id" value="73872834">
+    <input type="hidden" name="thread_id" value="294785059">
+    <input type="hidden" name="thread_class" value="Issue">
+    <input type="hidden" name="id" value="subscribe">
+
+    <button class="btn btn-sm" type="submit" data-disable-with="">
+      <svg aria-hidden="true" class="octicon octicon-unmute" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M12 8.02c0 1.09-.45 2.09-1.17 2.83l-.67-.67c.55-.56.89-1.31.89-2.16 0-.85-.34-1.61-.89-2.16l.67-.67A3.99 3.99 0 0 1 12 8.02zM7.72 2.28L4 6H2c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1h2l3.72 3.72c.47.47 1.28.14 1.28-.53V2.81c0-.67-.81-1-1.28-.53zm5.94.08l-.67.67a6.996 6.996 0 0 1 2.06 4.98c0 1.94-.78 3.7-2.06 4.98l.67.67A7.973 7.973 0 0 0 16 8c0-2.22-.89-4.22-2.34-5.66v.02zm-1.41 1.41l-.69.67a5.05 5.05 0 0 1 1.48 3.58c0 1.39-.56 2.66-1.48 3.56l.69.67A5.971 5.971 0 0 0 14 8.02c0-1.65-.67-3.16-1.75-4.25z"></path></svg>
+      Subscribe
+    </button>
+</form>
+  <p class="reason text-small text-gray">You’re not receiving notifications from this thread.</p>
+</div>
+
+  </div>
+
+  <div id="partial-users-participants" class="discussion-sidebar-item">
+  <div class="participation">
+
+    <div class="discussion-sidebar-heading text-bold">
+      3 participants
+    </div>
+    <div class="participation-avatars d-flex flex-wrap">
+
+        <div class="position-relative">
+          <a class="participant-avatar" href="https://github.com/gs9824"><img alt="@gs9824" class="avatar" height="26" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/36197920" width="26"> </a>
+        </div>
+
+        <div class="position-relative">
+          <a class="participant-avatar" href="https://github.com/vhpietil"><img alt="@vhpietil" class="avatar" height="26" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/15958019" width="26"> </a>
+        </div>
+
+        <div class="position-relative">
+          <a class="participant-avatar" href="https://github.com/bletham"><img alt="@bletham" class="avatar" height="26" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/6339760" width="26"> </a>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+  
+
+</div>
+
+      </div>
+
+      <div class="discussion-timeline js-quote-selection-container ">
+
+        <div class="js-discussion js-socket-channel" data-channel="marked-as-read:issue:294785059">
+
+          <div class="timeline-comment-wrapper js-comment-container mt-0">
+            
+
+
+<div class="avatar-parent-child timeline-comment-avatar position-relative">
+    <a href="https://github.com/gs9824">
+      <img alt="@gs9824" class="avatar rounded-1" height="44" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/36197920(1)" width="44">
+    </a>
+
+</div>
+
+
+            
+  <div id="issue-294785059" class="comment previewable-edit js-comment js-task-list-container timeline-comment js-reorderable-task-lists reorderable-task-lists " data-body-version="1541e906e5a77a89313050cc03395d90">
+
+    
+<div class="timeline-comment-header clearfix">
+  <div class="timeline-comment-actions">
+    
+
+
+  
+  <details class="dropdown-details details-reset position-relative d-inline-block js-socket-channel js-updatable-content js-dropdown-details js-reaction-popover-container js-comment-header-reaction-button" data-channel="reaction:issue:294785059" data-url="/_render_node/MDU6SXNzdWUyOTQ3ODUwNTk=/comments/comment_header_reaction_button">
+    <summary class="btn-link timeline-comment-action" aria-label="Add your reaction" aria-haspopup="true">
+      <svg aria-hidden="true" class="octicon octicon-plus-small add-reaction-plus-icon" height="16" version="1.1" viewBox="0 0 7 16" width="7"><path fill-rule="evenodd" d="M4 7V4H3v3H0v1h3v3h1V8h3V7H4z"></path></svg>
+      <svg aria-hidden="true" class="octicon octicon-smiley" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm4.81 12.81a6.72 6.72 0 0 1-2.17 1.45c-.83.36-1.72.53-2.64.53-.92 0-1.81-.17-2.64-.53-.81-.34-1.55-.83-2.17-1.45a6.773 6.773 0 0 1-1.45-2.17A6.59 6.59 0 0 1 1.21 8c0-.92.17-1.81.53-2.64.34-.81.83-1.55 1.45-2.17.62-.62 1.36-1.11 2.17-1.45A6.59 6.59 0 0 1 8 1.21c.92 0 1.81.17 2.64.53.81.34 1.55.83 2.17 1.45.62.62 1.11 1.36 1.45 2.17.36.83.53 1.72.53 2.64 0 .92-.17 1.81-.53 2.64-.34.81-.83 1.55-1.45 2.17zM4 6.8v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2H5.2C4.53 8 4 7.47 4 6.8zm5 0v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2h-.59C9.53 8 9 7.47 9 6.8zm4 3.2c-.72 1.88-2.91 3-5 3s-4.28-1.13-5-3c-.14-.39.23-1 .66-1h8.59c.41 0 .89.61.75 1z"></path></svg>
+    </summary>
+    
+<div class="dropdown-menu dropdown-menu-sw add-reaction-popover js-add-reaction-popover anim-scale-in">
+  <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/users/facebook/reactions" class="reaction-popover-form js-pick-reaction" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="z1OF6NJIWDQkRZQZisOxVU6pxliQtBhHQuuBjPtaEcmN5QnjngV6pLCE1u3o3wgNLF9wllRuGotAL1B7rl8ADg=="></div>
+    <p class="text-gray mx-2 my-1">
+      <span class="js-reaction-description">Pick your reaction</span>
+      <img alt="" class="loading-spinner" height="16" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/octocat-spinner-32.gif" width="16">
+    </p>
+
+    <div class="dropdown-divider"></div>
+
+    <div class="add-reactions-options mx-1 mb-1">
+      <input type="hidden" name="input[subjectId]" value="MDU6SXNzdWUyOTQ3ODUwNTk=">
+
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="+1" name="input[content]" aria-label="React with thumbs up emoji" value="THUMBS_UP react">
+          <g-emoji alias="+1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44d.png"><img class="emoji" alt="+1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44d.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="-1" name="input[content]" aria-label="React with thumbs down emoji" value="THUMBS_DOWN react">
+          <g-emoji alias="-1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44e.png"><img class="emoji" alt="-1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44e.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Laugh" name="input[content]" aria-label="React with laugh emoji" value="LAUGH react">
+          <g-emoji alias="smile" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f604.png"><img class="emoji" alt="smile" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f604.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Hooray" name="input[content]" aria-label="React with hooray emoji" value="HOORAY react">
+          <g-emoji alias="tada" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f389.png"><img class="emoji" alt="tada" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f389.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Confused" name="input[content]" aria-label="React with confused emoji" value="CONFUSED react">
+          <g-emoji alias="thinking_face" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f615.png"><img class="emoji" alt="thinking_face" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f615.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Heart" name="input[content]" aria-label="React with heart emoji" value="HEART react">
+          <g-emoji alias="heart" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2764.png"><img class="emoji" alt="heart" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/2764.png"></g-emoji>
+        </button>
+    </div>
+</form></div>
+
+  </details>
+
+
+
+
+
+
+<!-- Closes div if we are showing the kebab menu -->
+
+  </div>
+
+    
+
+
+
+  <h3 class="timeline-comment-header-text f5 text-normal">
+
+    <strong>
+      
+
+  <a href="https://github.com/gs9824" class="author text-inherit">gs9824</a>
+  
+
+    </strong>
+
+    commented
+
+    <a href="https://github.com/facebook/prophet/issues/434#issue-294785059" class="timestamp"><relative-time datetime="2018-02-06T14:45:52Z" title="Feb 6, 2018, 11:45 PM GMT+9">15 days ago</relative-time></a>
+
+
+  </h3>
+</div>
+
+
+    <div class="edit-comment-hide">
+      
+<table class="d-block">
+  <tbody class="d-block">
+    <tr class="d-block">
+      <td class="d-block comment-body markdown-body  js-comment-body">
+          <p>I'm using prophet on the following dataset<br>
+<a href="https://github.com/facebook/prophet/files/1699430/ts_1_week.txt">ts_1_week.txt</a></p>
+<p>I'm trying to fit the model as good as possible. This works reasonably, but weekends seem to have a different profile - which the model does not seem to capture (take up is later on weekend days)</p>
+<p><a href="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/35864558-6ac73a60-0b52-11e8-88be-2a5ce074e129.PNG" target="_blank"><img src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/35864558-6ac73a60-0b52-11e8-88be-2a5ce074e129.PNG" alt="capture_prophet" style="max-width:100%;"></a></p>
+<p>I tried to add a specific regressor for weekenddays, but this does not seem to make a lot of difference.</p>
+<p>m_1_week = Prophet(growth='logistic', weekly_seasonality=True)<br>
+m_1_week.add_regressor('weekend')<br>
+ts_1_week['floor']=0<br>
+ts_1_week['cap']=10<br>
+m_1_week.fit(ts_1_week);</p>
+<p>future = m_1_week.make_future_dataframe(periods=48, freq = "h", include_history = True)<br>
+future['floor']=0<br>
+future['cap']=10<br>
+future['weekend'] = future['ds'].apply(weekend)</p>
+<p>forecast = m_1_week.predict(future)</p>
+<p>There seems to be only 1 daily profile, while it would make sense to have different ones for different day types</p>
+<p><a href="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/35865256-546f0a2a-0b54-11e8-979f-efb683d26365.PNG" target="_blank"><img src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/35865256-546f0a2a-0b54-11e8-979f-efb683d26365.PNG" alt="capture_2" style="max-width:100%;"></a></p>
+<p>Is there a way to model the differences between weekdays &amp; weekends in a better way ?</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+        
+
+<div class="comment-reactions  js-reactions-container js-socket-channel js-updatable-content" data-channel="reaction:issue:294785059" data-url="/_render_node/MDU6SXNzdWUyOTQ3ODUwNTk=/comments/reactions">
+</div>
+
+    </div>
+
+  </div>
+
+          </div>
+
+          
+
+  
+  <div id="js-timeline-progressive-loader" data-timeline-item-src="facebook/prophet/timeline?id=MDU6SXNzdWUyOTQ3ODUwNTk%3D&amp;variables%5Bafter%5D=Y3Vyc29yOnYyOpPPAAABYYx0L0ABzleoEcE%3D&amp;variables%5Bfirst%5D=80"></div>
+
+
+  
+<div class="js-timeline-item js-timeline-progressive-focus-container" data-gid="MDE3OlJlbmFtZWRUaXRsZUV2ZW50MTQ2MDI2MzA3OA==">
+      <div class="discussion-item discussion-item-renamed">
+  <h3 class="discussion-item-header f5 text-normal" id="event-1460263078">
+
+    <span class="discussion-item-icon">
+      <svg aria-hidden="true" class="octicon octicon-pencil" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"></path></svg>
+    </span>
+
+    
+
+        <img src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/36197920(2)" alt="@gs9824" height="16" width="16" class="avatar">
+  <a href="https://github.com/gs9824" class="author">gs9824</a>
+  
+
+
+      
+changed the title from
+<span class="renamed-was">Capturing different daily differences </span>
+to
+<span class="renamed-is">Capturing different daily profiles</span>
+
+
+    <a href="https://github.com/facebook/prophet/issues/434#event-1460263078" class="timestamp"><relative-time datetime="2018-02-06T14:46:24Z" title="Feb 6, 2018, 11:46 PM GMT+9">15 days ago</relative-time></a>
+
+  </h3>
+</div>
+
+
+
+
+</div>
+
+  
+<div class="js-timeline-item js-timeline-progressive-focus-container" data-gid="MDEyOklzc3VlQ29tbWVudDM2Mzc0MzUzMQ==">
+    
+<div class="timeline-comment-wrapper js-comment-container">
+  
+
+
+<div class="avatar-parent-child timeline-comment-avatar position-relative">
+    <a href="https://github.com/vhpietil">
+      <img alt="@vhpietil" class="avatar rounded-1" height="44" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/15958019(1)" width="44">
+    </a>
+
+</div>
+
+
+  
+  <div id="issuecomment-363743531" class="comment previewable-edit js-comment js-task-list-container timeline-comment js-reorderable-task-lists reorderable-task-lists " data-body-version="e38264d26e15e988a26211ec6e9b2459">
+
+    
+<div class="timeline-comment-header clearfix">
+  <div class="timeline-comment-actions">
+    
+
+
+  
+  <details class="dropdown-details details-reset position-relative d-inline-block js-socket-channel js-updatable-content js-dropdown-details js-reaction-popover-container js-comment-header-reaction-button" data-channel="reaction:issue-comment:363743531" data-url="/_render_node/MDEyOklzc3VlQ29tbWVudDM2Mzc0MzUzMQ==/comments/comment_header_reaction_button">
+    <summary class="btn-link timeline-comment-action" aria-label="Add your reaction" aria-haspopup="true">
+      <svg aria-hidden="true" class="octicon octicon-plus-small add-reaction-plus-icon" height="16" version="1.1" viewBox="0 0 7 16" width="7"><path fill-rule="evenodd" d="M4 7V4H3v3H0v1h3v3h1V8h3V7H4z"></path></svg>
+      <svg aria-hidden="true" class="octicon octicon-smiley" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm4.81 12.81a6.72 6.72 0 0 1-2.17 1.45c-.83.36-1.72.53-2.64.53-.92 0-1.81-.17-2.64-.53-.81-.34-1.55-.83-2.17-1.45a6.773 6.773 0 0 1-1.45-2.17A6.59 6.59 0 0 1 1.21 8c0-.92.17-1.81.53-2.64.34-.81.83-1.55 1.45-2.17.62-.62 1.36-1.11 2.17-1.45A6.59 6.59 0 0 1 8 1.21c.92 0 1.81.17 2.64.53.81.34 1.55.83 2.17 1.45.62.62 1.11 1.36 1.45 2.17.36.83.53 1.72.53 2.64 0 .92-.17 1.81-.53 2.64-.34.81-.83 1.55-1.45 2.17zM4 6.8v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2H5.2C4.53 8 4 7.47 4 6.8zm5 0v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2h-.59C9.53 8 9 7.47 9 6.8zm4 3.2c-.72 1.88-2.91 3-5 3s-4.28-1.13-5-3c-.14-.39.23-1 .66-1h8.59c.41 0 .89.61.75 1z"></path></svg>
+    </summary>
+    
+<div class="dropdown-menu dropdown-menu-sw add-reaction-popover js-add-reaction-popover anim-scale-in">
+  <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/users/facebook/reactions" class="reaction-popover-form js-pick-reaction" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="SuU01QTa0jkszNundq91Fw9Cqzpyj1MbXhVNoTRPo7IIU7jeSJfwqbgNmVMUs8xPbbQd9LZVUddc0ZxWYUqydQ=="></div>
+    <p class="text-gray mx-2 my-1">
+      <span class="js-reaction-description">Pick your reaction</span>
+      <img alt="" class="loading-spinner" height="16" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/octocat-spinner-32.gif" width="16">
+    </p>
+
+    <div class="dropdown-divider"></div>
+
+    <div class="add-reactions-options mx-1 mb-1">
+      <input type="hidden" name="input[subjectId]" value="MDEyOklzc3VlQ29tbWVudDM2Mzc0MzUzMQ==">
+
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="+1" name="input[content]" aria-label="React with thumbs up emoji" value="THUMBS_UP react">
+          <g-emoji alias="+1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44d.png"><img class="emoji" alt="+1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44d.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="-1" name="input[content]" aria-label="React with thumbs down emoji" value="THUMBS_DOWN react">
+          <g-emoji alias="-1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44e.png"><img class="emoji" alt="-1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44e.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Laugh" name="input[content]" aria-label="React with laugh emoji" value="LAUGH react">
+          <g-emoji alias="smile" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f604.png"><img class="emoji" alt="smile" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f604.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Hooray" name="input[content]" aria-label="React with hooray emoji" value="HOORAY react">
+          <g-emoji alias="tada" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f389.png"><img class="emoji" alt="tada" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f389.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Confused" name="input[content]" aria-label="React with confused emoji" value="CONFUSED react">
+          <g-emoji alias="thinking_face" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f615.png"><img class="emoji" alt="thinking_face" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f615.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Heart" name="input[content]" aria-label="React with heart emoji" value="HEART react">
+          <g-emoji alias="heart" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2764.png"><img class="emoji" alt="heart" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/2764.png"></g-emoji>
+        </button>
+    </div>
+</form></div>
+
+  </details>
+
+
+
+
+
+
+<!-- Closes div if we are showing the kebab menu -->
+
+  </div>
+
+    
+
+
+
+  <h3 class="timeline-comment-header-text f5 text-normal">
+
+    <strong>
+      
+
+  <a href="https://github.com/vhpietil" class="author text-inherit">vhpietil</a>
+  
+
+    </strong>
+
+    commented
+
+    <a href="https://github.com/facebook/prophet/issues/434#issuecomment-363743531" class="timestamp"><relative-time datetime="2018-02-07T11:40:46Z" title="Feb 7, 2018, 8:40 PM GMT+9">14 days ago</relative-time></a>
+
+
+  </h3>
+</div>
+
+
+    <div class="edit-comment-hide">
+      
+<table class="d-block">
+  <tbody class="d-block">
+    <tr class="d-block">
+      <td class="d-block comment-body markdown-body  js-comment-body">
+          <p>Do you have more data to share? I have an approach which I would like to try. But when you have only one week of data, the model easily overfits.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+        
+
+<div class="comment-reactions  js-reactions-container js-socket-channel js-updatable-content" data-channel="reaction:issue-comment:363743531" data-url="/_render_node/MDEyOklzc3VlQ29tbWVudDM2Mzc0MzUzMQ==/comments/reactions">
+</div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+  
+<div class="js-timeline-item js-timeline-progressive-focus-container" data-gid="MDEyOklzc3VlQ29tbWVudDM2Mzc0NTg4MQ==">
+    
+<div class="timeline-comment-wrapper js-comment-container">
+  
+
+
+<div class="avatar-parent-child timeline-comment-avatar position-relative">
+    <a href="https://github.com/gs9824">
+      <img alt="@gs9824" class="avatar rounded-1" height="44" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/36197920(1)" width="44">
+    </a>
+
+</div>
+
+
+  
+  <div id="issuecomment-363745881" class="comment previewable-edit js-comment js-task-list-container timeline-comment js-reorderable-task-lists reorderable-task-lists " data-body-version="46c9d97be8fdb2d73dde31619e9d0b6a">
+
+    
+<div class="timeline-comment-header clearfix">
+  <div class="timeline-comment-actions">
+    
+
+
+  
+  <details class="dropdown-details details-reset position-relative d-inline-block js-socket-channel js-updatable-content js-dropdown-details js-reaction-popover-container js-comment-header-reaction-button" data-channel="reaction:issue-comment:363745881" data-url="/_render_node/MDEyOklzc3VlQ29tbWVudDM2Mzc0NTg4MQ==/comments/comment_header_reaction_button">
+    <summary class="btn-link timeline-comment-action" aria-label="Add your reaction" aria-haspopup="true">
+      <svg aria-hidden="true" class="octicon octicon-plus-small add-reaction-plus-icon" height="16" version="1.1" viewBox="0 0 7 16" width="7"><path fill-rule="evenodd" d="M4 7V4H3v3H0v1h3v3h1V8h3V7H4z"></path></svg>
+      <svg aria-hidden="true" class="octicon octicon-smiley" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm4.81 12.81a6.72 6.72 0 0 1-2.17 1.45c-.83.36-1.72.53-2.64.53-.92 0-1.81-.17-2.64-.53-.81-.34-1.55-.83-2.17-1.45a6.773 6.773 0 0 1-1.45-2.17A6.59 6.59 0 0 1 1.21 8c0-.92.17-1.81.53-2.64.34-.81.83-1.55 1.45-2.17.62-.62 1.36-1.11 2.17-1.45A6.59 6.59 0 0 1 8 1.21c.92 0 1.81.17 2.64.53.81.34 1.55.83 2.17 1.45.62.62 1.11 1.36 1.45 2.17.36.83.53 1.72.53 2.64 0 .92-.17 1.81-.53 2.64-.34.81-.83 1.55-1.45 2.17zM4 6.8v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2H5.2C4.53 8 4 7.47 4 6.8zm5 0v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2h-.59C9.53 8 9 7.47 9 6.8zm4 3.2c-.72 1.88-2.91 3-5 3s-4.28-1.13-5-3c-.14-.39.23-1 .66-1h8.59c.41 0 .89.61.75 1z"></path></svg>
+    </summary>
+    
+<div class="dropdown-menu dropdown-menu-sw add-reaction-popover js-add-reaction-popover anim-scale-in">
+  <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/users/facebook/reactions" class="reaction-popover-form js-pick-reaction" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="r+/LEZZXcFq8/xI0e3OfNgxeMD92kaAmN9stBWp8l/rtWUca2hpSyig+UMAZbyZubqiG8bJLouo1H/zyP3mGPQ=="></div>
+    <p class="text-gray mx-2 my-1">
+      <span class="js-reaction-description">Pick your reaction</span>
+      <img alt="" class="loading-spinner" height="16" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/octocat-spinner-32.gif" width="16">
+    </p>
+
+    <div class="dropdown-divider"></div>
+
+    <div class="add-reactions-options mx-1 mb-1">
+      <input type="hidden" name="input[subjectId]" value="MDEyOklzc3VlQ29tbWVudDM2Mzc0NTg4MQ==">
+
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="+1" name="input[content]" aria-label="React with thumbs up emoji" value="THUMBS_UP react">
+          <g-emoji alias="+1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44d.png"><img class="emoji" alt="+1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44d.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="-1" name="input[content]" aria-label="React with thumbs down emoji" value="THUMBS_DOWN react">
+          <g-emoji alias="-1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44e.png"><img class="emoji" alt="-1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44e.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Laugh" name="input[content]" aria-label="React with laugh emoji" value="LAUGH react">
+          <g-emoji alias="smile" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f604.png"><img class="emoji" alt="smile" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f604.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Hooray" name="input[content]" aria-label="React with hooray emoji" value="HOORAY react">
+          <g-emoji alias="tada" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f389.png"><img class="emoji" alt="tada" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f389.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Confused" name="input[content]" aria-label="React with confused emoji" value="CONFUSED react">
+          <g-emoji alias="thinking_face" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f615.png"><img class="emoji" alt="thinking_face" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f615.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Heart" name="input[content]" aria-label="React with heart emoji" value="HEART react">
+          <g-emoji alias="heart" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2764.png"><img class="emoji" alt="heart" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/2764.png"></g-emoji>
+        </button>
+    </div>
+</form></div>
+
+  </details>
+
+
+
+
+
+
+<!-- Closes div if we are showing the kebab menu -->
+
+  </div>
+
+    
+
+
+
+  <h3 class="timeline-comment-header-text f5 text-normal">
+
+    <strong>
+      
+
+  <a href="https://github.com/gs9824" class="author text-inherit">gs9824</a>
+  
+
+    </strong>
+
+    commented
+
+    <a href="https://github.com/facebook/prophet/issues/434#issuecomment-363745881" class="timestamp"><relative-time datetime="2018-02-07T11:51:18Z" title="Feb 7, 2018, 8:51 PM GMT+9">14 days ago</relative-time></a>
+
+
+      
+  <span class="d-inline-block text-gray-light">•</span>
+
+
+  <div class="d-inline-block dropdown js-menu-container js-select-menu">
+    <button class="btn-link no-underline text-gray dropdown-toggle js-menu-target" type="button" aria-expanded="false" aria-haspopup="true">
+        edited
+        <svg aria-hidden="true" class="octicon octicon-triangle-down v-align-middle" height="11" version="1.1" viewBox="0 0 12 16" width="8"><path fill-rule="evenodd" d="M0 5l6 6 6-6z"></path></svg>
+    </button>
+
+    <div class="dropdown-menu-content anim-scale-in js-menu-content">
+      <div class="dropdown-menu dropdown-menu-se py-0 overflow-hidden" style="width:272px">
+        <div class="dropdown-header px-3 py-2 border-bottom">Edited 1 time</div>
+        <ul class="bg-gray-light" style="overflow-y:auto; max-height:250px">
+          <li class="d-flex flex-justify-between border-bottom px-3 py-2 f6 css-truncate">
+              <a href="https://github.com/gs9824" class="text-inherit no-underline">
+                <img src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/36197920(3)" width="20" height="20" class="avatar avatar-small v-align-middle" alt="@gs9824">
+                <span class="css-truncate-target v-align-middle text-bold text-gray-dark">gs9824 </span>
+              </a>
+            <div><relative-time datetime="2018-02-07T11:51:35Z" title="Feb 7, 2018, 8:51 PM GMT+9">14 days ago</relative-time></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  </h3>
+</div>
+
+
+    <div class="edit-comment-hide">
+      
+<table class="d-block">
+  <tbody class="d-block">
+    <tr class="d-block">
+      <td class="d-block comment-body markdown-body  js-comment-body">
+          <p>Thanks for your response and willingness to look into this.</p>
+<p>Yes, the original series is 4 weeks.  The original data values are in the yy column, the y column is the log of the yy values -- as that seemed to give better results.</p>
+<p>Here it is :<br>
+<a href="https://github.com/facebook/prophet/files/1702898/ts_4_weeks.txt">ts_4_weeks.txt</a></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+        
+
+<div class="comment-reactions  js-reactions-container js-socket-channel js-updatable-content" data-channel="reaction:issue-comment:363745881" data-url="/_render_node/MDEyOklzc3VlQ29tbWVudDM2Mzc0NTg4MQ==/comments/reactions">
+</div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+  
+<div class="js-timeline-item js-timeline-progressive-focus-container" data-gid="MDEyOklzc3VlQ29tbWVudDM2Mzc5MzM2MA==">
+    
+<div class="timeline-comment-wrapper js-comment-container">
+  
+
+
+<div class="avatar-parent-child timeline-comment-avatar position-relative">
+    <a href="https://github.com/vhpietil">
+      <img alt="@vhpietil" class="avatar rounded-1" height="44" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/15958019(1)" width="44">
+    </a>
+
+</div>
+
+
+  
+  <div id="issuecomment-363793360" class="comment previewable-edit js-comment js-task-list-container timeline-comment js-reorderable-task-lists reorderable-task-lists " data-body-version="2734956b1a131b57bb110ba33ba39b8b">
+
+    
+<div class="timeline-comment-header clearfix">
+  <div class="timeline-comment-actions">
+    
+
+
+  
+  <details class="dropdown-details details-reset position-relative d-inline-block js-socket-channel js-updatable-content js-dropdown-details js-reaction-popover-container js-comment-header-reaction-button" data-channel="reaction:issue-comment:363793360" data-url="/_render_node/MDEyOklzc3VlQ29tbWVudDM2Mzc5MzM2MA==/comments/comment_header_reaction_button">
+    <summary class="btn-link timeline-comment-action" aria-label="Add your reaction" aria-haspopup="true">
+      <svg aria-hidden="true" class="octicon octicon-plus-small add-reaction-plus-icon" height="16" version="1.1" viewBox="0 0 7 16" width="7"><path fill-rule="evenodd" d="M4 7V4H3v3H0v1h3v3h1V8h3V7H4z"></path></svg>
+      <svg aria-hidden="true" class="octicon octicon-smiley" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm4.81 12.81a6.72 6.72 0 0 1-2.17 1.45c-.83.36-1.72.53-2.64.53-.92 0-1.81-.17-2.64-.53-.81-.34-1.55-.83-2.17-1.45a6.773 6.773 0 0 1-1.45-2.17A6.59 6.59 0 0 1 1.21 8c0-.92.17-1.81.53-2.64.34-.81.83-1.55 1.45-2.17.62-.62 1.36-1.11 2.17-1.45A6.59 6.59 0 0 1 8 1.21c.92 0 1.81.17 2.64.53.81.34 1.55.83 2.17 1.45.62.62 1.11 1.36 1.45 2.17.36.83.53 1.72.53 2.64 0 .92-.17 1.81-.53 2.64-.34.81-.83 1.55-1.45 2.17zM4 6.8v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2H5.2C4.53 8 4 7.47 4 6.8zm5 0v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2h-.59C9.53 8 9 7.47 9 6.8zm4 3.2c-.72 1.88-2.91 3-5 3s-4.28-1.13-5-3c-.14-.39.23-1 .66-1h8.59c.41 0 .89.61.75 1z"></path></svg>
+    </summary>
+    
+<div class="dropdown-menu dropdown-menu-sw add-reaction-popover js-add-reaction-popover anim-scale-in">
+  <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/users/facebook/reactions" class="reaction-popover-form js-pick-reaction" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="Lpteb4tTrG3GtgxPAUKxDnpr/7iQWSQLz0dSAPRW9bBsLdJkxx6O/VJ3TrtjXghWGJ1JdlSDJsfNg4P3oVPkdw=="></div>
+    <p class="text-gray mx-2 my-1">
+      <span class="js-reaction-description">Pick your reaction</span>
+      <img alt="" class="loading-spinner" height="16" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/octocat-spinner-32.gif" width="16">
+    </p>
+
+    <div class="dropdown-divider"></div>
+
+    <div class="add-reactions-options mx-1 mb-1">
+      <input type="hidden" name="input[subjectId]" value="MDEyOklzc3VlQ29tbWVudDM2Mzc5MzM2MA==">
+
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="+1" name="input[content]" aria-label="React with thumbs up emoji" value="THUMBS_UP react">
+          <g-emoji alias="+1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44d.png"><img class="emoji" alt="+1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44d.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="-1" name="input[content]" aria-label="React with thumbs down emoji" value="THUMBS_DOWN react">
+          <g-emoji alias="-1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44e.png"><img class="emoji" alt="-1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44e.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Laugh" name="input[content]" aria-label="React with laugh emoji" value="LAUGH react">
+          <g-emoji alias="smile" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f604.png"><img class="emoji" alt="smile" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f604.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Hooray" name="input[content]" aria-label="React with hooray emoji" value="HOORAY react">
+          <g-emoji alias="tada" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f389.png"><img class="emoji" alt="tada" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f389.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Confused" name="input[content]" aria-label="React with confused emoji" value="CONFUSED react">
+          <g-emoji alias="thinking_face" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f615.png"><img class="emoji" alt="thinking_face" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f615.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Heart" name="input[content]" aria-label="React with heart emoji" value="HEART react">
+          <g-emoji alias="heart" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2764.png"><img class="emoji" alt="heart" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/2764.png"></g-emoji>
+        </button>
+    </div>
+</form></div>
+
+  </details>
+
+
+
+
+
+
+<!-- Closes div if we are showing the kebab menu -->
+
+  </div>
+
+    
+
+
+
+  <h3 class="timeline-comment-header-text f5 text-normal">
+
+    <strong>
+      
+
+  <a href="https://github.com/vhpietil" class="author text-inherit">vhpietil</a>
+  
+
+    </strong>
+
+    commented
+
+    <a href="https://github.com/facebook/prophet/issues/434#issuecomment-363793360" class="timestamp"><relative-time datetime="2018-02-07T14:53:53Z" title="Feb 7, 2018, 11:53 PM GMT+9">14 days ago</relative-time></a>
+
+
+  </h3>
+</div>
+
+
+    <div class="edit-comment-hide">
+      
+<table class="d-block">
+  <tbody class="d-block">
+    <tr class="d-block">
+      <td class="d-block comment-body markdown-body  js-comment-body">
+          <p>You are right that there is only one daily seasonality that is applied for all dates. This makes sense with temperature and other things that are not interested in weekends.</p>
+<p>When you used specific regressor for the weekend, you put constant 1 for every hour of the weekend. It just scales whole weekend up or down but cannot change the shape of the seasonality on weekends.</p>
+<p>You can make an external regressor by taking some number of sine and cosine functions (fourier series) in the same way prophet estimates the seasonalities. When you add this external regressor only on saturday and sunday, prophet can estimate how the "normal" daily seasonality need to be changed in order to get right seasonality for the weekends.</p>
+<p>Unfortunately I don't have time to polish my approach more, but here is the code and the results. I code in R.</p>
+<pre><code>library(prophet)
+library(readr)
+library(dplyr)
+
+# Read the data
+df &lt;- read_csv("ts_4_weeks.txt")
+
+# Fourier series, time_diff and set_date are functions
+# from prophet-package
+# These are used to make extra regressors
+fourier_series &lt;- function(dates, period, series.order) {
+  t &lt;- time_diff(dates, set_date('1970-01-01 00:00:00'))
+  features &lt;- matrix(0, length(t), 2 * series.order)
+  for (i in 1:series.order) {
+    x &lt;- as.numeric(2 * i * pi * t / period)
+    features[, i * 2 - 1] &lt;- sin(x)
+    features[, i * 2] &lt;- cos(x)
+  }
+  return(features)
+}
+
+time_diff &lt;- function(ds1, ds2, units = "days") {
+  return(as.numeric(difftime(ds1, ds2, units = units)))
+}
+
+set_date &lt;- function(ds = NULL, tz = "GMT") {
+  if (length(ds) == 0) {
+    return(NULL)
+  }
+  
+  if (is.factor(ds)) {
+    ds &lt;- as.character(ds)
+  }
+  
+  if (min(nchar(ds)) &lt; 12) {
+    ds &lt;- as.POSIXct(ds, format = "%Y-%m-%d", tz = tz)
+  } else {
+    ds &lt;- as.POSIXct(ds, format = "%Y-%m-%d %H:%M:%S", tz = tz)
+  }
+  attr(ds, "tzone") &lt;- tz
+  return(ds)
+}
+
+# Create extra regressors. 
+# These are basically sin and cos signals with varying periods
+# Dates are joined to the regressors and then I filter only saturday and sunday
+# Names of the columns are V1...V(2*series.order)
+series.order &lt;- 3
+regressors &lt;- fourier_series(df$ds, 1, series.order) %&gt;% 
+  as_data_frame %&gt;% 
+  cbind(ds = df$ds) %&gt;% 
+  filter((lubridate::wday(df$ds) %in% c(1,7)))
+
+# Initialize prohet
+m &lt;- prophet(weekly.seasonality = TRUE)
+
+# Add regressors to the model one by one
+for (i in 1:(length(regressors)-1)) {
+  m &lt;- add_regressor(m, paste0("V", i))
+}
+# Join regressors to the data, replace NAs with zeros and fit
+m &lt;- fit.prophet(m, df = df %&gt;% left_join(regressors) %&gt;% replace(is.na(.), 0))
+
+# Create future dataframe and extra regressors for those datetimes
+future = make_future_dataframe(m, 24*7, freq = 3600)
+
+series.order &lt;- 3
+future_regressors &lt;- fourier_series(future$ds, 1, series.order) %&gt;% 
+  as_data_frame %&gt;% 
+  cbind(ds = future$ds) %&gt;% 
+  filter((lubridate::wday(future$ds) %in% c(1,7)))
+
+# Profit
+forecast &lt;- predict(m, future %&gt;% left_join(future_regressors) %&gt;% replace(is.na(.), 0)) 
+
+plot(m, forecast)
+</code></pre>
+<p><a href="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/35922428-3b45ab08-0c26-11e8-93c8-aa9c2ba3c3aa.png" target="_blank"><img src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/35922428-3b45ab08-0c26-11e8-93c8-aa9c2ba3c3aa.png" alt="image" style="max-width:100%;"></a><br>
+<a href="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/35922460-53d37e70-0c26-11e8-91a0-33dcf46059ba.png" target="_blank"><img src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/35922460-53d37e70-0c26-11e8-91a0-33dcf46059ba.png" alt="image" style="max-width:100%;"></a></p>
+<p>You can see that the extra regressor modifies daily seasonality on the weekends and the overall fit is pretty good. There is a weird artefact/spike in the first hours of the saturday. It probably can be explained some how and dealt with.</p>
+<p><a href="https://github.com/bletham" class="user-mention">@bletham</a> What do you think about this approach. I have noticed that the weekly seasonality can be pretty different during winter and summer and this approach has given me quite promising results. Do you see some problem with this approach? Should I do this in some different way?</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+        
+
+<div class="comment-reactions has-reactions js-reactions-container js-socket-channel js-updatable-content" data-channel="reaction:issue-comment:363793360" data-url="/_render_node/MDEyOklzc3VlQ29tbWVudDM2Mzc5MzM2MA==/comments/reactions">
+    <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/users/facebook/reactions" class="js-pick-reaction" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="lghrr0smG8O9fUtxrmLCg216c47pjc/nMXuqJqN3yaLUvuekB2s5Uym8CYXMfnvbD4zFQC1XzSszv3vR9nLYZQ=="></div>
+      <input type="hidden" name="input[subjectId]" value="MDEyOklzc3VlQ29tbWVudDM2Mzc5MzM2MA==">
+
+      <div class="comment-reactions-options">
+          <button class="btn-link reaction-summary-item tooltipped tooltipped-se tooltipped-multiline " name="input[content]" type="submit" value="THUMBS_UP react" aria-label="alex-municio reacted with thumbs up emoji">
+            <g-emoji alias="+1" class="emoji mr-1" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44d.png"><img class="emoji" alt="+1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44d.png"></g-emoji>
+            1
+          </button>
+      </div>
+</form>      <details class="dropdown-details details-reset position-relative float-left reaction-popover-container js-reaction-popover-container">
+        <summary class="btn-link reaction-summary-item add-reaction-btn" aria-haspopup="true" aria-label="Add your reaction">
+          <svg aria-hidden="true" class="octicon octicon-plus-small add-reaction-plus-icon" height="16" version="1.1" viewBox="0 0 7 16" width="7"><path fill-rule="evenodd" d="M4 7V4H3v3H0v1h3v3h1V8h3V7H4z"></path></svg>
+          <svg aria-hidden="true" class="octicon octicon-smiley" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm4.81 12.81a6.72 6.72 0 0 1-2.17 1.45c-.83.36-1.72.53-2.64.53-.92 0-1.81-.17-2.64-.53-.81-.34-1.55-.83-2.17-1.45a6.773 6.773 0 0 1-1.45-2.17A6.59 6.59 0 0 1 1.21 8c0-.92.17-1.81.53-2.64.34-.81.83-1.55 1.45-2.17.62-.62 1.36-1.11 2.17-1.45A6.59 6.59 0 0 1 8 1.21c.92 0 1.81.17 2.64.53.81.34 1.55.83 2.17 1.45.62.62 1.11 1.36 1.45 2.17.36.83.53 1.72.53 2.64 0 .92-.17 1.81-.53 2.64-.34.81-.83 1.55-1.45 2.17zM4 6.8v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2H5.2C4.53 8 4 7.47 4 6.8zm5 0v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2h-.59C9.53 8 9 7.47 9 6.8zm4 3.2c-.72 1.88-2.91 3-5 3s-4.28-1.13-5-3c-.14-.39.23-1 .66-1h8.59c.41 0 .89.61.75 1z"></path></svg>
+        </summary>
+        
+<div class="dropdown-menu dropdown-menu-ne add-reaction-popover js-add-reaction-popover anim-scale-in">
+  <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/users/facebook/reactions" class="reaction-popover-form js-pick-reaction" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="euCxXW2Z+DoJpWXuqQLVEWWmujtJZw60adob0KzMQoo4Vj1WIdTaqp1kJxrLHmxJB1AM9Y29DHhrHson+clTTQ=="></div>
+    <p class="text-gray mx-2 my-1">
+      <span class="js-reaction-description">Pick your reaction</span>
+      <img alt="" class="loading-spinner" height="16" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/octocat-spinner-32.gif" width="16">
+    </p>
+
+    <div class="dropdown-divider"></div>
+
+    <div class="add-reactions-options mx-1 mb-1">
+      <input type="hidden" name="input[subjectId]" value="MDEyOklzc3VlQ29tbWVudDM2Mzc5MzM2MA==">
+
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="+1" name="input[content]" aria-label="React with thumbs up emoji" value="THUMBS_UP react">
+          <g-emoji alias="+1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44d.png"><img class="emoji" alt="+1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44d.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="-1" name="input[content]" aria-label="React with thumbs down emoji" value="THUMBS_DOWN react">
+          <g-emoji alias="-1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44e.png"><img class="emoji" alt="-1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44e.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Laugh" name="input[content]" aria-label="React with laugh emoji" value="LAUGH react">
+          <g-emoji alias="smile" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f604.png"><img class="emoji" alt="smile" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f604.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Hooray" name="input[content]" aria-label="React with hooray emoji" value="HOORAY react">
+          <g-emoji alias="tada" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f389.png"><img class="emoji" alt="tada" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f389.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Confused" name="input[content]" aria-label="React with confused emoji" value="CONFUSED react">
+          <g-emoji alias="thinking_face" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f615.png"><img class="emoji" alt="thinking_face" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f615.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Heart" name="input[content]" aria-label="React with heart emoji" value="HEART react">
+          <g-emoji alias="heart" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2764.png"><img class="emoji" alt="heart" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/2764.png"></g-emoji>
+        </button>
+    </div>
+</form></div>
+
+      </details>
+</div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+  
+<div class="js-timeline-item js-timeline-progressive-focus-container" data-gid="MDIwOkNyb3NzUmVmZXJlbmNlZEV2ZW50NTgzMTM3MDkx">
+    <div class="discussion-item">
+        <h3 class="discussion-item-header f5 text-normal" id="ref-issue-292282831">
+      <span class="discussion-item-icon">
+        <svg aria-hidden="true" class="octicon octicon-bookmark" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M9 0H1C.27 0 0 .27 0 1v15l5-3.09L10 16V1c0-.73-.27-1-1-1zm-.78 4.25L6.36 5.61l.72 2.16c.06.22-.02.28-.2.17L5 6.6 3.12 7.94c-.19.11-.25.05-.2-.17l.72-2.16-1.86-1.36c-.17-.16-.14-.23.09-.23l2.3-.03.7-2.16h.25l.7 2.16 2.3.03c.23 0 .27.08.09.23h.01z"></path></svg>
+      </span>
+        <img src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/15958019(2)" alt="@vhpietil" height="16" width="16" class="avatar">
+  <a href="https://github.com/vhpietil" class="author">vhpietil</a>
+  
+
+      referenced this issue
+      <a class="timestamp" href="https://github.com/facebook/prophet/issues/434#ref-issue-292282831">
+        <relative-time datetime="2018-02-07T14:58:38Z" title="Feb 7, 2018, 11:58 PM GMT+9">14 days ago</relative-time>
+      </a>
+    </h3>
+
+  
+    <span class="State State--small ml-1 State--green float-right" title="State: open">
+          <svg aria-hidden="true" class="octicon octicon-issue-opened" height="14" version="1.1" viewBox="0 0 14 16" width="12"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg>
+      Open
+    </span>
+
+
+
+    
+      <h4 class="discussion-item-ref-title">
+        <a href="https://github.com/facebook/prophet/issues/425" class="title-link">
+          Large variations in weekly seasonality throughout the year
+          <span class="issue-num">#425</span>
+        </a>
+      </h4>
+    
+
+    
+
+
+  
+
+</div>
+
+</div>
+
+  
+<div class="js-timeline-item js-timeline-progressive-focus-container" data-gid="MDEyOklzc3VlQ29tbWVudDM2MzkzOTE0Ng==">
+    
+<div class="timeline-comment-wrapper js-comment-container">
+  
+
+
+<div class="avatar-parent-child timeline-comment-avatar position-relative">
+    <a href="https://github.com/bletham">
+      <img alt="@bletham" class="avatar rounded-1" height="44" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/6339760(1)" width="44">
+    </a>
+
+</div>
+
+
+  
+  <div id="issuecomment-363939146" class="comment previewable-edit js-comment js-task-list-container timeline-comment js-reorderable-task-lists reorderable-task-lists " data-body-version="680825c7520b1235f0425d3e5b005a42">
+
+    
+<div class="timeline-comment-header clearfix">
+  <div class="timeline-comment-actions">
+    
+
+
+  
+  <details class="dropdown-details details-reset position-relative d-inline-block js-socket-channel js-updatable-content js-dropdown-details js-reaction-popover-container js-comment-header-reaction-button" data-channel="reaction:issue-comment:363939146" data-url="/_render_node/MDEyOklzc3VlQ29tbWVudDM2MzkzOTE0Ng==/comments/comment_header_reaction_button">
+    <summary class="btn-link timeline-comment-action" aria-label="Add your reaction" aria-haspopup="true">
+      <svg aria-hidden="true" class="octicon octicon-plus-small add-reaction-plus-icon" height="16" version="1.1" viewBox="0 0 7 16" width="7"><path fill-rule="evenodd" d="M4 7V4H3v3H0v1h3v3h1V8h3V7H4z"></path></svg>
+      <svg aria-hidden="true" class="octicon octicon-smiley" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm4.81 12.81a6.72 6.72 0 0 1-2.17 1.45c-.83.36-1.72.53-2.64.53-.92 0-1.81-.17-2.64-.53-.81-.34-1.55-.83-2.17-1.45a6.773 6.773 0 0 1-1.45-2.17A6.59 6.59 0 0 1 1.21 8c0-.92.17-1.81.53-2.64.34-.81.83-1.55 1.45-2.17.62-.62 1.36-1.11 2.17-1.45A6.59 6.59 0 0 1 8 1.21c.92 0 1.81.17 2.64.53.81.34 1.55.83 2.17 1.45.62.62 1.11 1.36 1.45 2.17.36.83.53 1.72.53 2.64 0 .92-.17 1.81-.53 2.64-.34.81-.83 1.55-1.45 2.17zM4 6.8v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2H5.2C4.53 8 4 7.47 4 6.8zm5 0v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2h-.59C9.53 8 9 7.47 9 6.8zm4 3.2c-.72 1.88-2.91 3-5 3s-4.28-1.13-5-3c-.14-.39.23-1 .66-1h8.59c.41 0 .89.61.75 1z"></path></svg>
+    </summary>
+    
+<div class="dropdown-menu dropdown-menu-sw add-reaction-popover js-add-reaction-popover anim-scale-in">
+  <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/users/facebook/reactions" class="reaction-popover-form js-pick-reaction" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="akTz+h2xzA2sP2DQFDUWZCEVWi7iEsjk5a0WQgXzbAso8n/xUfzunTj+IiR2Ka88Q+Ps4CbIyijnace1UPZ9zA=="></div>
+    <p class="text-gray mx-2 my-1">
+      <span class="js-reaction-description">Pick your reaction</span>
+      <img alt="" class="loading-spinner" height="16" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/octocat-spinner-32.gif" width="16">
+    </p>
+
+    <div class="dropdown-divider"></div>
+
+    <div class="add-reactions-options mx-1 mb-1">
+      <input type="hidden" name="input[subjectId]" value="MDEyOklzc3VlQ29tbWVudDM2MzkzOTE0Ng==">
+
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="+1" name="input[content]" aria-label="React with thumbs up emoji" value="THUMBS_UP react">
+          <g-emoji alias="+1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44d.png"><img class="emoji" alt="+1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44d.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="-1" name="input[content]" aria-label="React with thumbs down emoji" value="THUMBS_DOWN react">
+          <g-emoji alias="-1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44e.png"><img class="emoji" alt="-1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44e.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Laugh" name="input[content]" aria-label="React with laugh emoji" value="LAUGH react">
+          <g-emoji alias="smile" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f604.png"><img class="emoji" alt="smile" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f604.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Hooray" name="input[content]" aria-label="React with hooray emoji" value="HOORAY react">
+          <g-emoji alias="tada" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f389.png"><img class="emoji" alt="tada" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f389.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Confused" name="input[content]" aria-label="React with confused emoji" value="CONFUSED react">
+          <g-emoji alias="thinking_face" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f615.png"><img class="emoji" alt="thinking_face" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f615.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Heart" name="input[content]" aria-label="React with heart emoji" value="HEART react">
+          <g-emoji alias="heart" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2764.png"><img class="emoji" alt="heart" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/2764.png"></g-emoji>
+        </button>
+    </div>
+</form></div>
+
+  </details>
+
+
+
+
+
+
+<!-- Closes div if we are showing the kebab menu -->
+
+  </div>
+
+    
+    <span class="timeline-comment-label tooltipped tooltipped-multiline tooltipped-s" aria-label="This user has previously committed to the prophet repository.">
+      Contributor
+    </span>
+
+
+
+  <h3 class="timeline-comment-header-text f5 text-normal">
+
+    <strong>
+      
+
+  <a href="https://github.com/bletham" class="author text-inherit">bletham</a>
+  
+
+    </strong>
+
+    commented
+
+    <a href="https://github.com/facebook/prophet/issues/434#issuecomment-363939146" class="timestamp"><relative-time datetime="2018-02-07T22:53:53Z" title="Feb 8, 2018, 7:53 AM GMT+9">14 days ago</relative-time></a>
+
+
+  </h3>
+</div>
+
+
+    <div class="edit-comment-hide">
+      
+<table class="d-block">
+  <tbody class="d-block">
+    <tr class="d-block">
+      <td class="d-block comment-body markdown-body  js-comment-body">
+          <p>It looks like the weekly seasonality is a multiplicative factor on top of the daily seasonality.</p>
+<p>Currently, seasonality and extra regressors are always additive, which means that<br>
+y(t) = trend(t) + daily_effect(t) + extra_regressor(t),<br>
+so extra_regressor has a constant effect throughout the day. You can see in the plot that the model estimate dips down a bit on those days, but since it isn't able to scale the daily seasonality (multiplicative factor) it isn't able to fit well.</p>
+<p>Multiplicative seasonality is a current priority (<a href="https://github.com/facebook/prophet/issues/254" class="issue-link js-issue-link" data-error-text="Failed to load issue title" data-id="243557024" data-permission-text="Issue title is private" data-url="https://github.com/facebook/prophet/issues/254">#254</a>). In the meantime, what <a href="https://github.com/vhpietil" class="user-mention">@vhpietil</a> proposed would be the right thing to do: Manually create a separate daily seasonality for the weekend days. It's a bit of a pain as you can see but I would expect it to work well here (and certainly seems to).</p>
+<p>This is related to <a href="https://github.com/facebook/prophet/issues/425" class="issue-link js-issue-link" data-error-text="Failed to load issue title" data-id="292282831" data-permission-text="Issue title is private" data-url="https://github.com/facebook/prophet/issues/425">#425</a> which got some benefit from splitting seasonalities out by time. We should probably think of a cleaner way to do this sort of thing.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+        
+
+<div class="comment-reactions  js-reactions-container js-socket-channel js-updatable-content" data-channel="reaction:issue-comment:363939146" data-url="/_render_node/MDEyOklzc3VlQ29tbWVudDM2MzkzOTE0Ng==/comments/reactions">
+</div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+  
+<div class="js-timeline-item js-timeline-progressive-focus-container" data-gid="MDEyOklzc3VlQ29tbWVudDM2MzkzOTg2Ng==">
+    
+<div class="timeline-comment-wrapper js-comment-container">
+  
+
+
+<div class="avatar-parent-child timeline-comment-avatar position-relative">
+    <a href="https://github.com/bletham">
+      <img alt="@bletham" class="avatar rounded-1" height="44" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/6339760(1)" width="44">
+    </a>
+
+</div>
+
+
+  
+  <div id="issuecomment-363939866" class="comment previewable-edit js-comment js-task-list-container timeline-comment js-reorderable-task-lists reorderable-task-lists " data-body-version="737a4675426323656a0c57cb44d9d223">
+
+    
+<div class="timeline-comment-header clearfix">
+  <div class="timeline-comment-actions">
+    
+
+
+  
+  <details class="dropdown-details details-reset position-relative d-inline-block js-socket-channel js-updatable-content js-dropdown-details js-reaction-popover-container js-comment-header-reaction-button" data-channel="reaction:issue-comment:363939866" data-url="/_render_node/MDEyOklzc3VlQ29tbWVudDM2MzkzOTg2Ng==/comments/comment_header_reaction_button">
+    <summary class="btn-link timeline-comment-action" aria-label="Add your reaction" aria-haspopup="true">
+      <svg aria-hidden="true" class="octicon octicon-plus-small add-reaction-plus-icon" height="16" version="1.1" viewBox="0 0 7 16" width="7"><path fill-rule="evenodd" d="M4 7V4H3v3H0v1h3v3h1V8h3V7H4z"></path></svg>
+      <svg aria-hidden="true" class="octicon octicon-smiley" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm4.81 12.81a6.72 6.72 0 0 1-2.17 1.45c-.83.36-1.72.53-2.64.53-.92 0-1.81-.17-2.64-.53-.81-.34-1.55-.83-2.17-1.45a6.773 6.773 0 0 1-1.45-2.17A6.59 6.59 0 0 1 1.21 8c0-.92.17-1.81.53-2.64.34-.81.83-1.55 1.45-2.17.62-.62 1.36-1.11 2.17-1.45A6.59 6.59 0 0 1 8 1.21c.92 0 1.81.17 2.64.53.81.34 1.55.83 2.17 1.45.62.62 1.11 1.36 1.45 2.17.36.83.53 1.72.53 2.64 0 .92-.17 1.81-.53 2.64-.34.81-.83 1.55-1.45 2.17zM4 6.8v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2H5.2C4.53 8 4 7.47 4 6.8zm5 0v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2h-.59C9.53 8 9 7.47 9 6.8zm4 3.2c-.72 1.88-2.91 3-5 3s-4.28-1.13-5-3c-.14-.39.23-1 .66-1h8.59c.41 0 .89.61.75 1z"></path></svg>
+    </summary>
+    
+<div class="dropdown-menu dropdown-menu-sw add-reaction-popover js-add-reaction-popover anim-scale-in">
+  <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/users/facebook/reactions" class="reaction-popover-form js-pick-reaction" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="Nxgr45YIZ6VhT3cP41nDsyGd3nX6LS9j+hKjFkJTqlF1rqfo2kVFNfWONfuBRXrrQ2touz73La/41nLhF1a7lg=="></div>
+    <p class="text-gray mx-2 my-1">
+      <span class="js-reaction-description">Pick your reaction</span>
+      <img alt="" class="loading-spinner" height="16" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/octocat-spinner-32.gif" width="16">
+    </p>
+
+    <div class="dropdown-divider"></div>
+
+    <div class="add-reactions-options mx-1 mb-1">
+      <input type="hidden" name="input[subjectId]" value="MDEyOklzc3VlQ29tbWVudDM2MzkzOTg2Ng==">
+
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="+1" name="input[content]" aria-label="React with thumbs up emoji" value="THUMBS_UP react">
+          <g-emoji alias="+1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44d.png"><img class="emoji" alt="+1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44d.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="-1" name="input[content]" aria-label="React with thumbs down emoji" value="THUMBS_DOWN react">
+          <g-emoji alias="-1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44e.png"><img class="emoji" alt="-1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44e.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Laugh" name="input[content]" aria-label="React with laugh emoji" value="LAUGH react">
+          <g-emoji alias="smile" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f604.png"><img class="emoji" alt="smile" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f604.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Hooray" name="input[content]" aria-label="React with hooray emoji" value="HOORAY react">
+          <g-emoji alias="tada" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f389.png"><img class="emoji" alt="tada" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f389.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Confused" name="input[content]" aria-label="React with confused emoji" value="CONFUSED react">
+          <g-emoji alias="thinking_face" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f615.png"><img class="emoji" alt="thinking_face" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f615.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Heart" name="input[content]" aria-label="React with heart emoji" value="HEART react">
+          <g-emoji alias="heart" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2764.png"><img class="emoji" alt="heart" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/2764.png"></g-emoji>
+        </button>
+    </div>
+</form></div>
+
+  </details>
+
+
+
+
+
+
+<!-- Closes div if we are showing the kebab menu -->
+
+  </div>
+
+    
+    <span class="timeline-comment-label tooltipped tooltipped-multiline tooltipped-s" aria-label="This user has previously committed to the prophet repository.">
+      Contributor
+    </span>
+
+
+
+  <h3 class="timeline-comment-header-text f5 text-normal">
+
+    <strong>
+      
+
+  <a href="https://github.com/bletham" class="author text-inherit">bletham</a>
+  
+
+    </strong>
+
+    commented
+
+    <a href="https://github.com/facebook/prophet/issues/434#issuecomment-363939866" class="timestamp"><relative-time datetime="2018-02-07T22:56:56Z" title="Feb 8, 2018, 7:56 AM GMT+9">14 days ago</relative-time></a>
+
+
+  </h3>
+</div>
+
+
+    <div class="edit-comment-hide">
+      
+<table class="d-block">
+  <tbody class="d-block">
+    <tr class="d-block">
+      <td class="d-block comment-body markdown-body  js-comment-body">
+          <p>Just as an FYI, in R you can call the not-exported functions from prophet using :::, like <code>prophet:::fourier_series</code> so you don't have to redefine them externally.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+        
+
+<div class="comment-reactions  js-reactions-container js-socket-channel js-updatable-content" data-channel="reaction:issue-comment:363939866" data-url="/_render_node/MDEyOklzc3VlQ29tbWVudDM2MzkzOTg2Ng==/comments/reactions">
+</div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+  
+<div class="js-timeline-item js-timeline-progressive-focus-container" data-gid="MDEyOklzc3VlQ29tbWVudDM2NDA0NDI3NQ==">
+    
+<div class="timeline-comment-wrapper js-comment-container">
+  
+
+
+<div class="avatar-parent-child timeline-comment-avatar position-relative">
+    <a href="https://github.com/gs9824">
+      <img alt="@gs9824" class="avatar rounded-1" height="44" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/36197920(1)" width="44">
+    </a>
+
+</div>
+
+
+  
+  <div id="issuecomment-364044275" class="comment previewable-edit js-comment js-task-list-container timeline-comment js-reorderable-task-lists reorderable-task-lists " data-body-version="e7c0a75e960a355e48ea6c4ad62fac38">
+
+    
+<div class="timeline-comment-header clearfix">
+  <div class="timeline-comment-actions">
+    
+
+
+  
+  <details class="dropdown-details details-reset position-relative d-inline-block js-socket-channel js-updatable-content js-dropdown-details js-reaction-popover-container js-comment-header-reaction-button" data-channel="reaction:issue-comment:364044275" data-url="/_render_node/MDEyOklzc3VlQ29tbWVudDM2NDA0NDI3NQ==/comments/comment_header_reaction_button">
+    <summary class="btn-link timeline-comment-action" aria-label="Add your reaction" aria-haspopup="true">
+      <svg aria-hidden="true" class="octicon octicon-plus-small add-reaction-plus-icon" height="16" version="1.1" viewBox="0 0 7 16" width="7"><path fill-rule="evenodd" d="M4 7V4H3v3H0v1h3v3h1V8h3V7H4z"></path></svg>
+      <svg aria-hidden="true" class="octicon octicon-smiley" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm4.81 12.81a6.72 6.72 0 0 1-2.17 1.45c-.83.36-1.72.53-2.64.53-.92 0-1.81-.17-2.64-.53-.81-.34-1.55-.83-2.17-1.45a6.773 6.773 0 0 1-1.45-2.17A6.59 6.59 0 0 1 1.21 8c0-.92.17-1.81.53-2.64.34-.81.83-1.55 1.45-2.17.62-.62 1.36-1.11 2.17-1.45A6.59 6.59 0 0 1 8 1.21c.92 0 1.81.17 2.64.53.81.34 1.55.83 2.17 1.45.62.62 1.11 1.36 1.45 2.17.36.83.53 1.72.53 2.64 0 .92-.17 1.81-.53 2.64-.34.81-.83 1.55-1.45 2.17zM4 6.8v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2H5.2C4.53 8 4 7.47 4 6.8zm5 0v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2h-.59C9.53 8 9 7.47 9 6.8zm4 3.2c-.72 1.88-2.91 3-5 3s-4.28-1.13-5-3c-.14-.39.23-1 .66-1h8.59c.41 0 .89.61.75 1z"></path></svg>
+    </summary>
+    
+<div class="dropdown-menu dropdown-menu-sw add-reaction-popover js-add-reaction-popover anim-scale-in">
+  <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/users/facebook/reactions" class="reaction-popover-form js-pick-reaction" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="nd1HV/B3UKi2b6VAD+iDQrhPISUYYmYLuZc4arn6IY/fa8tcvDpyOCKu57Rt9Doa2rmX69y4ZMe7U+md7P8wSA=="></div>
+    <p class="text-gray mx-2 my-1">
+      <span class="js-reaction-description">Pick your reaction</span>
+      <img alt="" class="loading-spinner" height="16" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/octocat-spinner-32.gif" width="16">
+    </p>
+
+    <div class="dropdown-divider"></div>
+
+    <div class="add-reactions-options mx-1 mb-1">
+      <input type="hidden" name="input[subjectId]" value="MDEyOklzc3VlQ29tbWVudDM2NDA0NDI3NQ==">
+
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="+1" name="input[content]" aria-label="React with thumbs up emoji" value="THUMBS_UP react">
+          <g-emoji alias="+1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44d.png"><img class="emoji" alt="+1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44d.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="-1" name="input[content]" aria-label="React with thumbs down emoji" value="THUMBS_DOWN react">
+          <g-emoji alias="-1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44e.png"><img class="emoji" alt="-1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44e.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Laugh" name="input[content]" aria-label="React with laugh emoji" value="LAUGH react">
+          <g-emoji alias="smile" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f604.png"><img class="emoji" alt="smile" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f604.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Hooray" name="input[content]" aria-label="React with hooray emoji" value="HOORAY react">
+          <g-emoji alias="tada" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f389.png"><img class="emoji" alt="tada" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f389.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Confused" name="input[content]" aria-label="React with confused emoji" value="CONFUSED react">
+          <g-emoji alias="thinking_face" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f615.png"><img class="emoji" alt="thinking_face" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f615.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Heart" name="input[content]" aria-label="React with heart emoji" value="HEART react">
+          <g-emoji alias="heart" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2764.png"><img class="emoji" alt="heart" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/2764.png"></g-emoji>
+        </button>
+    </div>
+</form></div>
+
+  </details>
+
+
+
+
+
+
+<!-- Closes div if we are showing the kebab menu -->
+
+  </div>
+
+    
+
+
+
+  <h3 class="timeline-comment-header-text f5 text-normal">
+
+    <strong>
+      
+
+  <a href="https://github.com/gs9824" class="author text-inherit">gs9824</a>
+  
+
+    </strong>
+
+    commented
+
+    <a href="https://github.com/facebook/prophet/issues/434#issuecomment-364044275" class="timestamp"><relative-time datetime="2018-02-08T08:56:00Z" title="Feb 8, 2018, 5:56 PM GMT+9">13 days ago</relative-time></a>
+
+
+  </h3>
+</div>
+
+
+    <div class="edit-comment-hide">
+      
+<table class="d-block">
+  <tbody class="d-block">
+    <tr class="d-block">
+      <td class="d-block comment-body markdown-body  js-comment-body">
+          <p>Many thanks for your responses &amp; suggestions. I will try these out &amp; report back</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+        
+
+<div class="comment-reactions  js-reactions-container js-socket-channel js-updatable-content" data-channel="reaction:issue-comment:364044275" data-url="/_render_node/MDEyOklzc3VlQ29tbWVudDM2NDA0NDI3NQ==/comments/reactions">
+</div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+  
+<div class="js-timeline-item js-timeline-progressive-focus-container" data-gid="MDEyOklzc3VlQ29tbWVudDM2NDA4MTU2OA==">
+    
+<div class="timeline-comment-wrapper js-comment-container">
+  
+
+
+<div class="avatar-parent-child timeline-comment-avatar position-relative">
+    <a href="https://github.com/gs9824">
+      <img alt="@gs9824" class="avatar rounded-1" height="44" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/36197920(1)" width="44">
+    </a>
+
+</div>
+
+
+  
+  <div id="issuecomment-364081568" class="comment previewable-edit js-comment js-task-list-container timeline-comment js-reorderable-task-lists reorderable-task-lists " data-body-version="8855e968a570fa043804a1d0de44c047">
+
+    
+<div class="timeline-comment-header clearfix">
+  <div class="timeline-comment-actions">
+    
+
+
+  
+  <details class="dropdown-details details-reset position-relative d-inline-block js-socket-channel js-updatable-content js-dropdown-details js-reaction-popover-container js-comment-header-reaction-button" data-channel="reaction:issue-comment:364081568" data-url="/_render_node/MDEyOklzc3VlQ29tbWVudDM2NDA4MTU2OA==/comments/comment_header_reaction_button">
+    <summary class="btn-link timeline-comment-action" aria-label="Add your reaction" aria-haspopup="true">
+      <svg aria-hidden="true" class="octicon octicon-plus-small add-reaction-plus-icon" height="16" version="1.1" viewBox="0 0 7 16" width="7"><path fill-rule="evenodd" d="M4 7V4H3v3H0v1h3v3h1V8h3V7H4z"></path></svg>
+      <svg aria-hidden="true" class="octicon octicon-smiley" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm4.81 12.81a6.72 6.72 0 0 1-2.17 1.45c-.83.36-1.72.53-2.64.53-.92 0-1.81-.17-2.64-.53-.81-.34-1.55-.83-2.17-1.45a6.773 6.773 0 0 1-1.45-2.17A6.59 6.59 0 0 1 1.21 8c0-.92.17-1.81.53-2.64.34-.81.83-1.55 1.45-2.17.62-.62 1.36-1.11 2.17-1.45A6.59 6.59 0 0 1 8 1.21c.92 0 1.81.17 2.64.53.81.34 1.55.83 2.17 1.45.62.62 1.11 1.36 1.45 2.17.36.83.53 1.72.53 2.64 0 .92-.17 1.81-.53 2.64-.34.81-.83 1.55-1.45 2.17zM4 6.8v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2H5.2C4.53 8 4 7.47 4 6.8zm5 0v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2h-.59C9.53 8 9 7.47 9 6.8zm4 3.2c-.72 1.88-2.91 3-5 3s-4.28-1.13-5-3c-.14-.39.23-1 .66-1h8.59c.41 0 .89.61.75 1z"></path></svg>
+    </summary>
+    
+<div class="dropdown-menu dropdown-menu-sw add-reaction-popover js-add-reaction-popover anim-scale-in">
+  <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/users/facebook/reactions" class="reaction-popover-form js-pick-reaction" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="DwekAcP+MA2lyDjLCmzQIibwL0rKtsmr0f50df1x1rFNsSgKj7MSnTEJej9ocGl6RAaZhA5sy2fTOqWCqHTHdg=="></div>
+    <p class="text-gray mx-2 my-1">
+      <span class="js-reaction-description">Pick your reaction</span>
+      <img alt="" class="loading-spinner" height="16" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/octocat-spinner-32.gif" width="16">
+    </p>
+
+    <div class="dropdown-divider"></div>
+
+    <div class="add-reactions-options mx-1 mb-1">
+      <input type="hidden" name="input[subjectId]" value="MDEyOklzc3VlQ29tbWVudDM2NDA4MTU2OA==">
+
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="+1" name="input[content]" aria-label="React with thumbs up emoji" value="THUMBS_UP react">
+          <g-emoji alias="+1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44d.png"><img class="emoji" alt="+1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44d.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="-1" name="input[content]" aria-label="React with thumbs down emoji" value="THUMBS_DOWN react">
+          <g-emoji alias="-1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44e.png"><img class="emoji" alt="-1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44e.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Laugh" name="input[content]" aria-label="React with laugh emoji" value="LAUGH react">
+          <g-emoji alias="smile" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f604.png"><img class="emoji" alt="smile" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f604.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Hooray" name="input[content]" aria-label="React with hooray emoji" value="HOORAY react">
+          <g-emoji alias="tada" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f389.png"><img class="emoji" alt="tada" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f389.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Confused" name="input[content]" aria-label="React with confused emoji" value="CONFUSED react">
+          <g-emoji alias="thinking_face" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f615.png"><img class="emoji" alt="thinking_face" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f615.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Heart" name="input[content]" aria-label="React with heart emoji" value="HEART react">
+          <g-emoji alias="heart" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2764.png"><img class="emoji" alt="heart" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/2764.png"></g-emoji>
+        </button>
+    </div>
+</form></div>
+
+  </details>
+
+
+
+
+
+
+<!-- Closes div if we are showing the kebab menu -->
+
+  </div>
+
+    
+
+
+
+  <h3 class="timeline-comment-header-text f5 text-normal">
+
+    <strong>
+      
+
+  <a href="https://github.com/gs9824" class="author text-inherit">gs9824</a>
+  
+
+    </strong>
+
+    commented
+
+    <a href="https://github.com/facebook/prophet/issues/434#issuecomment-364081568" class="timestamp"><relative-time datetime="2018-02-08T11:18:10Z" title="Feb 8, 2018, 8:18 PM GMT+9">13 days ago</relative-time></a>
+
+
+  </h3>
+</div>
+
+
+    <div class="edit-comment-hide">
+      
+<table class="d-block">
+  <tbody class="d-block">
+    <tr class="d-block">
+      <td class="d-block comment-body markdown-body  js-comment-body">
+          <p>I can confirm the results of vhpietil. Maybe there is indeed a need for a feature to do this more or less automatically (add a regressor for specific days, specific weeks, ...).</p>
+<p>Many thanks for helping out in this :-)</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+        
+
+<div class="comment-reactions  js-reactions-container js-socket-channel js-updatable-content" data-channel="reaction:issue-comment:364081568" data-url="/_render_node/MDEyOklzc3VlQ29tbWVudDM2NDA4MTU2OA==/comments/reactions">
+</div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+  
+<div class="js-timeline-item js-timeline-progressive-focus-container" data-gid="MDEyOklzc3VlQ29tbWVudDM2NTEwNDQ5Nw==">
+    
+<div class="timeline-comment-wrapper js-comment-container">
+  
+
+
+<div class="avatar-parent-child timeline-comment-avatar position-relative">
+    <a href="https://github.com/bletham">
+      <img alt="@bletham" class="avatar rounded-1" height="44" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/6339760(1)" width="44">
+    </a>
+
+</div>
+
+
+  
+  <div id="issuecomment-365104497" class="comment previewable-edit js-comment js-task-list-container timeline-comment js-reorderable-task-lists reorderable-task-lists " data-body-version="12ad935484a289c50ff740a772c8706b">
+
+    
+<div class="timeline-comment-header clearfix">
+  <div class="timeline-comment-actions">
+    
+
+
+  
+  <details class="dropdown-details details-reset position-relative d-inline-block js-socket-channel js-updatable-content js-dropdown-details js-reaction-popover-container js-comment-header-reaction-button" data-channel="reaction:issue-comment:365104497" data-url="/_render_node/MDEyOklzc3VlQ29tbWVudDM2NTEwNDQ5Nw==/comments/comment_header_reaction_button">
+    <summary class="btn-link timeline-comment-action" aria-label="Add your reaction" aria-haspopup="true">
+      <svg aria-hidden="true" class="octicon octicon-plus-small add-reaction-plus-icon" height="16" version="1.1" viewBox="0 0 7 16" width="7"><path fill-rule="evenodd" d="M4 7V4H3v3H0v1h3v3h1V8h3V7H4z"></path></svg>
+      <svg aria-hidden="true" class="octicon octicon-smiley" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm4.81 12.81a6.72 6.72 0 0 1-2.17 1.45c-.83.36-1.72.53-2.64.53-.92 0-1.81-.17-2.64-.53-.81-.34-1.55-.83-2.17-1.45a6.773 6.773 0 0 1-1.45-2.17A6.59 6.59 0 0 1 1.21 8c0-.92.17-1.81.53-2.64.34-.81.83-1.55 1.45-2.17.62-.62 1.36-1.11 2.17-1.45A6.59 6.59 0 0 1 8 1.21c.92 0 1.81.17 2.64.53.81.34 1.55.83 2.17 1.45.62.62 1.11 1.36 1.45 2.17.36.83.53 1.72.53 2.64 0 .92-.17 1.81-.53 2.64-.34.81-.83 1.55-1.45 2.17zM4 6.8v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2H5.2C4.53 8 4 7.47 4 6.8zm5 0v-.59c0-.66.53-1.19 1.2-1.19h.59c.66 0 1.19.53 1.19 1.19v.59c0 .67-.53 1.2-1.19 1.2h-.59C9.53 8 9 7.47 9 6.8zm4 3.2c-.72 1.88-2.91 3-5 3s-4.28-1.13-5-3c-.14-.39.23-1 .66-1h8.59c.41 0 .89.61.75 1z"></path></svg>
+    </summary>
+    
+<div class="dropdown-menu dropdown-menu-sw add-reaction-popover js-add-reaction-popover anim-scale-in">
+  <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/users/facebook/reactions" class="reaction-popover-form js-pick-reaction" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="put"><input name="authenticity_token" type="hidden" value="xi/RpqlJoyJpjf1vXOt8NwEdTya63GNYUc7gq3fVXAiEmV2t5QSBsv1Mv5s+98VvY+v56H4GYZRTCjFcItBNzw=="></div>
+    <p class="text-gray mx-2 my-1">
+      <span class="js-reaction-description">Pick your reaction</span>
+      <img alt="" class="loading-spinner" height="16" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/octocat-spinner-32.gif" width="16">
+    </p>
+
+    <div class="dropdown-divider"></div>
+
+    <div class="add-reactions-options mx-1 mb-1">
+      <input type="hidden" name="input[subjectId]" value="MDEyOklzc3VlQ29tbWVudDM2NTEwNDQ5Nw==">
+
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="+1" name="input[content]" aria-label="React with thumbs up emoji" value="THUMBS_UP react">
+          <g-emoji alias="+1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44d.png"><img class="emoji" alt="+1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44d.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="-1" name="input[content]" aria-label="React with thumbs down emoji" value="THUMBS_DOWN react">
+          <g-emoji alias="-1" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44e.png"><img class="emoji" alt="-1" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f44e.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Laugh" name="input[content]" aria-label="React with laugh emoji" value="LAUGH react">
+          <g-emoji alias="smile" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f604.png"><img class="emoji" alt="smile" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f604.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Hooray" name="input[content]" aria-label="React with hooray emoji" value="HOORAY react">
+          <g-emoji alias="tada" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f389.png"><img class="emoji" alt="tada" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f389.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Confused" name="input[content]" aria-label="React with confused emoji" value="CONFUSED react">
+          <g-emoji alias="thinking_face" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f615.png"><img class="emoji" alt="thinking_face" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/1f615.png"></g-emoji>
+        </button>
+        <button type="submit" class="btn-link add-reactions-options-item js-reaction-option-item" data-reaction-label="Heart" name="input[content]" aria-label="React with heart emoji" value="HEART react">
+          <g-emoji alias="heart" class="emoji" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/2764.png"><img class="emoji" alt="heart" height="20" width="20" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/2764.png"></g-emoji>
+        </button>
+    </div>
+</form></div>
+
+  </details>
+
+
+
+
+
+
+<!-- Closes div if we are showing the kebab menu -->
+
+  </div>
+
+    
+    <span class="timeline-comment-label tooltipped tooltipped-multiline tooltipped-s" aria-label="This user has previously committed to the prophet repository.">
+      Contributor
+    </span>
+
+
+
+  <h3 class="timeline-comment-header-text f5 text-normal">
+
+    <strong>
+      
+
+  <a href="https://github.com/bletham" class="author text-inherit">bletham</a>
+  
+
+    </strong>
+
+    commented
+
+    <a href="https://github.com/facebook/prophet/issues/434#issuecomment-365104497" class="timestamp"><relative-time datetime="2018-02-12T23:57:53Z" title="Feb 13, 2018, 8:57 AM GMT+9">9 days ago</relative-time></a>
+
+
+  </h3>
+</div>
+
+
+    <div class="edit-comment-hide">
+      
+<table class="d-block">
+  <tbody class="d-block">
+    <tr class="d-block">
+      <td class="d-block comment-body markdown-body  js-comment-body">
+          <p>Yeah, let's leave this open as an enhancement to have an easier way to add these types of specific seasonal regressors.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+        
+
+<div class="comment-reactions  js-reactions-container js-socket-channel js-updatable-content" data-channel="reaction:issue-comment:365104497" data-url="/_render_node/MDEyOklzc3VlQ29tbWVudDM2NTEwNDQ5Nw==/comments/reactions">
+</div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+  
+<div class="js-timeline-item js-timeline-progressive-focus-container" data-gid="MDEyOkxhYmVsZWRFdmVudDE0NzA2MzIzODU=">
+      <div class="discussion-item discussion-item-labeled">
+  <h3 class="discussion-item-header f5 text-normal" id="event-1470632385">
+
+    <span class="discussion-item-icon">
+      <svg aria-hidden="true" class="octicon octicon-tag" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M7.73 1.73C7.26 1.26 6.62 1 5.96 1H3.5C2.13 1 1 2.13 1 3.5v2.47c0 .66.27 1.3.73 1.77l6.06 6.06c.39.39 1.02.39 1.41 0l4.59-4.59a.996.996 0 0 0 0-1.41L7.73 1.73zM2.38 7.09c-.31-.3-.47-.7-.47-1.13V3.5c0-.88.72-1.59 1.59-1.59h2.47c.42 0 .83.16 1.13.47l6.14 6.13-4.73 4.73-6.13-6.15zM3.01 3h2v2H3V3h.01z"></path></svg>
+    </span>
+
+    
+
+        <img src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/6339760(2)" alt="@bletham" height="16" width="16" class="avatar">
+  <a href="https://github.com/bletham" class="author">bletham</a>
+  
+
+
+      
+
+  added
+  the 
+<span class="IssueLabel d-inline-block " title="enhancement" style="background-color: #84b6eb;">
+  <a class="lh-condensed-ultra" href="https://github.com/facebook/prophet/labels/enhancement" style="color: #000000;">enhancement</a>
+</span>
+ label
+
+
+    <a href="https://github.com/facebook/prophet/issues/434#event-1470632385" class="timestamp"><relative-time datetime="2018-02-12T23:58:00Z" title="Feb 13, 2018, 8:58 AM GMT+9">9 days ago</relative-time></a>
+
+  </h3>
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Rendered timeline since 2018-02-12 15:58:00 -->
+<div id="partial-timeline-marker" class="js-timeline-marker js-socket-channel js-updatable-content" data-channel="issue:294785059" data-url="/facebook/prophet/issues/434/show_partial?partial=issues%2Ftimeline_marker&amp;since=1518479880" data-last-modified="Mon, 12 Feb 2018 23:58:00 GMT">
+
+    <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/facebook/prophet/notifications/mark?ids=300721956" class="d-none js-timeline-marker-form" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="NneDKSwNdeYO7OBopYt2xSa5qHw3PheHsk+UHe9UGgiI/5VVuvAcZg9PZ2UoNRpfausEp0bxsHooAL1mB9tvzQ=="></div>
+</form></div>
+
+
+        </div>
+
+
+        <div class="discussion-timeline-actions">
+              
+<div class="timeline-comment-wrapper timeline-new-comment js-comment-container ">
+  <a href="https://github.com/arita37"><img alt="@arita37" class="timeline-comment-avatar" height="44" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/18707623(1)" width="44"></a>
+
+    <!-- '"` --><!-- </textarea></xmp> --><form accept-charset="UTF-8" action="https://github.com/facebook/prophet/issue_comments" class="js-new-comment-form js-needs-timeline-marker-header" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="eY4nBJ4mgladBv1tUiVBGW5rKYTSa68mhsPRLNGkANsxPHx4/vuXNLDludubOQzlvrbJ+v0wa1dnsGMTPirfag=="></div>
+      <input class="form-control" id="required_field_c6e5" name="required_field_c6e5" style="display: none" type="text">
+<input class="form-control" name="timestamp" type="hidden" value="1519220658543">
+<input class="form-control" name="timestamp_secret" type="hidden" value="7cd942fcd8196db753a96a856bfa4fb883a372548711d108c0d855c236a0c5c1">
+
+      <div class="timeline-comment">
+        <input type="hidden" name="issue" value="434">
+          <div class="js-suggester-container  js-previewable-comment-form previewable-comment-form write-selected" data-preview-url="/preview?markdown_unsupported=false&amp;repository=73872834&amp;subject=434&amp;subject_type=Issue" data-preview-authenticity-token="sVSAPBntDwCxTQNbKH1fjprJrtcvwk6MvrhszRxZ99poiGMKMxN6YKz2qfpYe3K/4Gbr/seL0S1L1bxGVBlm/A==">
+  <div class="comment-form-head tabnav">
+      <div class="js-toolbar toolbar-commenting">
+  <div class="toolbar-group">
+    <div class="toolbar-item dropdown js-menu-container">
+      <button type="button" tabindex="-1" class="js-menu-target menu-target tooltipped tooltipped-n" aria-label="Add header text" aria-expanded="false" aria-haspopup="true">
+        <svg aria-hidden="true" class="octicon octicon-text-size" height="16" version="1.1" viewBox="0 0 18 16" width="18"><path fill-rule="evenodd" d="M13.62 9.08L12.1 3.66h-.06l-1.5 5.42h3.08zM5.7 10.13S4.68 6.52 4.53 6.02h-.08l-1.13 4.11H5.7zM17.31 14h-2.25l-.95-3.25h-4.07L9.09 14H6.84l-.69-2.33H2.87L2.17 14H0l3.3-9.59h2.5l2.17 6.34L10.86 2h2.52l3.94 12h-.01z"></path></svg>
+        <span class="dropdown-caret"></span>
+      </button>
+
+      <div class="dropdown-menu-content js-menu-content">
+        <ul class="dropdown-menu dropdown-menu-s">
+          <button type="button" class="js-toolbar-item dropdown-item dropdown-header1" data-prefix="# " data-ga-click="Markdown Toolbar, click, header1">
+            Header
+          </button>
+          <button type="button" class="js-toolbar-item dropdown-item dropdown-header2" data-prefix="## " data-ga-click="Markdown Toolbar, click, header2">
+            Header
+          </button>
+          <button type="button" class="js-toolbar-item dropdown-item dropdown-header3" data-prefix="### " data-ga-click="Markdown Toolbar, click, header3">
+            Header
+          </button>
+        </ul>
+      </div>
+    </div>
+
+    <button type="button" tabindex="-1" class="js-toolbar-item toolbar-item tooltipped tooltipped-n" aria-label="Add bold text &lt;ctrl+b&gt;" data-prefix="**" data-suffix="**" data-toolbar-hotkey="b" data-ga-click="Markdown Toolbar, click, bold" data-trim-first="">
+      <svg aria-hidden="true" class="octicon octicon-bold" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M1 2h3.83c2.48 0 4.3.75 4.3 2.95 0 1.14-.63 2.23-1.67 2.61v.06c1.33.3 2.3 1.23 2.3 2.86 0 2.39-1.97 3.52-4.61 3.52H1V2zm3.66 4.95c1.67 0 2.38-.66 2.38-1.69 0-1.17-.78-1.61-2.34-1.61H3.13v3.3h1.53zm.27 5.39c1.77 0 2.75-.64 2.75-1.98 0-1.27-.95-1.81-2.75-1.81h-1.8v3.8h1.8v-.01z"></path></svg>
+    </button>
+
+    <button type="button" tabindex="-1" class="js-toolbar-item toolbar-item tooltipped tooltipped-n" aria-label="Add italic text &lt;ctrl+i&gt;" data-prefix="_" data-suffix="_" data-toolbar-hotkey="i" data-ga-click="Markdown Toolbar, click, italic" data-trim-first="">
+      <svg aria-hidden="true" class="octicon octicon-italic" height="16" version="1.1" viewBox="0 0 6 16" width="6"><path fill-rule="evenodd" d="M2.81 5h1.98L3 14H1l1.81-9zm.36-2.7c0-.7.58-1.3 1.33-1.3.56 0 1.13.38 1.13 1.03 0 .75-.59 1.3-1.33 1.3-.58 0-1.13-.38-1.13-1.03z"></path></svg>
+    </button>
+  </div>
+
+  <div class="toolbar-group">
+    <button type="button" tabindex="-1" class="js-toolbar-item toolbar-item tooltipped tooltipped-n" aria-label="Insert a quote" data-prefix="&gt; " data-multiline="true" data-ga-click="Markdown Toolbar, click, quote" data-surround-with-newlines="">
+      <svg aria-hidden="true" class="octicon octicon-quote" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M6.16 3.5C3.73 5.06 2.55 6.67 2.55 9.36c.16-.05.3-.05.44-.05 1.27 0 2.5.86 2.5 2.41 0 1.61-1.03 2.61-2.5 2.61-1.9 0-2.99-1.52-2.99-4.25 0-3.8 1.75-6.53 5.02-8.42L6.16 3.5zm7 0c-2.43 1.56-3.61 3.17-3.61 5.86.16-.05.3-.05.44-.05 1.27 0 2.5.86 2.5 2.41 0 1.61-1.03 2.61-2.5 2.61-1.89 0-2.98-1.52-2.98-4.25 0-3.8 1.75-6.53 5.02-8.42l1.14 1.84h-.01z"></path></svg>
+    </button>
+
+    <button type="button" tabindex="-1" class="js-toolbar-item toolbar-item tooltipped tooltipped-n" aria-label="Insert code" data-prefix="`" data-suffix="`" data-block-prefix="```" data-block-suffix="```" data-ga-click="Markdown Toolbar, click, code">
+      <svg aria-hidden="true" class="octicon octicon-code" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z"></path></svg>
+    </button>
+
+    <button type="button" tabindex="-1" class="js-toolbar-item toolbar-item tooltipped tooltipped-n" aria-label="Add a link &lt;ctrl+k&gt;" data-prefix="[" data-suffix="](url)" data-replace-next="url" data-toolbar-hotkey="k" data-scan-for="https?://" data-ga-click="Markdown Toolbar, click, link">
+      <svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg>
+    </button>
+  </div>
+
+  <div class="toolbar-group">
+    <button type="button" tabindex="-1" class="js-toolbar-item toolbar-item tooltipped tooltipped-n" aria-label="Add a bulleted list" data-multiline="true" data-prefix="- " data-ga-click="Markdown Toolbar, click, unordered list" data-surround-with-newlines="">
+      <svg aria-hidden="true" class="octicon octicon-list-unordered" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M2 13c0 .59 0 1-.59 1H.59C0 14 0 13.59 0 13c0-.59 0-1 .59-1h.81c.59 0 .59.41.59 1H2zm2.59-9h6.81c.59 0 .59-.41.59-1 0-.59 0-1-.59-1H4.59C4 2 4 2.41 4 3c0 .59 0 1 .59 1zM1.41 7H.59C0 7 0 7.41 0 8c0 .59 0 1 .59 1h.81c.59 0 .59-.41.59-1 0-.59 0-1-.59-1h.01zm0-5H.59C0 2 0 2.41 0 3c0 .59 0 1 .59 1h.81c.59 0 .59-.41.59-1 0-.59 0-1-.59-1h.01zm10 5H4.59C4 7 4 7.41 4 8c0 .59 0 1 .59 1h6.81c.59 0 .59-.41.59-1 0-.59 0-1-.59-1h.01zm0 5H4.59C4 12 4 12.41 4 13c0 .59 0 1 .59 1h6.81c.59 0 .59-.41.59-1 0-.59 0-1-.59-1h.01z"></path></svg>
+    </button>
+    <button type="button" tabindex="-1" class="js-toolbar-item toolbar-item tooltipped tooltipped-n" aria-label="Add a numbered list" data-prefix="1. " data-multiline="true" data-ga-click="Markdown Toolbar, click, ordered list" data-ordered-list="">
+      <svg aria-hidden="true" class="octicon octicon-list-ordered" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M12 13c0 .59 0 1-.59 1H4.59C4 14 4 13.59 4 13c0-.59 0-1 .59-1h6.81c.59 0 .59.41.59 1H12zM4.59 4h6.81c.59 0 .59-.41.59-1 0-.59 0-1-.59-1H4.59C4 2 4 2.41 4 3c0 .59 0 1 .59 1zm6.81 3H4.59C4 7 4 7.41 4 8c0 .59 0 1 .59 1h6.81c.59 0 .59-.41.59-1 0-.59 0-1-.59-1zM2 1h-.72c-.3.19-.58.25-1.03.34V2H1v2.14H.16V5H3v-.86H2V1zm.25 8.13c-.17 0-.45.03-.66.06.53-.56 1.14-1.25 1.14-1.89C2.71 6.52 2.17 6 1.37 6c-.59 0-.97.2-1.38.64l.58.58c.19-.19.38-.38.64-.38.28 0 .48.16.48.52 0 .53-.77 1.2-1.7 2.06V10h3l-.09-.88h-.66l.01.01zm-.08 3.78v-.03c.44-.19.64-.47.64-.86 0-.7-.56-1.11-1.44-1.11-.48 0-.89.19-1.28.52l.55.64c.25-.2.44-.31.69-.31.27 0 .42.13.42.36 0 .27-.2.44-.86.44v.75c.83 0 .98.17.98.47 0 .25-.23.38-.58.38-.28 0-.56-.14-.81-.38l-.48.66c.3.36.77.56 1.41.56.83 0 1.53-.41 1.53-1.16 0-.5-.31-.81-.77-.94v.01z"></path></svg>
+    </button>
+
+      <button type="button" tabindex="-1" class="js-toolbar-item toolbar-item tooltipped tooltipped-n" aria-label="Add a task list" data-prefix="- [ ] " data-toolbar-hotkey="L" data-multiline="" data-ga-click="Markdown Toolbar, click, task list" data-surround-with-newlines="">
+        <svg aria-hidden="true" class="octicon octicon-tasklist" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M15.41 9H7.59C7 9 7 8.59 7 8c0-.59 0-1 .59-1h7.81c.59 0 .59.41.59 1 0 .59 0 1-.59 1h.01zM9.59 4C9 4 9 3.59 9 3c0-.59 0-1 .59-1h5.81c.59 0 .59.41.59 1 0 .59 0 1-.59 1H9.59zM0 3.91l1.41-1.3L3 4.2 7.09 0 8.5 1.41 3 6.91l-3-3zM7.59 12h7.81c.59 0 .59.41.59 1 0 .59 0 1-.59 1H7.59C7 14 7 13.59 7 13c0-.59 0-1 .59-1z"></path></svg>
+      </button>
+  </div>
+
+  <div class="toolbar-group">
+
+      <div class="toolbar-item select-menu select-menu-modal-right js-menu-container js-select-menu js-load-contents js-saved-reply-container" data-contents-url="/settings/replies?context=issue">
+
+        <button type="button" tabindex="-1" class="js-menu-target js-saved-reply-button menu-target tooltipped tooltipped-nw" aria-label="Insert a reply" aria-expanded="false" aria-haspopup="true" data-ga-click="Markdown Toolbar, click, saved reply">
+          <svg aria-hidden="true" class="octicon octicon-reply" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M6 3.5c3.92.44 8 3.125 8 10-2.312-5.062-4.75-6-8-6V11L.5 5.5 6 0v3.5z"></path></svg>
+          <span class="dropdown-caret"></span>
+        </button>
+
+        <div class="select-menu-modal-holder js-menu-content js-navigation-container">
+          <div class="select-menu-modal">
+            <div class="select-menu-header">
+              <svg aria-label="Close" class="octicon octicon-x js-menu-close" height="16" role="img" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path></svg>
+              <span class="select-menu-title">Select a reply</span>
+              <kbd>ctrl .</kbd>
+            </div>
+            <div class="js-select-menu-deferred-content"></div>
+            <div class="select-menu-loading-overlay anim-pulse">
+              <svg aria-hidden="true" class="octicon octicon-octoface" height="32" version="1.1" viewBox="0 0 16 16" width="32"><path fill-rule="evenodd" d="M14.7 5.34c.13-.32.55-1.59-.13-3.31 0 0-1.05-.33-3.44 1.3-1-.28-2.07-.32-3.13-.32s-2.13.04-3.13.32c-2.39-1.64-3.44-1.3-3.44-1.3-.68 1.72-.26 2.99-.13 3.31C.49 6.21 0 7.33 0 8.69 0 13.84 3.33 15 7.98 15S16 13.84 16 8.69c0-1.36-.49-2.48-1.3-3.35zM8 14.02c-3.3 0-5.98-.15-5.98-3.35 0-.76.38-1.48 1.02-2.07 1.07-.98 2.9-.46 4.96-.46 2.07 0 3.88-.52 4.96.46.65.59 1.02 1.3 1.02 2.07 0 3.19-2.68 3.35-5.98 3.35zM5.49 9.01c-.66 0-1.2.8-1.2 1.78s.54 1.79 1.2 1.79c.66 0 1.2-.8 1.2-1.79s-.54-1.78-1.2-1.78zm5.02 0c-.66 0-1.2.79-1.2 1.78s.54 1.79 1.2 1.79c.66 0 1.2-.8 1.2-1.79s-.53-1.78-1.2-1.78z"></path></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" tabindex="-1" class="js-toolbar-item toolbar-item tooltipped tooltipped-nw" aria-label="Directly mention a user or team" data-prefix="@" data-prefix-space="" data-ga-click="Markdown Toolbar, click, mention">
+        <svg aria-hidden="true" class="octicon octicon-mention" height="16" version="1.1" viewBox="0 0 14 16" width="14"><path fill-rule="evenodd" d="M6.58 15c1.25 0 2.52-.31 3.56-.94l-.42-.94c-.84.52-1.89.83-3.03.83-3.23 0-5.64-2.08-5.64-5.72 0-4.37 3.23-7.18 6.58-7.18 3.45 0 5.22 2.19 5.22 5.2 0 2.39-1.34 3.86-2.5 3.86-1.05 0-1.36-.73-1.05-2.19l.73-3.75H8.98l-.11.72c-.41-.63-.94-.83-1.56-.83-2.19 0-3.66 2.39-3.66 4.38 0 1.67.94 2.61 2.3 2.61.84 0 1.67-.53 2.3-1.25.11.94.94 1.45 1.98 1.45 1.67 0 3.77-1.67 3.77-5C14 2.61 11.59 0 7.83 0 3.66 0 0 3.33 0 8.33 0 12.71 2.92 15 6.58 15zm-.31-5c-.73 0-1.36-.52-1.36-1.67 0-1.45.94-3.22 2.41-3.22.52 0 .84.2 1.25.83l-.52 3.02c-.63.73-1.25 1.05-1.78 1.05V10z"></path></svg>
+      </button>
+
+      <button type="button" tabindex="-1" class="js-toolbar-item toolbar-item tooltipped tooltipped-nw" aria-label="Reference an issue or pull request" data-prefix="#" data-prefix-space="" data-ga-click="Markdown Toolbar, click, reference">
+        <svg aria-hidden="true" class="octicon octicon-bookmark" height="16" version="1.1" viewBox="0 0 10 16" width="10"><path fill-rule="evenodd" d="M9 0H1C.27 0 0 .27 0 1v15l5-3.09L10 16V1c0-.73-.27-1-1-1zm-.78 4.25L6.36 5.61l.72 2.16c.06.22-.02.28-.2.17L5 6.6 3.12 7.94c-.19.11-.25.05-.2-.17l.72-2.16-1.86-1.36c-.17-.16-.14-.23.09-.23l2.3-.03.7-2.16h.25l.7 2.16 2.3.03c.23 0 .27.08.09.23h.01z"></path></svg>
+      </button>
+  </div>
+</div>
+
+      <nav class="tabnav-tabs" role="tablist">
+        <button type="button" class="btn-link tabnav-tab write-tab js-write-tab selected " role="tab" aria-selected="true">Write</button>
+        <button type="button" class="btn-link tabnav-tab preview-tab js-preview-tab " role="tab">Preview</button>
+      </nav>
+  </div>
+
+
+  <div class="comment-form-error js-comment-form-error" style="display:none">    There was an error creating your Issue.
+</div>
+  <div class="write-content js-write-bucket js-uploadable-container js-upload-markdown-image is-default upload-enabled" data-upload-policy-url="/upload/policies/assets" data-upload-policy-authenticity-token="YfQwh4f5xpmUj6dQsKCfDfkUzw2qD0r690Hv0Fy9BRpcCDkODkG11bxOANEJysrZSrYOE1nGeSQ7sMYL6C/ldg==" data-upload-repository-id="73872834">
+
+    <input type="hidden" name="saved_reply_id" class="js-saved-reply-id js-resettable-field" value="" data-reset-value="">
+
+    <textarea name="comment[body]" id="new_comment_field" placeholder="Leave a comment" aria-label="Comment body" class="form-control input-contrast comment-form-textarea js-comment-field js-improved-comment-field js-task-list-field js-quick-submit js-size-to-fit js-suggester-field js-quote-selection-target js-session-resumable "></textarea>
+
+        <p class="drag-and-drop position-relative">
+    <input accept=".gif,.jpeg,.jpg,.png,.docx,.gz,.log,.pdf,.pptx,.txt,.xlsx,.zip" type="file" multiple="multiple" class="manual-file-chooser top-0 right-0 bottom-0 left-0 width-full ml-0 js-manual-file-chooser" aria-label="Attach files to your comment">
+    <span class="default">
+        Attach files by dragging &amp; dropping,
+        <span class="btn-link manual-file-chooser-text">selecting them</span>, or pasting
+        from the clipboard.
+    </span>
+    <span class="loading">
+      <img alt="" height="16" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/octocat-spinner-32.gif" width="16"> Uploading your files…
+    </span>
+    <span class="error bad-file">
+      We don’t support that file type.
+      <span class="drag-and-drop-error-info">
+        <button type="button" class="btn-link manual-file-chooser-text">Try again</button> with a
+        GIF, JPEG, JPG, PNG, DOCX, GZ, LOG, PDF, PPTX, TXT, XLSX or ZIP.
+      </span>
+    </span>
+    <span class="error bad-permissions">
+      Attaching documents requires write permission to this repository.
+      <span class="drag-and-drop-error-info">
+        <button type="button" class="btn-link manual-file-chooser-text">Try again</button> with a GIF, JPEG, JPG, PNG, DOCX, GZ, LOG, PDF, PPTX, TXT, XLSX or ZIP.
+      </span>
+    </span>
+    <span class="error repository-required">
+      We don’t support that file type.
+      <span class="drag-and-drop-error-info">
+        <button type="button" class="btn-link manual-file-chooser-text">Try again</button> with a GIF, JPEG, JPG, PNG, DOCX, GZ, LOG, PDF, PPTX, TXT, XLSX or ZIP.
+      </span>
+    </span>
+    <span class="error too-big">
+      Yowza, that’s a big file
+      <span class="drag-and-drop-error-info">
+        <button type="button" class="btn-link manual-file-chooser-text">Try again</button> with a file smaller than 10MB.
+      </span>
+    </span>
+    <span class="error empty">
+      This file is empty.
+      <span class="drag-and-drop-error-info">
+        <button type="button" class="btn-link manual-file-chooser-text">Try again</button> with a file that’s not empty.
+      </span>
+    </span>
+    <span class="error hidden-file">
+      This file is hidden.
+      <span class="drag-and-drop-error-info">
+        <button type="button" class="btn-link manual-file-chooser-text">Try again</button> with another file.
+      </span>
+    </span>
+    <span class="error failed-request">
+      Something went really wrong, and we can’t process that file.
+      <span class="drag-and-drop-error-info">
+        <button type="button" class="btn-link manual-file-chooser-text">Try again.</button>
+      </span>
+    </span>
+  </p>
+
+
+    <div class="suggester-container">
+      <div class="suggester js-suggester js-navigation-container" data-url="/suggestions/issue/294785059?repository=prophet&amp;user_id=facebook" data-log-mention-url="/suggestions/log_mention?repository=prophet&amp;user_id=facebook" data-log-mention-authenticity-token="7dKuy7FoC/HlpaAGEP93yoHKO8xwWa5ObhlH8XiudVINSNQFcQ0sX7Ss7y3EsLy+WfDMmJBY3bdjzGlupQHdxw==">
+      </div>
+    </div>
+  </div>
+
+  <div class="preview-content">
+    <div class="comment">
+  <div class="comment-body markdown-body js-preview-body">
+    <p>Nothing to preview</p>
+  </div>
+</div>
+
+  </div>
+
+  <div class="float-left">
+      <a class="tabnav-extra" href="https://guides.github.com/features/mastering-markdown/" target="_blank" data-ga-click="Markdown Toolbar, click, help">
+        <svg aria-hidden="true" class="octicon octicon-markdown v-align-bottom" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M14.85 3H1.15C.52 3 0 3.52 0 4.15v7.69C0 12.48.52 13 1.15 13h13.69c.64 0 1.15-.52 1.15-1.15v-7.7C16 3.52 15.48 3 14.85 3zM9 11H7V8L5.5 9.92 4 8v3H2V5h2l1.5 2L7 5h2v6zm2.99.5L9.5 8H11V5h2v3h1.5l-2.51 3.5z"></path></svg>
+        Styling with Markdown is supported
+      </a>
+  </div>
+
+
+  <div class="comment-form-error comment-form-bottom js-comment-update-error"></div>
+</div>
+
+          <div class="form-actions">
+            <div id="partial-new-comment-form-actions" class="js-socket-channel js-updatable-content" data-channel="issue:294785059:state" data-url="/facebook/prophet/issues/434/show_partial?partial=issues%2Fform_actions">
+
+  <button type="submit" class="btn btn-primary" data-disable-with="" data-disable-invalid="">
+    Comment
+  </button>
+
+    
+</div>
+
+          </div>
+      </div>
+</form>
+</div>
+
+
+        </div>
+      </div>
+
+    </div>
+    <div class="clear"></div>
+  </div>
+
+  </div>
+
+  </div>
+  <div class="modal-backdrop js-touch-events"></div>
+</div>
+
+    </div>
+  </div>
+
+  </div>
+
+      
+<div class="footer container-lg px-3" role="contentinfo">
+  <div class="position-relative d-flex flex-justify-between py-6 mt-6 f6 text-gray border-top border-gray-light ">
+    <ul class="list-style-none d-flex flex-wrap ">
+      <li class="mr-3">© 2018 <span title="0.68708s from unicorn-376676057-w6cn4">GitHub</span>, Inc.</li>
+        <li class="mr-3"><a href="https://help.github.com/articles/github-terms-of-service/" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+        <li class="mr-3"><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+        <li class="mr-3"><a href="https://help.github.com/articles/github-security/" data-ga-click="Footer, go to security, text:security">Security</a></li>
+        <li class="mr-3"><a href="https://status.github.com/" data-ga-click="Footer, go to status, text:status">Status</a></li>
+        <li><a href="https://help.github.com/" data-ga-click="Footer, go to help, text:help">Help</a></li>
+    </ul>
+
+    <a href="https://github.com/" aria-label="Homepage" class="footer-octicon" title="GitHub">
+      <svg aria-hidden="true" class="octicon octicon-mark-github" height="24" version="1.1" viewBox="0 0 16 16" width="24"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+</a>
+    <ul class="list-style-none d-flex flex-wrap ">
+        <li class="mr-3"><a href="https://github.com/contact" data-ga-click="Footer, go to contact, text:contact">Contact GitHub</a></li>
+      <li class="mr-3"><a href="https://developer.github.com/" data-ga-click="Footer, go to api, text:api">API</a></li>
+      <li class="mr-3"><a href="https://training.github.com/" data-ga-click="Footer, go to training, text:training">Training</a></li>
+      <li class="mr-3"><a href="https://shop.github.com/" data-ga-click="Footer, go to shop, text:shop">Shop</a></li>
+        <li class="mr-3"><a href="https://github.com/blog" data-ga-click="Footer, go to blog, text:blog">Blog</a></li>
+        <li><a href="https://github.com/about" data-ga-click="Footer, go to about, text:about">About</a></li>
+
+    </ul>
+  </div>
+</div>
+
+
+
+  <div id="ajax-error-message" class="ajax-error-message flash flash-error">
+    <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"></path></svg>
+    <button type="button" class="flash-close js-ajax-error-dismiss" aria-label="Dismiss error">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path></svg>
+    </button>
+    You can't perform that action at this time.
+  </div>
+
+
+    
+    <script crossorigin="anonymous" integrity="sha512-CBVGrP5JQpS/GWuJkUbbEWpWks42UUEHfivjq2GyRlNijHEVY/RZI2bKC7snhXeAeHP04QH/LQEzNSFQ9PZvuw==" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/frameworks-081546acfe49.js.download" type="application/javascript"></script>
+    
+    <script async="async" crossorigin="anonymous" integrity="sha512-WWSCoq8vnwIxQwOKjcFAaXbfRzaPAewYwu/N/98yZEhF8C622SebLjU8Tx0InYjYGjd60VIbv8r1LDNal9K8Tw==" src="./Capturing different daily profiles · Issue #434 · facebook_prophet_files/github-596482a2af2f.js.download" type="application/javascript"></script>
+    
+    
+    
+    
+  <div class="js-stale-session-flash stale-session-flash flash flash-warn flash-banner d-none">
+    <svg aria-hidden="true" class="octicon octicon-alert" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M8.865 1.52c-.18-.31-.51-.5-.87-.5s-.69.19-.87.5L.275 13.5c-.18.31-.18.69 0 1 .19.31.52.5.87.5h13.7c.36 0 .69-.19.86-.5.17-.31.18-.69.01-1L8.865 1.52zM8.995 13h-2v-2h2v2zm0-3h-2V6h2v4z"></path></svg>
+    <span class="signed-in-tab-flash">You signed in with another tab or window. <a href="https://github.com/facebook/prophet/issues/434">Reload</a> to refresh your session.</span>
+    <span class="signed-out-tab-flash">You signed out in another tab or window. <a href="https://github.com/facebook/prophet/issues/434">Reload</a> to refresh your session.</span>
+  </div>
+  <div class="facebox" id="facebox" style="display:none;">
+  <div class="facebox-popup">
+    <div class="facebox-content" role="dialog" aria-labelledby="facebox-header" aria-describedby="facebox-description">
+    </div>
+    <button type="button" class="facebox-close js-facebox-close" aria-label="Close modal">
+      <svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path></svg>
+    </button>
+  </div>
+</div>
+
+  
+
+  
+
+
+</body></html>
