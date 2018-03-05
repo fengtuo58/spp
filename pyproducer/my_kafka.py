@@ -1,6 +1,7 @@
 import json
 import logging
 from pykafka import KafkaClient
+from pykafka.common import CompressionType
 from os import listdir
 from os.path import isfile, join
 
@@ -14,7 +15,7 @@ def send(path, params):
     logging.info('Setup connection to {}'.format(params["server_url"]))
     client = KafkaClient(hosts=params['server_url'])
     topic = client.topics[params['topic']]
-    producer = topic.get_producer(use_rdkafka=params['use_rdkafka'])
+    producer = topic.get_producer(use_rdkafka=params['use_rdkafka'], compression=CompressionType.GZIP)
 
     logging.info('Load json from {}'.format(path))
     filelist = [f for f in listdir(path) if isfile(join(path, f))]
