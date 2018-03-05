@@ -38,7 +38,7 @@ def calculate_thoughput(timing, n_messages=10000, msg_size=0):
 
 def pykafka_producer_performance():
     produce_start = time.time()
-    my_kafka.send('json', dict(server_url='127.0.0.1:9092', use_rdkafka=False, topic=b'test'))
+    my_kafka.send('json', dict(server_url='127.0.0.1:9092', use_rdkafka=False, topic=b'test', batch=10**3))
     return time.time() - produce_start
 
 
