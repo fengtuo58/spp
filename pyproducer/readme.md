@@ -16,4 +16,18 @@ Dict values should be replaced acording to your Kafka environment except batch
 ```
 batch = 100 
 ```
-This parameter is used to set number of files to be read in memory before producing messages.
+This parameter is used to set number of files to be read in memory before producing messages
+
+
+
+### Using reprocess.py  module
+
+
+```import reprocess 
+process({'in_server_url': 'localhost:9092', 'out_server_url': 'localhost:9092', 'input_topic', b'test', 'output_topic', b'out'})
+```
+
+For testing purpose module can be run as python script
+```
+$python reprocess.py
+```
