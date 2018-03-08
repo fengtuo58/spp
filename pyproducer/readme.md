@@ -20,7 +20,7 @@ This parameter is used to set number of files to be read in memory before produc
 
 
 
-### Using reprocess.py  module
+### Using rebalanced.py  module
 
 
 ```import reprocess 
