@@ -34,8 +34,7 @@ def process(params):
     producer = get_producer(params)
     msg_consumed_count = 0
 
-    for _ in consumer:
-        msg = consumer.consume()
+    for msg in consumer:
         if msg:
             msg_consumed_count += 1
             msg_string = msg.value.decode('utf8')
