@@ -24,10 +24,13 @@ This parameter is used to set number of files to be read in memory before produc
 
 
 ```import reprocess 
-process({'in_server_url': 'localhost:9092', 'out_server_url': 'localhost:9092', 'input_topic': b'test', 'output_topic': b'out'})
+process(dict)
 ```
 
 For testing purpose module can be run as python script
 ```
 $python reprocess.py
+
 ```
+
+For balancing one topic there should be two consumers in two different grops (please, ask PyKafka why it is True)
