@@ -23,14 +23,12 @@ This parameter is used to set number of files to be read in memory before produc
 ### Using rebalanced.py  module
 
 
-```import reprocess 
-process(dict)
+```import rebalanced
+rerocess(dict)
 ```
 
 For testing purpose module can be run as python script
 ```
-$python reprocess.py
+$python rebalanced.py
 
 ```
-
-For balancing one topic there should be two consumers in two different grops (please, ask PyKafka why it is True)
