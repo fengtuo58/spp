@@ -1,0 +1,103 @@
+﻿######################################################################################################
+############# To do  #################################################################################
+Create dockerfile
+1) Create docker file with CentOS containing:  (yum)
+   You can reuse here: https://github.com/arita37/spp/blob/master/docker-hive-spark-anaconda/Dockerfile
+
+To install in  folder:
+  /home/nono/
+
+  micro   https://github.com/zyedidia/micro
+  nano    https://www.centos.org/forums/viewtopic.php?t=52506
+
+  Anaconda with python 3.5.4   Anaconda 5.0.0.1 (Oct 2, 2017)
+  https://repo.continuum.io/archive/Anaconda2-5.0.0.1-Linux-x86_64.sh
+  /home/nono/anaconda3/
+  
+  add those packages : 
+     tensorflow, 
+     pykafka  (conda-forge)
+
+     lightfm  from here :   https://github.com/lyst/lightfm
+        (from git  )
+        in this folder   /home/nono/repot/lightfm
+    
+     couchbase sdk python
+     https://developer.couchbase.com/documentation/server/current/sdk/python/start-using-sdk.html
+ 
+     conda install pyspark
+
+
+     conda install -c anaconda libgcc 
+     conda install -c anaconda pytest 
+     scikit-learn,  
+     pip install arrow
+     pip install attrdict
+    
+  configure docker memory  disk space  ....  
+    
+
+3)  Create starting bash shell  start.sh  to run   a python file   
+  python  mypython.py 
+     python
+     import lightfm     
+     import couchbase
+     import pyspark
+
+4)  Instructions on how to build docker from bash 
+     to run the docker in Linux platform from bash
+
+
+4) Command line to launch the docker with spark-submit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
