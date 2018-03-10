@@ -10,45 +10,41 @@ To install in  folder:
   micro   https://github.com/zyedidia/micro
   nano    https://www.centos.org/forums/viewtopic.php?t=52506
 
-  Anaconda with python 3.5.4   Anaconda 5.0.0.1 (Oct 2, 2017)
-  https://repo.continuum.io/archive/Anaconda2-5.0.0.1-Linux-x86_64.sh
+  Anaconda with python 3.5.4   Anaconda 
+  https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86_64.sh
   /home/nono/anaconda3/
   
   add those packages : 
-     tensorflow, 
      pykafka  (conda-forge)
-
-     lightfm  from here :   https://github.com/lyst/lightfm
-        (from git  )
-        in this folder   /home/nono/repot/lightfm
-    
+     
      couchbase sdk python
      https://developer.couchbase.com/documentation/server/current/sdk/python/start-using-sdk.html
- 
+
+
+     conda install tensorflow
      conda install pyspark
-
-
      conda install -c anaconda libgcc 
-     conda install -c anaconda pytest 
-     scikit-learn,  
      pip install arrow
      pip install attrdict
+     pip install lighfm
     
-  configure docker memory  disk space  ....  
+  configure docker memory  external volume  ....  
     
 
 3)  Create starting bash shell  start.sh  to run   a python file   
-  python  mypython.py 
-     python
-     import lightfm     
-     import couchbase
-     import pyspark
+    my_kafka_start.sh  : to start  pykafka consumers 
+
 
 4)  Instructions on how to build docker from bash 
      to run the docker in Linux platform from bash
 
 
 4) Command line to launch the docker with spark-submit
+
+docker run --rm -it --link master:master --net sparkproofofconcept_default  --volumes-from spark-datastore spark-submit:latest spark-submit --master spark://172.22.0.$1:7077 /data/$2
+
+
+https://github.com/roscopecoltran/sniperkit-services/tree/17f7f9b9b0feb6e9427028b9d8819e078b09f108/external/dockerfiles/kkalugerov/spark-pykafka-prototype
 
 
 
