@@ -16,6 +16,16 @@ https://stackoverflow.com/questions/11583562/how-to-kill-a-process-running-on-pa
 
 
 
+//Sequence of commands to kill Tomcat process
+
+netstat -ntpl
+
+netstat -ntpl | grep java
+
+ps -ef | grep id
+
+kill pid
+
 
 
 
