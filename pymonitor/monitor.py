@@ -72,29 +72,21 @@ def main(csv_file, max_memory, checking_delay, has_header):
 
     try:
         while processes:
-            logging.info('check a work completion')
-            completed = []
-            for p in processes:
-                logging.debug('pid {}, status {}'.format(p.pid, p.status()))
-                if p.status() == ST_ZOMBIE:
-                    logging.info('work of pid {} is completed'.format(p.pid))
-                    completed.append(p)
-            for p in completed:
-                del processes[p]
-
-            exceeded = []
-            logging.info('check memory')
+            has_issue = []
+            logging.info('check memory and zombie')
             for p in processes:
                 rss = p.memory_info().rss
-                logging.debug('pid {}, rss memory {}'.format(p.pid, rss))
-                if rss >= max_memory:
+                logging.debug('pid {}, status {}, rss memory {}'.format(p.pid, p.status(), rss))
+                if p.status() == ST_ZOMBIE:
+                    has_issue.append(p)
+                elif rss >= max_memory:
                     logging.error('memory exceeding {} pid {}'.format(rss, p.pid))
-                    exceeded.append(p)
+                    has_issue.append(p)
 
-            if exceeded:
-                terminate(exceeded)
-                commands = [processes[p] for p in exceeded]
-                for p in exceeded:
+            if has_issue:
+                terminate(has_issue)
+                commands = [processes[p] for p in has_issue]
+                for p in has_issue:
                     del processes[p]
 
                 relaunched_procs = launch(commands)
