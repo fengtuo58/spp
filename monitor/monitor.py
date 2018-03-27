@@ -1,5 +1,116 @@
 # coding: utf-8
 
+
+import subprocess
+import logging
+import time
+import csv
+import psutil
+from logging.config import dictConfig
+from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
+
+
+Mb = 1024 * 1024
+MAX_MEMORY = '1024'  # str is for an argparser type conversion
+DELAY = 5
+TERMINATE_TIMEOUT = 3
+ST_ZOMBIE = 'zombie'
+DEFAULT_LOG_LEVEL = 'debug'
+LOG_FILENAME = 'monitor.log'
+LOG_MAX_MB = '10'
+LOG_BCOUNT = 3
+
+
+def mb_type(string):
+    count = int(string)
+    return count * Mb
+
+
+def log_level_type(string):
+    level = string.upper()
+    if not logging._nameToLevel.get(level):
+        raise ValueError('invalid log level ' + level)
+    return level
+
+
+def launch(commands):
+    logging.info('launch processes')
+    processes = {}
+    for cmd in commands:
+        try:
+            p = psutil.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+            processes[p] = cmd
+            logging.info('pid {}, command launched: {}'.format(p.pid, cmd))
+        except:
+            logging.exception('')
+    return processes
+
+
+def terminate(processes):
+    logging.info('terminate processes')
+    for p in processes:
+        p.terminate()
+    gone, alive = psutil.wait_procs(processes, timeout=TERMINATE_TIMEOUT)
+    for p in alive:
+        p.kill()
+        logging.warning('still alive process {} is killed'.format(p.pid))
+
+
+def extract_commands(csv_file, has_header=False):
+    logging.info('extract commands from {}'.format(csv_file))
+    with open(csv_file, 'r', newline='') as file:
+        reader = csv.reader(file, skipinitialspace=True)
+        if has_header:
+            headers = next(reader)  # pass header
+            logging.debug('has header {}'.format(headers))
+        commands = [row for row in reader]
+
+    logging.debug(commands)
+    return commands
+
+
+def main(csv_file, max_memory, checking_delay, has_header):
+    commands = extract_commands(csv_file, has_header)
+    processes = launch(commands)
+
+    try:
+        while processes:
+            has_issue = []
+            logging.info('check memory and zombie')
+            for p in processes:
+                rss = p.memory_info().rss
+                logging.debug('pid {}, status {}, rss memory {}'.format(p.pid, p.status(), rss))
+                if p.status() == ST_ZOMBIE:
+                    has_issue.append(p)
+                elif rss >= max_memory:
+                    logging.error('memory exceeding {} pid {}'.format(rss, p.pid))
+                    has_issue.append(p)
+
+            if has_issue:
+                terminate(has_issue)
+                commands = [processes[p] for p in has_issue]
+                for p in has_issue:
+                    del processes[p]
+
+                relaunched_procs = launch(commands)
+                processes.update(relaunched_procs)
+
+            time.sleep(checking_delay)
+    except:
+        logging.exception('undefined error')
+
+    logging.info('monitoring is finished')
+
+
+
+
+
+
+
+
+
+
+
 import os
 import sys
 import psutil
