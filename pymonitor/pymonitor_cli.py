@@ -2,7 +2,16 @@
 
 '''
 
-python pymonitor_cli.py  --name couchbase_update  --max_memory 120  --nprocess 2   --consumergroup gr100  --nlogfreq 5000     
+##### Streaming to update couchbase data   #############################
+
+
+
+
+
+python kafkastreaming/streaming_monitor_cli.py  --name test 
+
+
+
 
 
 '''
@@ -11,39 +20,54 @@ if __name__ != '__main__' : sys.exit(0)
 
 
 
-import os, sys, platform, arrow, pandas as pd, numpy as np,  copy, gc
-import time, json
+import os, sys, platform, arrow, numpy as np,  copy, gc
 
 #from couchbase.cluster import Cluster
+
 #from couchbase.cluster import PasswordAuthenticator
 
 from attrdict import AttrDict as dict2
+
 import ast, re, random, psutil
+
 from executor import execute
+
 from time import sleep
+
 import time, csv, subprocess
+
 import shlex
 
 
 
 ###############################################################################
+
 ###############################################################################
 
 def os_getparent(dir0):
+
     return os.path.abspath(os.path.join(dir0, os.pardir))
 
     
 
 try:  
-      DIRCWD = subprocess.check_output( 'git rev-parse --show-toplevel'.split(' ') ).rstrip().decode('utf-8') 
+
+    DIRCWD = subprocess.check_output( 'git rev-parse --show-toplevel'.split(' ') ).rstrip().decode('utf-8') 
+
+
 
 except:
+
     try:
+
         DIRCWD = os_getparent( os.path.dirname(os.path.abspath(__file__)) )
+
         if sys.argv[0] == '': raise Exception
+
         DIRCWD = os_getparent( os.path.abspath(os.path.dirname(sys.argv[0])) )
 
     except:
+
         DIRCWD = '/mnt/hgfs/project27_raku/git_dev/agit_sortrank/'
 
         
@@ -57,74 +81,84 @@ except:
 try:
 
     import argparse
+
     ppa = argparse.ArgumentParser()  # Command Line input
+
     ppa.add_argument('--DIRCWD',     type=str, default='',     help=' Root Folder')
+
     ppa.add_argument('--do',         type=str, default='zdoc', help='action')
+
     ppa.add_argument('--verbose',    type=int, default=0,      help=' Verbose mode')
+
     ppa.add_argument('--test',       type=int, default=0,      help=' test mode')
 
 
+
+
+
+    ppa.add_argument('--configfile',     type=str, default='/config/config.txt', help=' outputdata_dir')
+
     ppa.add_argument('--nprocess',   type=int, default=1,      help=' test mode')       
-    ppa.add_argument('--name',       type=str, default='',      help=' test mode')        
-    ppa.add_argument('--max_memory',   type=int, default=120,      help=' test mode')     
-    ppa.add_argument('--logfile', type=str, default='zlog_kafka.txt', help=' outputdata_dir')        
+
+    ppa.add_argument('--name',       type=str, default='',      help=' test mode') 
+
+       
+
+    ppa.add_argument('--max_memory', type=int, default=150,      help=' test mode')     
+
+    ppa.add_argument('--max_cpu',    type=float, default=40.0,      help=' test mode') 
 
 
 
-    ppa.add_argument('--consumergroup',       type=str, default='group1',      help=' test mode')       
-    ppa.add_argument('--configfile', type=str, default='/config/config.txt', help=' outputdata_dir')
+    ppa.add_argument('--nfreq',       type=int, default=5,      help=' test mode')   
+
+
+
+
+
+
+
+    ppa.add_argument('--logfile',        type=str, default='zlog_kafka.txt', help=' outputdata_dir')        
+
     ppa.add_argument('--nlogfreq',       type=int, default=10000,      help=' test mode')    
+
+
+
     arg = ppa.parse_args()
+
+
 
     if arg.DIRCWD != '':  DIRCWD = arg.DIRCWD
 
 
 
 except Exception as e:
-    print('error into parsing arguments')
-    print(e) ; sys.exit(1)
+
+    print(e)
+
+    sys.exit(1)
 
 os.chdir(DIRCWD)  ; sys.path.append(DIRCWD + '/aapackage')
+
 print( DIRCWD )
 
 
 
 
 
+
+
 ###############################################################################
+
 ###############################################################################
+
 APP_ID =  __file__ + ',' + str(os.getpid()) + '_' +  str(random.randrange(10000))
 
-global cmds
-
-
-cmds = [
-
-      'python kafkastreaming/streaming_couchbase_update_cli.py    --verbose 1  --test 1  --nsleep 1  --logfile /data_share/search_data/zlog_kafka1.txt      '
-
-     ,'python kafkastreaming/streaming_couchbase_update_cli.py    --verbose 1  --test 1  --nsleep 1  --logfile /data_share/search_data/zlog_kafka2.txt      '   
-
-    ]
 
 
 
 
 
-params = {
-'max_memory' ; arg.max_memory        
-
-
-}
-
-
-
-
-
-
-
-
-
-###############################################################################
 
 def printlog(s='', s1='', s2='', s3='', s4='', s5='', s6='', s7=''):
 
@@ -140,6 +174,8 @@ def printlog(s='', s1='', s2='', s3='', s4='', s5='', s6='', s7=''):
 
     f1.write( s )
 
+    
+
 printlog( ' start'  )
 
     
@@ -148,15 +184,11 @@ printlog( ' start'  )
 
 
 
-
-
 ###############################################################################
 
-###############################################################################
+global CMDS
 
 Mb = 1024 * 1024
-
-DELAY = 5
 
 TERMINATE_TIMEOUT = 3
 
@@ -164,11 +196,91 @@ TERMINATE_TIMEOUT = 3
 
 
 
-def mb_type(string):
 
-    count = int(string)
 
-    return count * Mb
+
+   
+
+    
+
+
+
+
+
+
+if arg.name == 'test'    :
+
+  pars = {
+
+   'max_memory' :  210  * Mb      
+
+  ,'max_cpu' :     35.0                    
+
+  ,'proc_name' :   'streaming_test1.py'  
+
+  ,'proc_cmd' :    'python kafkastreaming/streaming_test1.py    --consumergroup group10  --nlogfreq 500    --logfile zlog_kafka_prod2.txt'
+
+  ,'nproc'    :    3
+
+  
+
+  ,'mem_available_total' : 2000 * Mb
+
+  ,'cpu_usage_total'     : 95.0  
+
+  }
+
+  CMDS = [ pars['proc_cmd']    ] *  pars['nproc']
+
+
+
+
+
+
+
+
+
+
+
+printlog( pars )
+
+
+
+
+
+
+
+
+
+
+
+
+
+###############################################################################
+
+###############################################################################
+
+def find_procs_by_name(name, ishow=1,  type1= 'cmdline' ):
+
+    "Return a list of processes matching 'name'."
+
+    ls = []
+
+    for p in psutil.process_iter(attrs=['pid', "name", "exe", "cmdline" ]):        
+
+        if name in p.info['name'] or \
+
+           name in ' '.join( p.info['cmdline'] )  :
+
+              ls.append(  copy.deepcopy(p) )             
+
+              if ishow == 1 :
+
+                  printlog(p.pid, ' '.join( p.info['cmdline'])  )
+
+    return ls
+
+
 
 
 
@@ -186,11 +298,11 @@ def launch(commands):
 
             processes.append( p.pid )
 
-            print('Launching: ', p.pid,  cmd )
+            printlog('Launched: ', p.pid,  ' '.join( cmd ) )
 
         except Exception as e :
 
-            print( e )
+            printlog( e )
 
     return processes
 
@@ -202,17 +314,29 @@ def terminate(processes):
 
     for p in processes:
 
+      pidi = p.pid  
+
       try :
 
-         p.kill()
+         os.kill( p.pid, 9)
 
-         print('killed ', p.pid )
+         printlog('killed ', pidi )
 
       except Exception as e :
 
-         pass
+        printlog(e)  
 
+        try :
 
+          os.kill(  pidi, 9 )
+
+          printlog('killed ', pidi )
+
+        except :
+
+          pass  
+
+          
 
 
 
@@ -236,13 +360,101 @@ def extract_commands(csv_file, has_header=False):
 
 
 
-def monitor(pars, nfreq):
 
-    # commands  = extract_commands(csv_file, has_header)
+
+def is_issue( p ) :
+
+   pdict = p.as_dict() 
+
+   pidi = p.pid
+
+   try :
+
+     if not psutil.pid_exists(pidi) : 
+
+       printlog('Process has been killed ', pidi )
+
+       return True
+
+
+
+     elif pdict['status'] == 'zombie' :  
+
+       printlog('Process Over zombie ', pidi )
+
+       return True
+
+   
+
+     elif pdict['memory_full_info'][0]  >=  pars['max_memory'] :        
+
+       printlog('Process Over max memory ', pidi )    
+
+       return True    
+
+
+
+     elif pdict['cpu_percent']  >=  pars['max_cpu'] :        
+
+       printlog('Process Over max cpu ', pidi )  
+
+       return True
+
+
+
+     else : 
+
+       return False
+
+   except Exception as e :
+
+         printlog(e)
+
+         return True
+
+
+
+
+
+
+
+def is_issue_system() :
+
+  try :   
+
+    if    psutil.cpu_percent(interval=5 ) > pars['cpu_usage_total'] :
+
+       return True
+
+
+
+  
+
+    elif  psutil.virtual_memory().available < pars['mem_available_total'] :
+
+      return True
+
+  
+
+    else :
+
+       return False
+
+  except : 
+
+    return True
+
+
+
+
+
+
+
+def monitor():
 
     cmds2 = []
 
-    for cmd in cmds :
+    for cmd in CMDS :
 
       ss = shlex.split(cmd)
 
@@ -256,91 +468,123 @@ def monitor(pars, nfreq):
 
       while True :
 
-        has_issue = []
+        has_issue  = []
 
-        ok_process = []
+        ok_process = []     
 
-        for pidi in processes:
-
-          p = psutil.Process( pidi )
-
-          pdict = p.as_dict()
-
-            
-
-
-
-          if not psutil.pid_exists(p.pid) : 
-
-             has_issue.append(p)
-
-             print('Process has been killed ', p.pid)
-
-
-
-          elif pdict['.status'] == 'zombie' :  
-
-             has_issue.append(p)
-
-             print('Process Over zombie ', p.pid)
-
-
-
-          elif pdict['memory_full_info'][0] >= pars['max_memory'] :        
-
-             has_issue.append(p)
-
-             print('Process Over max memory ', p.pid)
-
-          
-
-            
-
-          ##  Add new check  
-
-            
-
-            
-
-            
-
-            
-
-          else :
-
-             ok_process.append( p.pid ) 
-
-              
-
-
-
-        for p in has_issue :
-
-          pcmdline = p.cmdline()  
-
-          pidlist= launch( [ pcmdline ] )   # New process can start before
-
-          terminate( [ p ] )  
-
-
-
-          if len( pidlist  ) > 0 :
-
-            ok_process.append( pidlist[0] )
+        printlog('N_process', len( processes ) )
 
         
 
-        processes = copy.deepcopy( ok_process )          
+        
 
-        print('Waiting....')
+        if len(processes) == 0  or is_issue_system() :
 
-        time.sleep(nfreq)
+            printlog('Reset all process')
+
+            lpp = find_procs_by_name(pars['proc_name'], 1)
+
+            terminate( lpp )
+
+            processes = launch( cmds2 )
+
+        
+
+        
+
+        for pidi in processes:
+
+          try :  
+
+            p = psutil.Process( pidi )
+
+            printlog('Checking', p.pid )  
+
+
+
+            if is_issue( p ) : 
+
+               has_issue.append( p )
+
+               
+
+            else :
+
+               printlog('Process Fine ', pidi)              
+
+               ok_process.append( p )
+
+               
+
+          except Exception as e : 
+
+               printlog(e)    
+
+              
+
+        
+
+        for p in has_issue :
+
+          try :  
+
+            printlog('Relaunching', p.pid )
+
+            pcmdline = p.cmdline()  
+
+            pidlist  = launch( [ pcmdline ] )   # New process can start before
+
+            terminate( [ p ] )  
+
+          except : 
+
+            pass
+
+      
+
+        
+
+        lpp = find_procs_by_name(pars['proc_name'], 1)  
+
+        printlog( 'lpp' , len(lpp) )        
+
+        if len(lpp) < pars['nproc'] :
+
+            for i in range(  0, pars['nproc'] - len(lpp) ) :
+
+                pidlist = launch( [ shlex.split( pars['proc_cmd'])  ] )
+
+              
+
+        else :
+
+            for i in range(  0,  len(lpp) - pars['nproc'] ) : 
+
+                pidlist = terminate( [ lpp[i]  ] )            
+
+            
+
+            
+
+        lpp       = find_procs_by_name( pars['proc_name'] , 0 )                 
+
+        processes = [  x.pid for x in lpp ]
+
+         
+
+
+
+        printlog('Waiting....')
+
+        sys.stdout.flush()
+
+        time.sleep(arg.nfreq)
 
         
 
     except Exception as e :
 
-         print(e)
+        printlog(e)
 
 
 
@@ -350,13 +594,11 @@ def monitor(pars, nfreq):
 
 
 
-#########################################################################
+###############################################################################
 
-#########################################################################
+###############################################################################
 
-monitor( params , 20 )
-
-
+monitor()
 
 
 
@@ -365,6 +607,26 @@ monitor( params , 20 )
 
 
 
+
+
+
+
+
+'''
+
+>>> pp([(p.pid, p.info['name'], p.info['memory_info'].rss) for p in psutil.process_iter(attrs=['name', 'memory_info']) if p.info['memory_info'].rss > 500 * 1024 * 1024])
+
+[(2650, 'chrome', 532324352),
+
+ (3038, 'chrome', 1120088064),
+
+ (21915, 'sublime_text', 615407616)]
+
+
+
+
+
+'''
 
 
 
@@ -384,9 +646,9 @@ cmd1 = cmd1.split()
 
 p = subprocess.Popen( cmd1 , shell=False )
 
-print(p.pid, p)
+printlog(p.pid, p)
 
-#print( p.stdout.read() )
+#printlog( p.stdout.read() )
 
 
 
@@ -412,11 +674,7 @@ while True :
 
    if p.status == psutil.STATUS_ZOMBIE :
 
-     print('zombie')
-
-
-
-
+     printlog('zombie')
 
 
 
@@ -446,24 +704,6 @@ p.memory_full_info().rss  /MBytes
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ###############################################################################
 
 ###############################################################################
@@ -472,9 +712,9 @@ p = psutil.Popen(['python' , '/mnt/hgfs/project27_raku/git_dev/git_staging/dsd/d
 
  ] ,    stdout=subprocess.PIPE )
 
-print(p)
+printlog(p)
 
-print( p.stdout.read() )
+printlog( p.stdout.read() )
 
 
 
@@ -488,9 +728,9 @@ p = psutil.Popen(['pwd' ] ,
 
 
 
-print(p)
+printlog(p)
 
-print( p.stdout.read() )
+printlog( p.stdout.read() )
 
 
 
