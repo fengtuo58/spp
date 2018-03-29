@@ -1,0 +1,216 @@
+###############################################################################
+
+import os, sys, platform, arrow, pandas as pd, numpy as np, copy, gc
+
+import time, json, logging
+
+
+
+from attrdict import AttrDict as dict2
+
+import ast, re, executor
+
+from urllib.parse  import  urlparse
+
+from urllib.parse  import  parse_qs
+
+from time import sleep
+
+import random
+
+
+
+
+
+###############################################################################
+
+def os_getparent(dir0):
+
+    return os.path.abspath(os.path.join(dir0, os.pardir))
+
+    
+
+try:    DIRCWD = os_getparent( os.path.dirname(os.path.abspath(__file__)) )
+
+except:
+
+    try:
+
+        if sys.argv[0] == '': raise Exception
+
+        DIRCWD = os_getparent( os.path.abspath(os.path.dirname(sys.argv[0])) )
+
+    except:
+
+        DIRCWD = '/mnt/hgfs/project27_raku/git_dev/agit_sortrank/'
+
+        
+
+        
+
+###############################################################################
+
+try:
+
+    import argparse
+
+    ppa = argparse.ArgumentParser()  # Command Line input
+
+    ppa.add_argument('--DIRCWD',     type=str, default='',     help=' Root Folder')
+
+    ppa.add_argument('--do',         type=str, default='zdoc', help='action')
+
+    ppa.add_argument('--verbose',    type=int, default=0,      help=' Verbose mode')
+
+    ppa.add_argument('--test',       type=int, default=0,      help=' test mode')
+
+
+
+
+
+
+
+    ppa.add_argument('--configfile', type=str, default='/config/config.txt', help=' outputdata_dir')
+
+    ppa.add_argument('--logfile',    type=str, default='zlog_kafka.txt', help=' outputdata_dir')    
+
+    ppa.add_argument('--nlogfreq',   type=int, default=10000,      help=' freq of log')   
+
+
+
+    ppa.add_argument('--nsleep',     type=int, default=1,      help=' Sleep period')   
+
+
+
+
+
+    ppa.add_argument('--mode',       type=str, default='staging',      help=' staging/production kafka')           
+
+    ppa.add_argument('--consumergroup',       type=str, default='group1',      help=' Have same consumer group')   
+
+    ppa.add_argument('--expiry',     type=int, default=10000,      help=' test mode')    
+
+    
+
+    arg = ppa.parse_args()
+
+
+
+    if arg.DIRCWD != '':  DIRCWD = arg.DIRCWD
+
+
+
+except Exception as e:
+
+    print('error into parsing arguments')
+
+    print(e) ; sys.exit(1)
+
+os.chdir(DIRCWD)  ; sys.path.append(DIRCWD + '/aapackage')
+
+
+
+
+
+###############################################################################
+
+APP_ID     =   __file__ + ',' + str(os.getpid()) + '_' +  str(random.randrange(10000))
+
+verbose    =   arg.verbose
+
+NLOG_FREQ  =   arg.nlogfreq
+
+
+
+
+
+
+
+
+
+###############################################################################
+
+############### Config reading ################################################
+
+with open( DIRCWD + arg.configfile , 'r') as f:
+
+     cfg = ast.literal_eval( f.read() )
+
+     cfg = dict2( cfg)
+
+
+
+if arg.verbose  : 
+
+    print(cfg)
+
+
+
+
+
+
+
+while True :
+
+  xx =   str(arrow.utcnow()) + ',' + APP_ID + ',' + arg.consumergroup + ',' + '\n'
+
+  with open( DIRCWD + '/kafkastreaming/test1.txt' ,  mode='a' ) as f1  :
+
+       f1.write( xx  )
+
+       
+
+  # print( xx  )   
+
+  sleep(2)    
+
+  if np.random.rand() > 0.5 :
+
+       a = np.random.randn(1000, 10000)
+
+
+
+
+
+  if np.random.rand() > 0.7 :
+
+      for i in range(0, 1) :
+
+         a = np.random.randn(10000, 9000)
+
+
+
+       
+
+  if np.random.rand() > 0.8 :
+
+      for i in range(0, 50) :
+
+         a = np.random.randn(10000, 7000)
+
+       
+
+
+
+  if np.random.rand() > 0.9 :
+
+      for i in range(0, 1) :
+
+         a = np.random.randn(10000, 11000)
+
+
+
+###############################################################################
+
+###############################################################################
+
+
+
+
+
+
+
+     
+
+
+
