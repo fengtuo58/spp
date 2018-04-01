@@ -161,7 +161,8 @@ def checkResponsiveness():
         return True
 
 def findProcess(name):
-    procs = psutil.get_process_list()
+    #procs = psutil.get_process_list()
+    procs = list(psutil.process_iter())
     for proc in procs:
         try:
             if name in proc.name():
